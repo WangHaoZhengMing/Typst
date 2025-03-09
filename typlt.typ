@@ -1,1 +1,0 @@
-$ integral_(0)^3 k x $
