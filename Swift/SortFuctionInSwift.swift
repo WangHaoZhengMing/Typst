@@ -9,7 +9,7 @@ extension Array where Element: Comparable {
         
         // 对每个 minRun 大小的子数组使用插入排序进行排序
         for i in stride(from: 0, to: n, by: minRun) {
-            insertionSort(start: i, end: min(i + minRun - 1, n - 1), by: comparator)
+            insertionSort(start: i, end: Swift.min(i + minRun - 1, n - 1), by: comparator)
         }
         
         var size = minRun
@@ -17,9 +17,83 @@ extension Array where Element: Comparable {
             // 归并相邻的已排序子数组
             for left in stride(from: 0, to: n, by: 2 * size) {
                 let mid = left + size - 1
-                let right = min(left + 2 * size - 1, n - 1)
+                let right = Swift.min(left + 2 * size - 1, n - 1)
                 if mid < right {
                     merge(left: left, mid: mid, right: right, by: comparator)
+                }
+            }
+            size *= 2  // 每次归并后，子数组的大小翻倍
+        }
+    }
+    
+    /// 插入排序用于对小规模数组进行排序
+    private mutating func insertionSort(start: Int, end: Int, by areInIncreasingOrder: (Element, Element) -> Bool) {
+        for i in (start + 1)...end {
+            let key = self[i]
+            var j = i - 1
+            while j >= start && !areInIncreasingOrder(self[j], key) {
+                self[j + 1] = self[j]
+                j -= 1
+            }
+            self[j + 1] = key
+        }
+    }
+    
+    /// 归并两个已排序的子数组
+    private mutating func merge(left: Int, mid: Int, right: Int, by areInIncreasingOrder: (Element, Element) -> Bool) {
+        let leftSub = Array(self[left...mid])  // 左半部分
+        let rightSub = Array(self[(mid + 1)...right])  // 右半部分
+        
+        var i = 0, j = 0, k = left
+        // 合并两个已排序数组
+        while i < leftSub.count && j < rightSub.count {
+            if areInIncreasingOrder(leftSub[i], rightSub[j]) {
+                self[k] = leftSub[i]
+                i += 1
+            } else {
+                self[k] = rightSub[j]
+                j += 1
+            }
+            k += 1
+        }
+        
+        // 处理左半部分剩余的元素
+        while i < leftSub.count {
+            self[k] = leftSub[i]
+            i += 1
+            k += 1
+        }
+        
+        // 处理右半部分剩余的元素
+        while j < rightSub.count {
+            self[k] = rightSub[j]
+            j += 1
+            k += 1
+        }
+    }
+}
+
+// Add a new extension for non-Comparable types that requires a comparison closure
+extension Array {
+    /// 使用 TimSort 算法对任意类型数组进行排序
+    /// - Parameter areInIncreasingOrder: 必须的比较闭包，用于确定元素的顺序
+    mutating func timSort(by areInIncreasingOrder: @escaping (Element, Element) -> Bool) {
+        let minRun = 32  // TimSort 的最小子数组大小
+        let n = self.count
+        
+        // 对每个 minRun 大小的子数组使用插入排序进行排序
+        for i in stride(from: 0, to: n, by: minRun) {
+            insertionSort(start: i, end: Swift.min(i + minRun - 1, n - 1), by: areInIncreasingOrder)
+        }
+        
+        var size = minRun
+        while size < n {
+            // 归并相邻的已排序子数组
+            for left in stride(from: 0, to: n, by: 2 * size) {
+                let mid = left + size - 1
+                let right = Swift.min(left + 2 * size - 1, n - 1)
+                if mid < right {
+                    merge(left: left, mid: mid, right: right, by: areInIncreasingOrder)
                 }
             }
             size *= 2  // 每次归并后，子数组的大小翻倍
