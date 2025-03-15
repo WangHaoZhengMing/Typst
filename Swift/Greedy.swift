@@ -63,7 +63,7 @@ let classes = [
 
 print(scheduleClasses(intervals: classes)) // 输出: 4
 
-//MARK: knapsack问题-------------
+//MARK: knapsack问题
 class Item {
     var w: Int
     var v: Int
