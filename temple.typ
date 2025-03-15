@@ -217,7 +217,7 @@
   "Swift Charts",
   "Construct and customize charts on every Apple platform.",
 )
-
+//
 #table(
   columns: (auto, auto, auto, auto, auto, auto),
   inset: 10pt,
