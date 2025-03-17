@@ -11,7 +11,7 @@
   #v(0.5em)
   专业班级：#underline("计科 2301") 学号：#underline("231040100116") 姓名：#underline("王浩然") 指导老师： 评分：
 ]
-
+#outline()
 == 实验题目
 实验（三）：Java类与对象
 
@@ -437,6 +437,118 @@ ShapeTest.runTests()
 5. 判定两个圆是否重叠overlaps（Circle2D circle）
 6. 测试类测试上述功能
 
+```java
+// Circle2D.java
+public class Circle2D {
+    private double x;
+    private double y;
+    private double radius;
+
+    // 无参构造方法
+    public Circle2D() {
+        this(0, 0, 1);
+    }
+
+    // 带参构造方法
+    public Circle2D(double x, double y, double radius) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+    }
+
+    // getter方法
+    public double getX() { return x; }
+    public double getY() { return y; }
+    public double getRadius() { return radius; }
+
+    // 计算面积
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    // 计算周长
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+
+    // 判断一个圆是否在此圆内
+    public boolean isContains(Circle2D circle) {
+        double distance = getDistance(circle);
+        return distance + circle.getRadius() <= this.radius;
+    }
+
+    // 判断两个圆是否重叠
+    public boolean isOverlaps(Circle2D circle) {
+        double distance = getDistance(circle);
+        return distance < this.radius + circle.getRadius();
+    }
+
+    // 计算两个圆心之间的距离
+    private double getDistance(Circle2D circle) {
+        return Math.sqrt(Math.pow(this.x - circle.getX(), 2) + 
+                        Math.pow(this.y - circle.getY(), 2));
+    }
+}
+```
+
+```java
+//test.java
+public class Circle2DTest {
+    public static void main(String[] args) {
+        // 测试无参构造方法
+        Circle2D c1 = new Circle2D();
+        System.out.println("Circle1 - 默认圆:");
+        System.out.println("中心点: (" + c1.getX() + "," + c1.getY() + ")");
+        System.out.println("半径: " + c1.getRadius());
+        System.out.println("面积: " + c1.getArea());
+        System.out.println("周长: " + c1.getPerimeter());
+
+        // 测试带参构造方法
+        Circle2D c2 = new Circle2D(2, 2, 2);
+        System.out.println("\nCircle2 - 自定义圆:");
+        System.out.println("中心点: (" + c2.getX() + "," + c2.getY() + ")");
+        System.out.println("半径: " + c2.getRadius());
+
+        // 测试contains方法
+        Circle2D c3 = new Circle2D(2, 2, 1);
+        System.out.println("\n测试包含关系:");
+        System.out.println("c2包含c3? " + c2.isContains(c3));
+        System.out.println("c3包含c2? " + c3.isContains(c2));
+
+        // 测试overlaps方法
+        Circle2D c4 = new Circle2D(4, 4, 2);
+        System.out.println("\n测试重叠关系:");
+        System.out.println("c2和c4重叠? " + c2.isOverlaps(c4));
+    }
+}
+
+```
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 4pt)[
+  #text(font: ("SF Mono","pingfang sc"), size: 10pt, fill: white)[
+
+haominghan\@MacBook-Air-2 Typst %  /usr/bin/env /Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home/bi
+n/java --enable-preview -XX:+ShowCodeDetailsInExceptionMessages -cp /Users/haominghan/Library/Application\S
+upport/Code/User/workspaceStorage/215516466b02262c5b2635f21ca65d6a/redhat.java/jdt_ws/Typst_df95cb46/bin Cir
+cle2DTest 
+Circle1 - 默认圆:\
+中心点: (0.0,0.0)\
+半径: 1.0\
+面积: 3.141592653589793\
+周长: 6.283185307179586\
+
+Circle2 - 自定义圆:\
+中心点: (2.0,2.0)\
+半径: 2.0\
+
+测试包含关系:\
+c2包含c3? true\
+c3包含c2? false\
+
+测试重叠关系:\
+c2和c4重叠? true\
+  ]
+]
+
 === 题目七
 定义一个表示学生信息的类，要求如下：
 1. 学生的属性包括：学号、姓名、性别、年龄和课程成绩（5门课，其中包括Java）
@@ -444,18 +556,3 @@ ShapeTest.runTests()
 3. 获取学生的属性信息
 4. 根据学生类，创建五个该类的对象，要求对象数组，并打印五个学生的Java课程成绩的平均值，并输出成绩的最大值（分数和学生名）和最小值（分数和学生名）
 
-== 实验执行
-
-=== 题目一
-*求解一元二次方程*
-
-==== 实验思路
-
-
-==== 代码实现
-
-
-==== 运行结果
-
-
-== 实验测试中遇到的问题和解决方案
