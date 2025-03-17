@@ -27,7 +27,15 @@
 == 实验内容
 
 === 题目一
-求解一元二次方程ax#super[2] + bx + c = 0的根，要求根据一元二次方程的判别式，分情况显示方程的根。
+*思路分析：*
+1. 使用Scanner类获取用户输入的a、b、c三个系数
+2. 计算判别式 Δ = b² - 4ac
+3. 使用switch表达式根据判别式的符号分三种情况：
+   - Δ > 0：两个不同实根
+   - Δ = 0：两个相等实根
+   - Δ < 0：两个共轭复根
+4. 对a=0的特殊情况进行处理
+
 ```java
 import java.util.Scanner;
 
@@ -87,12 +95,27 @@ public class QuadraticEquation {
 }
 ```
 
+*运行结果：*
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
+  #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
+    请输入一元二次方程 ax² + bx + c = 0 的系数
+    请输入a: 1
+    请输入b: -5
+    请输入c: 6
+    方程有两个不同实根：
+    x₁ = 3.00
+    x₂ = 2.00
+  ]
+]
+
 === 题目二
-模拟一个银行的用户行为，包含银行类和账户类：
-1. 账户类数据成员包括：用户账户名称、用户个人信息、用户的账户余额等
-2. 账户类方法包括：开户、查询余额、取款、存款等
-3. 银行类包含多个账户，建议使用对象数组
-4. 实现测试类进行上述功能测试
+*思路分析：*
+1. 设计Account类表示账户，包含账户名称、个人信息和余额等属性
+2. 实现Account类的基本操作：存款、取款、查询余额
+3. 设计Bank类管理多个账户，使用数组存储Account对象
+4. 实现Bank类的功能：开户、查找账户、存款、取款、查询余额
+5. 创建测试类验证所有功能
+
 ```Java
 Account.java
 public class Account {
@@ -247,8 +270,39 @@ public class BankTest {
     }
 }
 ```
+
+*运行结果：*
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
+  #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
+    Testing account creation...
+    Account created successfully
+    Account created successfully
+
+    Testing deposit...
+    Deposit successful. New balance: 1500.0
+
+    Testing balance check...
+    John Doe's balance: 1500.0
+
+    Testing withdrawal...
+    Withdrawal successful. New balance: 1200.0
+
+    Testing invalid operations...
+    Invalid withdrawal amount or insufficient funds
+    Account not found
+
+    Final balance check...
+    John Doe's final balance: 1200.0
+  ]
+]
+
 === 题目三
-使用面向对象的概念表示出下面的生活场景：小明去超市买东西，所有买到的东西都放在购物车之中，最后到收银台一起结账。（开放题目，功能可自定义）
+*思路分析：*
+1. 创建Product类表示商品，包含名称和价格属性
+2. 创建Supermarket类管理商品，提供获取商品的方法
+3. 设计Cart类表示购物车，使用ArrayList存储商品
+4. 实现购物车的添加商品、计算总价和列出商品功能
+
 ```java
 class Product {
     String name;
@@ -294,6 +348,17 @@ class Cart{
     }
 }
 ```
+
+*运行结果：*
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
+  #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
+    购物车商品列表：
+    Apple - ¥0.5
+    Banana - ¥1.0
+    总价：¥1.5
+  ]
+]
+
 === 题目四
 设计一个名为Point的类，表示一个带x坐标和y坐标的点。要求包括：
 1. 创建一个默认值为x=0,y=0的无参构造方法
@@ -320,16 +385,16 @@ class Rectangle: Shape {
    let height: Double
 
    init(width: Double, height: Double) {
-      self.width = width
-      self.height = height
+      self.width = width;
+      self.height = height;
    }
 
    func area() -> Double {
-      return width * height
+      return width * height;
    }
 
    func perimeter() -> Double {
-      return 2 * (width + height)
+      return 2 * (width + height);
    }
 }
 
@@ -338,15 +403,15 @@ class Circle: Shape {
    let radius: Double
 
    init(radius: Double) {
-      self.radius = radius
+      self.radius = radius;
    }
 
    func area() -> Double {
-      return Double.pi * radius * radius
+      return Double.pi * radius * radius;
    }
 
    func perimeter() -> Double {
-      return 2 * Double.pi * radius
+      return 2 * Double.pi * radius;
    }
 }
 
@@ -357,19 +422,19 @@ class Triangle: Shape {
    let c: Double
 
    init(a: Double, b: Double, c: Double) {
-      self.a = a
-      self.b = b
-      self.c = c
+      self.a = a;
+      self.b = b;
+      self.c = c;
    }
 
    func area() -> Double {
       // Using Heron's formula
-      let s = (a + b + c) / 2
-      return sqrt(s * (s - a) * (s - b) * (s - c))
+      let s = (a + b + c) / 2;
+      return sqrt(s * (s - a) * (s - b) * (s - c));
    }
 
    func perimeter() -> Double {
-      return a + b + c
+      return a + b + c;
    }
 }
 
@@ -380,19 +445,19 @@ class Student: Shape {
    let weight: Double  // in kilograms
 
    init(name: String, height: Double, weight: Double) {
-      self.name = name
-      self.height = height
-      self.weight = weight
+      self.name = name;
+      self.height = height;
+      self.weight = weight;
    }
 
    // Area could represent the student's BMI
    func area() -> Double {
-      return weight / (height * height)  // BMI calculation
+      return weight / (height * height);  // BMI calculation
    }
 
    // Perimeter could represent the student's height in centimeters
    func perimeter() -> Double {
-      return height * 100  // Convert to centimeters
+      return height * 100;  // Convert to centimeters
    }
 }
 
@@ -400,31 +465,31 @@ class Student: Shape {
 class ShapeTest {
    static func runTests() {
       // Test Rectangle
-      let rectangle = Rectangle(width: 5, height: 3)
-      print("Rectangle - Area: \(rectangle.area()), Perimeter: \(rectangle.perimeter())")
+      let rectangle = Rectangle(width: 5, height: 3);
+      print("Rectangle - Area: \(rectangle.area()), Perimeter: \(rectangle.perimeter())");
 
       // Test Circle
-      let circle = Circle(radius: 4)
-      print("Circle - Area: \(circle.area()), Perimeter: \(circle.perimeter())")
+      let circle = Circle(radius: 4);
+      print("Circle - Area: \(circle.area()), Perimeter: \(circle.perimeter())");
 
       // Test Triangle
-      let triangle = Triangle(a: 3, b: 4, c: 5)
-      print("Triangle - Area: \(triangle.area()), Perimeter: \(triangle.perimeter())")
+      let triangle = Triangle(a: 3, b: 4, c: 5);
+      print("Triangle - Area: \(triangle.area()), Perimeter: \(triangle.perimeter())");
 
       // Test Student
-      let student = Student(name: "John", height: 1.75, weight: 70)
-      print("Student - BMI: \(student.area()), Height in cm: \(student.perimeter())")
+      let student = Student(name: "John", height: 1.75, weight: 70);
+      print("Student - BMI: \(student.area()), Height in cm: \(student.perimeter())");
 
       // Demonstrate polymorphism
-      let shapes: [Shape] = [rectangle, circle, triangle, student]
+      let shapes: [Shape] = [rectangle, circle, triangle, student];
       for (index, shape) in shapes.enumerated() {
-         print("Shape \(index + 1) - Area: \(shape.area()), Perimeter: \(shape.perimeter())")
+         print("Shape \(index + 1) - Area: \(shape.area()), Perimeter: \(shape.perimeter())");
       }
    }
 }
 
 // Run the tests
-ShapeTest.runTests()
+ShapeTest.runTests();
 
 ```
 
@@ -633,7 +698,7 @@ public class StudentTest {
                 min = javaScore;
                 minStudent = student.getName();
             }
-        }
+        }  
         
         double average = sum / students.length;
         
