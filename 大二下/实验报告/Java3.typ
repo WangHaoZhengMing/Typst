@@ -556,3 +556,192 @@ public class Circle2DTest {
 3. 获取学生的属性信息
 4. 根据学生类，创建五个该类的对象，要求对象数组，并打印五个学生的Java课程成绩的平均值，并输出成绩的最大值（分数和学生名）和最小值（分数和学生名）
 
+
+````java
+// Student.java
+public class Student {
+    private String id;
+    private String name;
+    private String gender;
+    private int age;
+    private double[] scores; // 5门课程成绩
+    private static final int JAVA_INDEX = 0; // Java课程在数组中的索引
+    
+    // 构造方法
+    public Student(String id, String name, String gender, int age, double[] scores) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.scores = new double[5];
+        System.arraycopy(scores, 0, this.scores, 0, 5);
+    }
+    
+    // Getter方法
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public String getGender() { return gender; }
+    public int getAge() { return age; }
+    public double getJavaScore() { return scores[JAVA_INDEX]; }
+    
+    @Override
+    public String toString() {
+        return "Student{" +
+               "id='" + id + '\'' +
+               ", name='" + name + '\'' +
+               ", gender='" + gender + '\'' +
+               ", age=" + age +
+               ", Java成绩=" + scores[JAVA_INDEX] +
+               '}';
+    }
+}
+````
+
+````java
+// StudentTest.java
+public class StudentTest {
+    public static void main(String[] args) {
+        // 创建学生数组
+        Student[] students = new Student[5];
+        
+        // 初始化5个学生对象
+        students[0] = new Student("001", "张三", "男", 20, new double[]{85, 78, 92, 88, 90});
+        students[1] = new Student("002", "李四", "女", 19, new double[]{92, 85, 88, 90, 87});
+        students[2] = new Student("003", "王五", "男", 21, new double[]{78, 82, 85, 80, 88});
+        students[3] = new Student("004", "赵六", "女", 20, new double[]{95, 88, 92, 96, 93});
+        students[4] = new Student("005", "孙七", "男", 19, new double[]{88, 85, 90, 87, 89});
+        
+        // 计算Java成绩平均值
+        double sum = 0;
+        double max = Double.MIN_VALUE;
+        double min = Double.MAX_VALUE;
+        String maxStudent = "";
+        String minStudent = "";
+        
+        for (Student student : students) {
+            double javaScore = student.getJavaScore();
+            sum += javaScore;
+            
+            // 更新最大值
+            if (javaScore > max) {
+                max = javaScore;
+                maxStudent = student.getName();
+            }
+            
+            // 更新最小值
+            if (javaScore < min) {
+                min = javaScore;
+                minStudent = student.getName();
+            }
+        }
+        
+        double average = sum / students.length;
+        
+        // 输出结果
+        System.out.printf("Java课程平均成绩: %.2f\n", average);
+        System.out.printf("最高分: %.2f (学生: %s)\n", max, maxStudent);
+        System.out.printf("最低分: %.2f (学生: %s)\n", min, minStudent);
+    }
+}
+````
+
+这个实现包含了两个类：
+
+1. `Student`类：
+   - 包含所需的属性：学号、姓名、性别、年龄和课程成绩数组
+   - 提供带参数的构造方法
+   - 提供getter方法访问属性
+   - 重写toString方法用于打印学生信息
+
+2. `StudentTest`类：
+   - 创建包含5个学生对象的数组
+   - 计算Java课程平均成绩
+   - 找出并显示最高分和最低分的学生信息
+
+```java
+// Student.java
+public class Student {
+    private String id;
+    private String name;
+    private String gender;
+    private int age;
+    private double[] scores; // 5门课程成绩
+    private static final int JAVA_INDEX = 0; // Java课程在数组中的索引
+    
+    // 构造方法
+    public Student(String id, String name, String gender, int age, double[] scores) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+        this.scores = new double[5];
+        System.arraycopy(scores, 0, this.scores, 0, 5);
+    }
+    
+    // Getter方法
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public String getGender() { return gender; }
+    public int getAge() { return age; }
+    public double getJavaScore() { return scores[JAVA_INDEX]; }
+    
+    @Override
+    public String toString() {
+        return "Student{" +
+               "id='" + id + '\'' +
+               ", name='" + name + '\'' +
+               ", gender='" + gender + '\'' +
+               ", age=" + age +
+               ", Java成绩=" + scores[JAVA_INDEX] +
+               '}';
+    }
+}
+```
+
+```java
+// StudentTest.java
+public class StudentTest {
+    public static void main(String[] args) {
+        // 创建学生数组
+        Student[] students = new Student[5];
+        
+        // 初始化5个学生对象
+        students[0] = new Student("001", "张三", "男", 20, new double[]{85, 78, 92, 88, 90});
+        students[1] = new Student("002", "李四", "女", 19, new double[]{92, 85, 88, 90, 87});
+        students[2] = new Student("003", "王五", "男", 21, new double[]{78, 82, 85, 80, 88});
+        students[3] = new Student("004", "赵六", "女", 20, new double[]{95, 88, 92, 96, 93});
+        students[4] = new Student("005", "孙七", "男", 19, new double[]{88, 85, 90, 87, 89});
+        
+        // 计算Java成绩平均值
+        double sum = 0;
+        double max = Double.MIN_VALUE;
+        double min = Double.MAX_VALUE;
+        String maxStudent = "";
+        String minStudent = "";
+        
+        for (Student student : students) {
+            double javaScore = student.getJavaScore();
+            sum += javaScore;
+            
+            // 更新最大值
+            if (javaScore > max) {
+                max = javaScore;
+                maxStudent = student.getName();
+            }
+            
+            // 更新最小值
+            if (javaScore < min) {
+                min = javaScore;
+                minStudent = student.getName();
+            }
+        }
+        
+        double average = sum / students.length;
+        
+        // 输出结果
+        System.out.printf("Java课程平均成绩: %.2f\n", average);
+        System.out.printf("最高分: %.2f (学生: %s)\n", max, maxStudent);
+        System.out.printf("最低分: %.2f (学生: %s)\n", min, minStudent);
+    }
+}
+```
