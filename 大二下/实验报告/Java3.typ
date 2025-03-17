@@ -485,7 +485,7 @@ public class Circle2D {
 
     // 计算两个圆心之间的距离
     private double getDistance(Circle2D circle) {
-        return Math.sqrt(Math.pow(this.x - circle.getX(), 2) + 
+        return Math.sqrt(Math.pow(this.x - circle.getX(), 2) +
                         Math.pow(this.y - circle.getY(), 2));
     }
 }
@@ -524,28 +524,28 @@ public class Circle2DTest {
 
 ```
 #block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 4pt)[
-  #text(font: ("SF Mono","pingfang sc"), size: 10pt, fill: white)[
+  #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
 
-haominghan\@MacBook-Air-2 Typst %  /usr/bin/env /Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home/bi
-n/java --enable-preview -XX:+ShowCodeDetailsInExceptionMessages -cp /Users/haominghan/Library/Application\S
-upport/Code/User/workspaceStorage/215516466b02262c5b2635f21ca65d6a/redhat.java/jdt_ws/Typst_df95cb46/bin Cir
-cle2DTest 
-Circle1 - 默认圆:\
-中心点: (0.0,0.0)\
-半径: 1.0\
-面积: 3.141592653589793\
-周长: 6.283185307179586\
+    haominghan\@MacBook-Air-2 Typst % /usr/bin/env /Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home/bi
+    n/java --enable-preview -XX:+ShowCodeDetailsInExceptionMessages -cp /Users/haominghan/Library/Application\S
+    upport/Code/User/workspaceStorage/215516466b02262c5b2635f21ca65d6a/redhat.java/jdt_ws/Typst_df95cb46/bin Cir
+    cle2DTest
+    Circle1 - 默认圆:\
+    中心点: (0.0,0.0)\
+    半径: 1.0\
+    面积: 3.141592653589793\
+    周长: 6.283185307179586\
 
-Circle2 - 自定义圆:\
-中心点: (2.0,2.0)\
-半径: 2.0\
+    Circle2 - 自定义圆:\
+    中心点: (2.0,2.0)\
+    半径: 2.0\
 
-测试包含关系:\
-c2包含c3? true\
-c3包含c2? false\
+    测试包含关系:\
+    c2包含c3? true\
+    c3包含c2? false\
 
-测试重叠关系:\
-c2和c4重叠? true\
+    测试重叠关系:\
+    c2和c4重叠? true\
   ]
 ]
 
