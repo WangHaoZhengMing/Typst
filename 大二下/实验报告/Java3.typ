@@ -523,7 +523,7 @@ public class Circle2DTest {
 }
 
 ```
-#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 4pt)[
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
   #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
 
     haominghan\@MacBook-Air-2 Typst % /usr/bin/env /Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home/bi
