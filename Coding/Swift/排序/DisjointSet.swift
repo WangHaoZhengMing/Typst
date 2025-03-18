@@ -3,7 +3,7 @@ class DisjointSet {
    var parent: [Int]
    var rank: [Int]
 
-   init(_ n: Int) {
+   init(num n: Int) {
       parent = Array(0..<n)
       rank = [Int](repeating: 0, count: n)
    }
@@ -16,8 +16,8 @@ class DisjointSet {
    }
 
    func union(_ x: Int, _ y: Int) {
-      let rootX = find(x)
-      let rootY = find(y)
+      let rootX: Int = find(x)
+      let rootY: Int = find(y)
 
       guard rootX != rootY else { return }
 
@@ -28,7 +28,7 @@ class DisjointSet {
 }
 
 func hasCycle(edges: [(Int, Int)], vertexCount: Int) -> Bool {
-   let ds = DisjointSet(vertexCount)
+   let ds: DisjointSet = DisjointSet(num: vertexCount)
 
    return edges.reduce(false) { result, edge in
       if ds.find(edge.0) == ds.find(edge.1) { return true }  //有环
