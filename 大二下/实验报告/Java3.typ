@@ -304,50 +304,99 @@ public class BankTest {
 4. 实现购物车的添加商品、计算总价和列出商品功能
 
 ```java
-class Product {
-    String name;
-    float price;
+public class Product {
+    private String name;
+    private float price;
 
-    public Product (String name, float price){
+    public Product(String name, float price) {
         this.name = name;
         this.price = price;
     }
-}
-```
-```java
-class Supermarket {
-    Product apple("Apple",0.5f);
-    Product banana("banana",1f);
-    //这里是伪代码(😄)
-    func getApple() -> Product {
-        return Product(name: "Apple", price: priceOfApple);
+
+    public String getName() {
+        return name;
     }
 
-    func getBanana() -> Product {
-        return Product(name: "Banana", price: priceOfBanana);
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return name + " - ¥" + price;
     }
 }
 ```
+
 ```java
-class Cart{
-    ArrayList<Product> products;
-    public void addProduct(Product,num){
-        for(int i = 0,i < num + 1,i++){
-            products.append();
-        }
+public class Supermarket {
+    private Product apple;
+    private Product banana;
+
+    public Supermarket() {
+        apple = new Product("Apple", 0.5f);
+        banana = new Product("Banana", 1.0f);
     }
-    public float calTotalPrice(){
-        float fialProice = 0
-        for (item:products){
-            findAccount += item.price;
-        }
-        return fialProice;
+
+    public Product getApple() {
+        return apple;
     }
-    public void listAllItem(){
-        System.out.println(products);//将就着看吧哈哈
+
+    public Product getBanana() {
+        return banana;
     }
 }
 ```
+
+```java
+import java.util.ArrayList;
+
+public class Cart {
+    private ArrayList<Product> products;
+
+    public Cart() {
+        products = new ArrayList<>();
+    }
+
+    public void addProduct(Product product, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            products.add(product);
+        }
+    }
+
+    public float calculateTotalPrice() {
+        float totalPrice = 0;
+        for (Product product : products) {
+            totalPrice += product.getPrice();
+        }
+        return totalPrice;
+    }
+
+    public void listAllItems() {
+        System.out.println("购物车商品列表：");
+        for (Product product : products) {
+            System.out.println(product);
+        }
+        System.out.printf("总价：¥%.2f%n", calculateTotalPrice());
+    }
+}
+```
+
+```java
+public class ShoppingTest {
+    public static void main(String[] args) {
+        Supermarket supermarket = new Supermarket();
+        Cart cart = new Cart();
+
+        cart.addProduct(supermarket.getApple(), 1);
+        cart.addProduct(supermarket.getBanana(), 1);
+
+        cart.listAllItems();
+    }
+}
+```
+
+
 
 *运行结果：*
 #block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
@@ -369,129 +418,151 @@ class Cart{
 
 === 题目五
 定义二维形状类（如矩形、三角形、圆形等），这些类具有方法area和perimeter，分别用来计算形状的面积和周长。试定义一个Student类，利用方法重载实现学生求面积和周长（实现多态），并编写测试类验证。
-```swift
-
-import Foundation
-
-// Protocol for shapes
-protocol Shape {
-   func area() -> Double
-   func perimeter() -> Double
+```java
+// Shape interface
+interface Shape {
+    double area();
+    double perimeter();
 }
 
 // Rectangle class
-class Rectangle: Shape {
-   let width: Double
-   let height: Double
+class Rectangle implements Shape {
+    private double width;
+    private double height;
 
-   init(width: Double, height: Double) {
-      self.width = width;
-      self.height = height;
-   }
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
 
-   func area() -> Double {
-      return width * height;
-   }
+    @Override
+    public double area() {
+        return width * height;
+    }
 
-   func perimeter() -> Double {
-      return 2 * (width + height);
-   }
+    @Override
+    public double perimeter() {
+        return 2 * (width + height);
+    }
 }
 
 // Circle class
-class Circle: Shape {
-   let radius: Double
+class Circle implements Shape {
+    private double radius;
 
-   init(radius: Double) {
-      self.radius = radius;
-   }
+    public Circle(double radius) {
+        this.radius = radius;
+    }
 
-   func area() -> Double {
-      return Double.pi * radius * radius;
-   }
+    @Override
+    public double area() {
+        return Math.PI * radius * radius;
+    }
 
-   func perimeter() -> Double {
-      return 2 * Double.pi * radius;
-   }
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * radius;
+    }
 }
 
 // Triangle class
-class Triangle: Shape {
-   let a: Double
-   let b: Double
-   let c: Double
+class Triangle implements Shape {
+    private double a;
+    private double b;
+    private double c;
 
-   init(a: Double, b: Double, c: Double) {
-      self.a = a;
-      self.b = b;
-      self.c = c;
-   }
+    public Triangle(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
 
-   func area() -> Double {
-      // Using Heron's formula
-      let s = (a + b + c) / 2;
-      return sqrt(s * (s - a) * (s - b) * (s - c));
-   }
+    @Override
+    public double area() {
+        // Using Heron's formula
+        double s = (a + b + c) / 2;
+        return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+    }
 
-   func perimeter() -> Double {
-      return a + b + c;
-   }
+    @Override
+    public double perimeter() {
+        return a + b + c;
+    }
 }
 
-// Student class that implements Shape protocol
-class Student: Shape {
-   let name: String
-   let height: Double  // in meters
-   let weight: Double  // in kilograms
+// Student class
+class Student implements Shape {
+    private String name;
+    private double height;  // in meters
+    private double weight;  // in kilograms
 
-   init(name: String, height: Double, weight: Double) {
-      self.name = name;
-      self.height = height;
-      self.weight = weight;
-   }
+    public Student(String name, double height, double weight) {
+        this.name = name;
+        this.height = height;
+        this.weight = weight;
+    }
 
-   // Area could represent the student's BMI
-   func area() -> Double {
-      return weight / (height * height);  // BMI calculation
-   }
+    @Override
+    public double area() {
+        return weight / (height * height);  // BMI calculation
+    }
 
-   // Perimeter could represent the student's height in centimeters
-   func perimeter() -> Double {
-      return height * 100;  // Convert to centimeters
-   }
+    @Override
+    public double perimeter() {
+        return height * 100;  // Convert to centimeters
+    }
+
+    public String getName() {
+        return name;
+    }
 }
 
 // Test class
-class ShapeTest {
-   static func runTests() {
-      // Test Rectangle
-      let rectangle = Rectangle(width: 5, height: 3);
-      print("Rectangle - Area: \(rectangle.area()), Perimeter: \(rectangle.perimeter())");
+public class ShapeTest {
+    public static void main(String[] args) {
+        // Test Rectangle
+        Shape rectangle = new Rectangle(5, 3);
+        System.out.printf("Rectangle - Area: %.2f, Perimeter: %.2f%n", 
+                         rectangle.area(), rectangle.perimeter());
 
-      // Test Circle
-      let circle = Circle(radius: 4);
-      print("Circle - Area: \(circle.area()), Perimeter: \(circle.perimeter())");
+        // Test Circle
+        Shape circle = new Circle(4);
+        System.out.printf("Circle - Area: %.2f, Perimeter: %.2f%n", 
+                         circle.area(), circle.perimeter());
 
-      // Test Triangle
-      let triangle = Triangle(a: 3, b: 4, c: 5);
-      print("Triangle - Area: \(triangle.area()), Perimeter: \(triangle.perimeter())");
+        // Test Triangle
+        Shape triangle = new Triangle(3, 4, 5);
+        System.out.printf("Triangle - Area: %.2f, Perimeter: %.2f%n", 
+                         triangle.area(), triangle.perimeter());
 
-      // Test Student
-      let student = Student(name: "John", height: 1.75, weight: 70);
-      print("Student - BMI: \(student.area()), Height in cm: \(student.perimeter())");
+        // Test Student
+        Student student = new Student("John", 1.75, 70);
+        System.out.printf("Student %s - BMI: %.2f, Height in cm: %.2f%n", 
+                         student.getName(), student.area(), student.perimeter());
 
-      // Demonstrate polymorphism
-      let shapes: [Shape] = [rectangle, circle, triangle, student];
-      for (index, shape) in shapes.enumerated() {
-         print("Shape \(index + 1) - Area: \(shape.area()), Perimeter: \(shape.perimeter())");
-      }
-   }
+        // Demonstrate polymorphism
+        Shape[] shapes = {rectangle, circle, triangle, student};
+        for (int i = 0; i < shapes.length; i++) {
+            System.out.printf("Shape %d - Area: %.2f, Perimeter: %.2f%n", 
+                             i + 1, shapes[i].area(), shapes[i].perimeter());
+        }
+    }
 }
-
-// Run the tests
-ShapeTest.runTests();
-
 ```
+
+*运行结果：*
+#block(width: 100%, inset: 8pt, fill: rgb("#224FBC"), stroke: gray, radius: 6pt)[
+  #text(font: ("SF Mono", "pingfang sc"), size: 10pt, fill: white)[
+    Rectangle - Area: 15.00, Perimeter: 16.00\
+    Circle - Area: 50.27, Perimeter: 25.13\
+    Triangle - Area: 6.00, Perimeter: 12.00\
+    Student John - BMI: 22.86, Height in cm: 175.00\
+    Shape 1 - Area: 15.00, Perimeter: 16.00\
+    Shape 2 - Area: 50.27, Perimeter: 25.13\
+    Shape 3 - Area: 6.00, Perimeter: 12.00\
+    Shape 4 - Area: 22.86, Perimeter: 175.00\
+  ]
+]
 
 === 题目六
 定义Circle2D类，包括：
