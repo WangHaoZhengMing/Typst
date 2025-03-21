@@ -23,7 +23,7 @@ class DisjointSet {
 
       let (small, large) = rank[rootX] < rank[rootY] ? (rootX, rootY) : (rootY, rootX)
       parent[small] = large
-      if rank[rootX] == rank[rootY] { rank[large] += 1}
+      if rank[rootX] == rank[rootY] { rank[large] += 1 }//No need to use rank
    }
 }
 

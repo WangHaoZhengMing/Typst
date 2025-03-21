@@ -1,70 +1,75 @@
-// 并查集类
-class DisjointSet {
-   var parent: [Int]  // 父节点数组
-   var rank: [Int]  // 树的高度数组，用于按秩合并
+import Foundation
 
-   // 初始化，n 是顶点数
-   init(_ n: Int) {
-      parent = Array(0..<n)  // 初始时每个节点的父节点是自己
-      rank = [Int](repeating: 0, count: n)  // 初始高度为 0
-   }
-
-   // 查找根节点（带路径压缩）
-   func find(_ x: Int) -> Int {
-      if parent[x] != x {
-         parent[x] = find(parent[x])  // 路径压缩
-      }
-      return parent[x]
-   }
-
-   // 合并两个集合（按秩合并）
-   func union(_ x: Int, _ y: Int) {
-      let rootX = find(x)
-      let rootY = find(y)
-
-      if rootX == rootY {
-         return
-      }
-
-      if rank[rootX] < rank[rootY] {
-         parent[rootX] = rootY
-      } else if rank[rootX] > rank[rootY] {
-         parent[rootY] = rootX
-      } else {
-         parent[rootY] = rootX
-         rank[rootX] += 1
-      }
-   }
+func intervalCovering(intervals: [(start: Int, end: Int)]) -> [Int] {
+    guard !intervals.isEmpty else { return [] }
+    guard intervals.map({ $0.start }).min()! <= 0 else { return [] }
+    
+    let indexedIntervals = intervals.enumerated().map { (i, interval) in
+        (index: i + 1, start: interval.start, end: interval.end)
+    }
+    
+    let result = indexedIntervals
+        .sorted(by: { $0.start < $1.start })
+        .reduce((covered: 0, indices: [Int]())) { acc, interval in
+            if acc.covered >= 160 { return acc }
+            if interval.start > acc.covered { return (covered: -1, indices: []) }
+            
+            let bestInterval = indexedIntervals
+                .filter { $0.start <= acc.covered }
+                .max(by: { $0.end < $1.end })
+            
+            guard let best = bestInterval else { return (covered: -1, indices: []) }
+            if acc.indices.contains(best.index) { return acc }
+            
+            return (
+                covered: best.end,
+                indices: acc.indices + [best.index]
+            )
+        }
+    
+    return result.covered >= 160 ? result.indices : []
 }
 
-// 判断无向图是否有环
-func hasCycle(edges: [(Int, Int)], vertexCount: Int) -> Bool {
-   let ds = DisjointSet(vertexCount)  // 创建并查集
+// Example usage with the intervals from the image:
+let intervals: [(start: Int, end: Int)] = [
+    (15, 50),  // 1
+    (5, 40),  // 2
+    (45, 120),  // 3
+    (80, 130),  // 4
+    (85, 115),  // 5
+    (120, 140),  // 6
+    (130, 160),  // 7
+]
 
-   for (u, v) in edges {  // 遍历所有边
-      if ds.find(u) == ds.find(v) {  // 如果两个顶点已在同一集合
-         return true  // 有环
-      }
-      ds.union(u, v)  // 否则合并
-   }
-   return false  // 无环
+let solution = intervalCovering(intervals: intervals)
+
+print("Solution: \(solution)")
+
+// Function that takes a list of intervals as input and returns the numbers that correspond to the chosen indices.
+func getIntervalsNumbers(from intervals: [(start: Int, end: Int)], indices: [Int]) -> [Int] {
+
+    var result: [Int] = []
+    for index in indices {
+        result.append(index)
+    }
+
+    return result
 }
 
-// 测试代码
-func test() {
-   // 测试用例 1：三角形（有环）
-   let edges1 = [(0, 1), (1, 2), (2, 0)]
-   let n1 = 3
-   let result1 = hasCycle(edges: edges1, vertexCount: n1)
-   print("图 1 是否有环: \(result1)")  // 输出 true
+// To calculate the running time
+func calculateRunningTime(intervals: [(start: Int, end: Int)], numberOfIterations: Int)
+    -> TimeInterval
+{
+    let startTime = CFAbsoluteTimeGetCurrent()
 
-   // 测试用例 2：链（无环）
-   let edges2 = [(0, 1), (1, 2)]
-   let n2 = 3
-   let result2 = hasCycle(edges: edges2, vertexCount: n2)
-   print("图 2 是否有环: \(result2)")  // 输出 false
+    for _ in 0..<numberOfIterations {
+        let _ = intervalCovering(intervals: intervals)
+    }
+    let endTime = CFAbsoluteTimeGetCurrent()
+    return (endTime - startTime) / Double(numberOfIterations)
 }
 
-// 运行测试
-test()
+let numberOfIterations = 1000
+let averageTime = calculateRunningTime(intervals: intervals, numberOfIterations: numberOfIterations)
 
+print("Average running time in seconds is \(averageTime)")

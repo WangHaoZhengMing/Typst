@@ -1,13 +1,13 @@
 // #set text(font:"PingFang SC")
 #let problem(num, body) = {
-  heading(
-    numbering: none,
-    outlined: false,
-    [Problem #num],
-  )
+  // heading(
+  //   numbering: none,
+  //   outlined: false,
+  //   [Problem #num],
+  // )
+  text(fill: blue)[* Problem #num. * #sym.space ]
   body
 }
-
 
 #set heading(numbering: none)
 
@@ -34,7 +34,7 @@
 #grid(
   columns: 2,
   gutter: 1fr,
-  [*Student Name*: #underline(stroke: 1pt)[王浩然]], [*Student ID*:#underline(stroke: 1pt)[ 231040100116] ],
+  [*Student Name*: #underline(stroke: 1pt)[Haoran Wang]], [*Student ID*:#underline(stroke: 1pt)[ 231040100116] ],
 )
 #v(0.5cm)
 
@@ -114,7 +114,7 @@
 )
 #text(font: ("New Computer Modern", "PingFang SC"))[
   // 3a
-  #heading(level: 3, [#text(fill: blue)[问题 3a]])
+  #heading(level: 3, [#text()[问题 3a]])
   #par(justify: true)[
     *命题*: 若 $f(n) = O(g(n))$，则 $f(n)^2 = O(g(n)^2)$
 
@@ -129,7 +129,7 @@
   ]
 
   // 3b
-  #heading(level: 3, [#text(fill: blue)[问题 3b]])
+  #heading(level: 3, [#text()[问题 3b]])
   #par(justify: true)[
     *命题*: 若 $f(n) = O(g(n))$，则 $2^(f(n)) = O(2^(g(n)))$
 
@@ -146,7 +146,7 @@
   ]
 
   // 3c
-  #heading(level: 3, [#text(fill: blue)[问题 3c]])
+  #heading(level: 3, [#text()[问题 3c]])
   #par(justify: true)[
     *命题*: 若 $f(n) = O(g(n))$ 且当 $n >= 2$ 时 $f(n),g(n) >= 2$，则 $log f(n) = O(log g(n))$
 
@@ -170,7 +170,7 @@
     Consider the following Euclidean algorithm for computing the greatest common divisor of two integers $a,b > 0$:
 
     *Algorithm* 1 $"Euclid"(a,b)$
-    ```
+    ```java
     1: while b > 0 do
     2:   t ← b, b ← a mod b, a ← t
     3: return a
@@ -220,10 +220,44 @@
     (5c) Solve the problem for directed graphs by extending the topological sort algorithm.
   ],
 )
+```swift
+//This code was written by Swift
+// 并查集类
+class DisjointSet {
+   var parent: [Int]
+   var rank: [Int]
 
-#problem(
-  6,
-  [
+   init(num n: Int) {
+      parent = Array(0..<n)
+      rank = [Int](repeating: 0, count: n)
+   }
+
+   func Find(){
+    if parent[x] != x {
+      parent[x] = Find(parent[x])
+    }
+    return parent[x]
+   }
+
+  func Union(){
+      let rootX: Int = find(x)
+      let rootY: Int = find(y)
+      guard rootX != rootY else {
+          return
+      }
+      let (small,large) = rank[rootX] <rank[rootY] ? (rootX,rootY): (rootY,rootX)
+      parent[small] = large
+      if rank[rootX] == rank[rootY] {
+          rank[rootY] += 1
+      }
+
+  }
+}
+
+var example = DisjointSet(num: 10)
+//following are bluring
+```
+#problem(6,)[
     In class, we mentioned that the cut-vertices of a graph $G=(V,E)$ can be found in $O(n+m)$-time. Your goal is to give the algorithm. For your convenience, a pseudo-code for or a description of the algorithm is sufficient. You will get a full score if your algorithm is correct and has $O(n+m)$ running time.
-  ],
-)
+],
+

@@ -38,7 +38,7 @@ func breadthFirstSearch(root: TreeNode?) {
       if !visited.contains(currentNode) {
          print(currentNode.value, terminator: " ")  // 输出当前节点值
          visited.insert(currentNode)
-         for child in currentNode.children {queue.append(child)}
+         for child in currentNode.children { queue.append(child) }
       }
    }
 }

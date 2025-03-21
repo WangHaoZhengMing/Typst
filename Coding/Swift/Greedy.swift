@@ -67,6 +67,29 @@ let classes = [
 ]
 
 print(scheduleClasses(intervals: classes))  // 输出: 4
+//问题二
+func Sclass(intervals: [(start: Int, end: Int, num: Int)]) -> (count: Int, nums: [Int]) {
+    var selectedNums: [Int] = []
+    let (_, count) = intervals
+        .sorted(by: { $0.end < $1.end })
+        .reduce((-1, 0)) { result, interval in
+            if result.0 <= interval.start {
+                selectedNums.append(interval.num)
+                return (interval.end, result.1 + 1)
+            }
+            return result
+        }
+    return (count, selectedNums)
+}
+
+// Example usage:
+let numberedClasses = [
+    (start: 8, end: 9, num: 1),
+    (start: 8, end: 10, num: 2),
+    (start: 9, end: 11, num: 3)
+]
+let result = Sclass(intervals: numberedClasses)
+print("Count: \(result.count), Selected classes: \(result.nums)")
 
 //MARK: knapsack问题
 class Item {
