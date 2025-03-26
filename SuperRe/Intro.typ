@@ -1,11 +1,12 @@
 #import "temple.typ": *
 #set text(font: "PingFang SC")
 #title_page(
-  "Super",
-  "图像",
-  author: "作者："
+  "图像超分",
+  "",
+  author: "作者：王浩然"
 )
 #outline()
+#pagebreak()
 = OpenCV图像存储原理与实现机制
 
 == OpenCV 图像存储基础原理
