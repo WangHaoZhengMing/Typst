@@ -29,10 +29,20 @@
   spacing: 150%,
 )
 
-// #set heading(
-//   numbering: "1.1",
-//   outlined: true
-// )
+#show raw: code => {
+  block(
+    width: 100%,
+    inset: 2em,
+    fill: rgb("#F6F8FA"),
+    radius: 8pt,
+  )[#v(-4pt)
+    #text(size:25pt, weight: 900, fill: rgb("#FF5F56"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#FFBD2E"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#27C93F"),font: "SF Mono")[#sym.bullet]
+    #v(-5pt)
+    #text(size: 15pt,font: "SF Mono")[#code]
+  ]
+}
 
 #show heading: it => {
   if it.level == 1 {
@@ -100,10 +110,17 @@
     width: 100%,
     inset: 1em,
     fill: rgb("#F6F8FA"),
-    radius: 4pt,
-    content,
-  )
+    radius: 8pt,
+    // content,
+  )[
+    #v(-8pt)
+    #text(size:30pt,weight: 900,fill: rgb("#FF5F56"))[#sym.bullet]
+    #text(size:30pt,weight: 900,fill: rgb("#FFBD2E"))[#sym.bullet]
+    #text(size:30pt,weight: 900,fill: rgb("#27C93F"))[#sym.bullet]
+  #v(-8pt)
+  #text(size: 15pt)[#content]]
 }
+
 
 #let tip_box(title: "Tip", content) = {
   block(

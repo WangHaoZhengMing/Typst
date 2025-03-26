@@ -2,9 +2,22 @@
   font: ( "PingFang SC"),
   size: 11pt,
 )
+#show raw: code => {
+  block(
+    width: 100%,
+    inset: 2em,
+    fill: rgb("#F6F8FA"),
+    radius: 8pt,
+  )[#v(-4pt)
+    #text(size:25pt, weight: 900, fill: rgb("#FF5F56"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#FFBD2E"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#27C93F"),font: "SF Mono")[#sym.bullet]
+    #v(-5pt)
+    #text(size: 12pt,font: "SF Mono")[#code]
+  ]
+}
 #set page(margin: (x: 2.5cm, y: 2.5cm))
-#import "@preview/zebraw:0.4.6": *
-#show: zebraw
+
 #align(center)[
   #text(size: 1.2em)[#strong[河南工业大学 #underline[Java程序设计实验] 实验报告]]
 

@@ -1,10 +1,24 @@
+#show raw: code => {
+  block(
+    width: 100%,
+    inset: 2em,
+    fill: rgb("#F6F8FA"),
+    radius: 8pt,
+  )[#v(-4pt)
+    #text(size:25pt, weight: 900, fill: rgb("#FF5F56"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#FFBD2E"),font: "SF Mono")[#sym.bullet]
+    #text(size:25pt, weight: 900, fill: rgb("#27C93F"),font: "SF Mono")[#sym.bullet]
+    #v(-5pt)
+    #text(size: 13pt,font: "SF Mono")[#code]
+  ]
+}
 #set text(
   font: ("New Computer Modern", "PingFang SC"),
   size: 11pt,
 )
-#set page(margin: (x: 2.5cm, y: 2.5cm))
-#import "@preview/zebraw:0.4.6": *
-#show: zebraw
+#set page(
+    height: auto
+)
 #align(center)[
   #text(size: 1.2em)[#strong[河南工业大学 #underline[Java程序设计实验] 实验报告]]
 
@@ -12,6 +26,7 @@
   专业班级：#underline("计科 2301") 学号：#underline("231040100116") 姓名：#underline("王浩然") 指导老师： 评分：
 ]
 #outline()
+
 == 实验题目
 实验（三）：Java类与对象
 
