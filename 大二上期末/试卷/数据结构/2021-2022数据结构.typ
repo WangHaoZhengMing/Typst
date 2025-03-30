@@ -99,7 +99,7 @@
 #let ubox(width) = box(width: width, stroke: (bottom: 0.5pt), outset: (bottom: 4pt))
 #let ident() = h(1.6em)
 
-#set page(footer: align(center)[数据结构 #counter(page).display("第 1 页（共 1 页）",both: true)])
+// #set page(footer: align(center)[数据结构 #counter(page).display("第 1 页（共 1 页）",both: true)])
 
 //----------------------------------------------------------------------------------
 #align(left)[#text(font:"Heiti SC")[绝密★启用前]]

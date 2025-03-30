@@ -1,5 +1,4 @@
 #import "@preview/cuti:0.2.1": show-cn-fakebold
-#import "@preview/based:0.1.0": base64
 #set text(size: 12pt, font: ("New Computer Modern", "Songti SC"), lang: "zh")
 #show: show-cn-fakebold
 #set page(margin: 2cm)
@@ -29,7 +28,7 @@
 #let ubox(width) = box(width: width, stroke: (bottom: 0.5pt), outset: (bottom: 4pt))
 #let ident() = h(1.6em)
 
-#set page(footer: align(center)[数据结构 #counter(page).display("第 1 页（共 1 页）",both: true)])
+// #set page(footer: align(center)[数据结构 #counter(page).display("第 1 页（共 1 页）",both: true)])
 
 //----------------------------------------------------------------------------------
 #align(left)[#text(font:"Heiti SC")[绝密★启用前]]

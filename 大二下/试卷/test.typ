@@ -1,0 +1,3 @@
+#set par(justify: true)
+
+
