@@ -6,8 +6,7 @@
 //这个是选择题要用的横线 (Prompt example, not used in this specific paper's format)
 // #let uline(answer: "", width: 4em) = {
 //  box(width: width, stroke: (bottom: 0.5pt), outset: (bottom: 4pt))[#answer]
-// }
-
+// } 
 // Code block styling
 // #show raw: code => {
 //   block(
