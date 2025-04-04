@@ -1,4 +1,3 @@
-
 #set document(title: "2024-2025年《JAVA程序设计》期末试题库")
 #set heading(numbering: "一、")
 #set text(font: "PingFang SC")
@@ -58,7 +57,7 @@
 
 + 下列叙述中不正确的选项是 ( )
   #grid(
-    columns: 1,
+    columns: (1fr,),
     gutter: 5pt, // Reduced gutter slightly
     [A. 如果类里定义了一个或多个构造方法, 那么 Java 编译器不提供默认的构造方法。],
     [B. 同一个类创建的不同对象具有不同的实体。],
@@ -160,7 +159,7 @@
 
 + 为了区分重载多态中同名的不同方法, 要求 ( )
   #grid(
-    columns: 1, // Changed to 1 column based on layout
+    columns: (1fr,),
     gutter: 5pt,
     [A. 采用不同的参数列表。],
     [B. 返回值类型不同。],
@@ -199,6 +198,7 @@
 
 #set enum(indent: 0.5cm, numbering: "1.")
 + Java 程序经过编译后产生的字节码是一种二进制代码, 可以直接在任何平台上识别和执行。( )
+
 + Java EE 主要用于嵌入式开发。( )
 + `byte x = (byte)(-129);` 该语句语法正确。( )
 + 类中方法体内声明的局部变量的有效范围为整个方法体内。( )
