@@ -1,10 +1,5 @@
 // #set text(font:"PingFang SC")
 #let problem(num, body) = {
-  // heading(
-  //   numbering: none,
-  //   outlined: false,
-  //   [Problem #num],
-  // )
   text(fill: blue)[* Problem #num. * #sym.space ]
   body
 }
@@ -257,71 +252,74 @@ class DisjointSet {
 var example = DisjointSet(num: 10)
 //following are bluring
 ```
-#problem(6,[
-  In class, we mentioned that the cut-vertices of a graph $G=(V,E)$ can be found in $O(n+m)$-time. Your goal is to give the algorithm. For your convenience, a pseudo-code for or a description of the algorithm is sufficient. You will get a full score if your algorithm is correct and has $O(n+m)$ running time.
-],)
+#problem(
+  6,
+  [
+    In class, we mentioned that the cut-vertices of a graph $G=(V,E)$ can be found in $O(n+m)$-time. Your goal is to give the algorithm. For your convenience, a pseudo-code for or a description of the algorithm is sufficient. You will get a full score if your algorithm is correct and has $O(n+m)$ running time.
+  ],
+)
 
 #text(font: ("New Computer Modern", "PingFang SC"))[
   #par(justify: true)[
-  *解题思路*: 我们可以使用Tarjan算法来查找图中的所有割点（cut-vertices）。该算法基于深度优先搜索。
+    *解题思路*: 我们可以使用Tarjan算法来查找图中的所有割点（cut-vertices）。该算法基于深度优先搜索。
   ]
 
   #block(inset: (left: 1em))[
-  *算法描述*:
-  1. 对每个节点 $v$，我们定义两个值：
-     - $d i s c[v]$: 节点 $v$ 被DFS访问的时间戳
-     - $l o w[v]$: 从节点 $v$ 可以到达的最早被访问过的节点的时间戳（通过一棵DFS子树）
-  
-  2. 对于根节点 $r$，如果它有至少两个子节点，则 $r$ 是割点
-  
-  3. 对于非根节点 $u$，如果存在子节点 $v$ 满足 $l o w[v] >= d i s c[u]$，则 $u$ 是割点
+    *算法描述*:
+    1. 对每个节点 $v$，我们定义两个值：
+      - $d i s c[v]$: 节点 $v$ 被DFS访问的时间戳
+      - $l o w[v]$: 从节点 $v$ 可以到达的最早被访问过的节点的时间戳（通过一棵DFS子树）
+
+    2. 对于根节点 $r$，如果它有至少两个子节点，则 $r$ 是割点
+
+    3. 对于非根节点 $u$，如果存在子节点 $v$ 满足 $l o w[v] >= d i s c[u]$，则 $u$ 是割点
   ]
 
   #block(inset: (left: 1em))[
-  ```
-  FindCutVertices(G = (V,E)):
-    disc = [∞, ..., ∞]  // 初始化访问时间戳
-    low = [∞, ..., ∞]   // 初始化最早可到达节点时间戳
-    parent = [-1, ..., -1]  // 初始化父节点
-    cutVertices = {}    // 存储所有割点
-    time = 0
-    
-    for each vertex v in V:
-    if disc[v] == ∞:  // 如果节点未访问
-      DFSVisit(v, disc, low, parent, cutVertices, time)
-    
-    return cutVertices
-  
-  DFSVisit(u, disc, low, parent, cutVertices, time):
-    children = 0  // 当前节点在DFS树中的子节点数
-    disc[u] = low[u] = time++
-    
-    for each neighbor v of u:
-    if disc[v] == ∞:  // 如果v未被访问
-      children++
-      parent[v] = u
-      DFSVisit(v, disc, low, parent, cutVertices, time)
-      
-      // 检查u是否是割点
-      low[u] = min(low[u], low[v])
-      
-      if parent[u] == -1 and children > 1:  // u是根节点且有多个子节点
-      cutVertices.add(u)
-      else if parent[u] != -1 and low[v] >= disc[u]:  // u不是根节点
-      cutVertices.add(u)
-    
-    else if v != parent[u]:  // 回边，但不是直接父节点
-      low[u] = min(low[u], disc[v])
-  ```
+    ```
+    FindCutVertices(G = (V,E)):
+      disc = [∞, ..., ∞]  // 初始化访问时间戳
+      low = [∞, ..., ∞]   // 初始化最早可到达节点时间戳
+      parent = [-1, ..., -1]  // 初始化父节点
+      cutVertices = {}    // 存储所有割点
+      time = 0
+
+      for each vertex v in V:
+      if disc[v] == ∞:  // 如果节点未访问
+        DFSVisit(v, disc, low, parent, cutVertices, time)
+
+      return cutVertices
+
+    DFSVisit(u, disc, low, parent, cutVertices, time):
+      children = 0  // 当前节点在DFS树中的子节点数
+      disc[u] = low[u] = time++
+
+      for each neighbor v of u:
+      if disc[v] == ∞:  // 如果v未被访问
+        children++
+        parent[v] = u
+        DFSVisit(v, disc, low, parent, cutVertices, time)
+
+        // 检查u是否是割点
+        low[u] = min(low[u], low[v])
+
+        if parent[u] == -1 and children > 1:  // u是根节点且有多个子节点
+        cutVertices.add(u)
+        else if parent[u] != -1 and low[v] >= disc[u]:  // u不是根节点
+        cutVertices.add(u)
+
+      else if v != parent[u]:  // 回边，但不是直接父节点
+        low[u] = min(low[u], disc[v])
+    ```
   ]
 
   #par(justify: true)[
-  *时间复杂度分析*: 该算法基于DFS，总的时间复杂度为 $O(n+m)$，其中 $n$ 是节点数，$m$ 是边数。
-  - DFS遍历每个节点一次: $O(n)$
-  - 对于每个节点，我们检查其所有邻接边: $O(m)$
+    *时间复杂度分析*: 该算法基于DFS，总的时间复杂度为 $O(n+m)$，其中 $n$ 是节点数，$m$ 是边数。
+    - DFS遍历每个节点一次: $O(n)$
+    - 对于每个节点，我们检查其所有邻接边: $O(m)$
   ]
 
   #par(justify: true)[
-  *正确性*: 该算法通过识别DFS树中的"关键节点"来找出割点。如果删除一个节点后，其某个子树无法访问祖先节点（即 $l o w[v] >= d i s c[u]$），则该节点是割点。根节点的情况特殊处理。
+    *正确性*: 该算法通过识别DFS树中的"关键节点"来找出割点。如果删除一个节点后，其某个子树无法访问祖先节点（即 $l o w[v] >= d i s c[u]$），则该节点是割点。根节点的情况特殊处理。
   ]
 ]
