@@ -1,12 +1,6 @@
 #set document(title: "2024-2025年《JAVA程序设计》期末试题库")
-#set page(
-  numbering: "1",
-  // foreground:
-)
-
-
 #set heading(numbering: "一、")
-#set text(font: "pingfang sc",lang:"zh")
+#set text(font: "pingfang sc", lang: "zh")
 #let coder(code) = block(
   width: 100%,
   inset: 1em,
@@ -19,6 +13,11 @@
   #v(-5pt)
   #text(size: 12pt, font: "SF Mono")[#code]
 ]
+#outline()
+#pagebreak()
+#set page(
+  numbering: "第1 页/共 1 页",
+)
 #align(left)[#text(font: "Heiti SC")[绝密★启用前]]
 #align(center, text(15pt)[#text(font: "Songti SC")[$2024-2025$ 年《Java 程序设计》期末试题]])
 #text(font:"Heiti SC")[注意事项]：
@@ -345,36 +344,26 @@
 
 //answer
 #pagebreak()
-#align(center)[参考答案]
+#align(center)[= 参考答案]
+#set heading(numbering: "1.1")
 #let answer-choice(num, answer, reasoning) = {
   text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
   linebreak()
   pad(left: 0em)[#reasoning]
 }
 
-#let answer-true-false( num, answer, reasoning) = {
+#let answer-true-false(num, answer, reasoning) = {
   text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
   linebreak()
   [#reasoning]
 }
 
-#let answer-coding(question, solution) = {
-  heading.where(level: 1)[编程题 - #question]
-  text(weight: "bold")[解答：]
-  [#solution]
+#let answer-analysis(num, solution) = {
+  text(weight: "bold")[#num. #pad(left: 1em)[#solution]
+  ]
 }
 
-#let answer-analysis(question, solution) = {
-  heading.where(level: 1)[程序分析题 - #question]
-  text(weight: "bold")[解答：]
-  [#solution]
-}
-
-#let answer-short(question, solution) = {
-  heading.where(level: 1)[简答题 - #question]
-  text(weight: "bold")[解答：]
-  [#solution]
-}
+== 选择题
 #answer-choice(
   1,
   [A],
@@ -828,14 +817,13 @@
   ],
 )
 
-#line(length: 100%)
-#line(length: 100%)
+== 判断题
 #let apple-table = figure(
   table(
     columns: 6,
     align: center,
     inset: 9pt,
-    stroke: rgb("#E5E5E5"), 
+    stroke: rgb("#E5E5E5"),
     fill: (_, row) => if row == 0 { rgb("#F5F5F7") } else { none }, // Light header background
     [题号], [], [], [], [], [], // Header row
     [1-5], [❌], [❌], [✅], [✅], [✅],
@@ -844,83 +832,292 @@
     [16-20], [✅], [✅], [✅], [❌], [❌],
   ),
   caption: [判断题答案一览表],
-  supplement: "Table"
+  supplement: "Table",
 )
 
 #align(center, apple-table)
-#answer-true-false(1, "❌", 
-  [Java字节码（.class文件）是二进制文件，但不能直接在任何平台执行。它需要JVM（Java虚拟机）来解释执行。])
+#answer-true-false(
+  1,
+  "❌",
+  [Java字节码（.class文件）是二进制文件，但不能直接在任何平台执行。它需要JVM（Java虚拟机）来解释执行。],
+)
 
-#answer-true-false(2, "❌",
-  [Java EE（Enterprise Edition）主要用于企业级开发，而不是嵌入式开发。Java ME（Micro Edition）才是用于嵌入式开发。])
+#answer-true-false(
+  2,
+  "❌",
+  [Java EE（Enterprise Edition）主要用于企业级开发，而不是嵌入式开发。Java ME（Micro Edition）才是用于嵌入式开发。],
+)
 
-#answer-true-false(3, "❌",
+#answer-true-false(
+  3,
+  "❌",
   [虽然-129超出了byte类型的范围（-128到127），但是(byte)强制类型转换是合法的语法。转换结果会是127。
-  #underline([但是参考答案说是错的])])
+    #underline([但是参考答案说是错的])],
+)
 
-#answer-true-false(4, "✅",
+#answer-true-false(
+  4,
+  "✅",
   [局部变量的作用范围是从其声明位置开始到包含该声明的块结束，而不是整个方法体。但是参考答案说是对的.大家以老师的答案为主。
-  如以下情况:
+    如以下情况:
+    ```java
+    public class Example {
+        public void method() {
+            int x = 10; // 局部变量x的作用范围从这里开始
+            if (x > 5) {
+                int y = 20; // 局部变量y的作用范围仅在if块内
+                System.out.println(x + y); // 可以访问x和y
+            }
+            // System.out.println(y); // 错误：y在这里不可见
+        }
+    }
+    ```
+
+  ],
+)
+
+#answer-true-false(5, "✅", [友好访问权限（默认访问权限）只允许同包内的类访问，不同包的类无法访问。])
+
+#answer-true-false(6, "✅", [无包名的类（默认包）可以使用有包名的类，只要正确导入即可。])
+
+#answer-true-false(7, "❌", [package语句必须是Java源文件中的第一条非注释性语句。])
+
+#answer-true-false(8, "❌", [this只能在实例方法和构造方法中使用，不能在静态方法（类方法）中使用。])
+
+#answer-true-false(9, "❌", [在构造方法中，super()调用必须是第一条语句。])
+
+#answer-true-false(10, "✅", [StringTokenizer类和String类的split()方法都可以用来分割字符串。])
+
+#answer-true-false(11, "✅", [上转型对象只能访问父类中定义的方法，不能直接调用子类新增的方法。])
+
+#answer-true-false(12, "✅", [final修饰的类不能被继承，这是Java实现封装的一种方式。])
+
+#answer-true-false(13, "❌", [Java不支持多重继承，一个类只能继承一个父类。但可以实现多个接口。])
+
+#answer-true-false(14, "✅", [在Java中，所有类都直接或间接继承自Object类。])
+
+#answer-true-false(15, "✅", [科学计数法表示的浮点数字面量默认为double类型。])
+
+#answer-true-false(16, "✅", [当byte、short、char类型的数据参与运算时，会自动转换为int类型。])
+
+#answer-true-false(17, "✅", [final修饰的局部变量一旦初始化后就不能再改变其值，成为常量。])
+
+#answer-true-false(18, "✅", [nextInt(n)方法返回一个大于等于0且小于n的随机整数。])
+
+#answer-true-false(19, "❌", [StringBuffer对象的字符序列是可以修改的，这是它与String类的主要区别。])
+
+#answer-true-false(20, "❌", [FileReader是字符流，用于读取字符形式的文件，而不是字节形式。])
+
+== 程序分析题
+
+#answer-analysis(
+  1,
+  [
+    #table(
+      columns: (auto, auto),
+      align: left + horizon,
+      [代码1],
+      [在这段代码中，Father 是父类，Son 继承并重写了 print 方法，通过多态机制，尽管变量类型是 Father，但实际对象是 Son，因此调用的是 Son 的 print 方法，print(5) 返回 6，最终输出结果为 6。],
+
+      [代码2],
+      [在Java中，类的成员变量只能在构造方法或方法中初始化，或者在声明时直接初始化。不能在类体中直接写赋值语句。应该改为 `int n = 200;` 或在构造方法中赋值。],
+
+      [代码3],
+      [局部变量m在使用前未初始化。Java要求局部变量在使用前必须显式初始化。应该先给m赋值，如 `int m = 0;` 或其他适当的值。],
+    )
+  ],
+)
+
+
+#answer-analysis(
+  2,
+  [
+    #table(
+      columns: (auto, auto),
+      align: left + horizon,
+      [代码1],
+      [结果为 true。因为字符串字面量常量 "Java程序设计" 和 "Java" + "程序设计" 在编译时就被优化为同一个字符串常量，它们指向字符串常量池中的同一个对象。],
+
+      [代码2],
+      [结果为 false。因为 str + "程序设计" 涉及到运行时的字符串连接操作，会在堆内存中创建新的字符串对象，而不是使用字符串常量池中的对象。],
+
+      [代码3],
+      [结果为 false。因为使用 new String() 会在堆内存中创建新的字符串对象，即使内容相同，也不是同一个对象。使用 == 比较的是对象的引用，而不是内容。],
+    )
+  ],
+)
+#answer-analysis(
+  3,
+  [
+    #table(
+      columns: (auto, auto),
+      align: left + horizon,
+      [代码1],
+      [final和abstract不能同时修饰一个方法。因为final方法不能被重写，而abstract方法必须被重写，这两个修饰符互相矛盾。],
+
+      [代码2], [静态方法不能直接访问非静态成员变量x。因为静态方法属于类，而非静态变量属于对象实例。],
+      [代码3], [接口中不能定义构造方法。接口是一种规范，不能被实例化，因此不需要构造方法。],
+      [代码4], [接口中的方法默认是abstract的，不能有方法体。方法应该只有声明，实现由实现该接口的类来完成。],
+    )
+  ],
+)
+== 简答题
+1. 访问权限特点
+  #figure(
+    table(
+      columns: (auto, auto, auto, auto, auto),
+      inset: 6pt,
+      align: left,
+      [修饰符], [同类中], [同包中], [子类中], [其他包],
+      [private], [✅], [❌], [❌], [❌],
+      [(default)], [✅], [✅], [❌], [❌],
+      [protected], [✅], [✅], [✅], [❌ (但子类可以访问)],
+      [public], [✅], [✅], [✅], [✅],
+    ),
+    caption: "Java访问控制访问权限特点",
+  )
+
+2. 对象组合
+
+  对象组合是一种设计原则, 通过将一个对象嵌入到另一个对象来实现代码的复用和功能的扩展. 组合比继承更灵活, 可以在运行时动态地改变对象的组合关系.
+
+  优势：
+  - 提高代码复用性
+  - 降低类之间的耦合度
+  - 更灵活的对象关系
+  - 运行时可以动态改变组合关系
+
+3. 面向抽象编程
+
+  - 针对接口或抽象类编程，而不是具体实现类
+  - 通过多态实现程序的可扩展性
+  - 遵循依赖倒置原则
+  - 提高代码的灵活性和可维护性
+
+4. super的常用场景
+
+  1. *调用父类构造方法*
   ```java
-  public class Example {
-      public void method() {
-          int x = 10; // 局部变量x的作用范围从这里开始
-          if (x > 5) {
-              int y = 20; // 局部变量y的作用范围仅在if块内
-              System.out.println(x + y); // 可以访问x和y
-          }
-          // System.out.println(y); // 错误：y在这里不可见
+  public class Child extends Parent {
+      public Child() {
+          super(); // 调用父类构造器
       }
   }
   ```
-  
-  ])
 
-#answer-true-false(5, "✅",
-  [友好访问权限（默认访问权限）只允许同包内的类访问，不同包的类无法访问。])
+  2. *访问父类方法或属性*
+  ```java
+  public class Child extends Parent {
+      public void method() {
+          super.parentMethod(); // 调用父类方法
+          super.parentField;    // 访问父类属性
+      }
+  }
+  ```
 
-#answer-true-false(6, "✅",
-  [无包名的类（默认包）可以使用有包名的类，只要正确导入即可。])
+5. 上转型变量和接口回调
 
-#answer-true-false(7, "❌",
-  [package语句必须是Java源文件中的第一条非注释性语句。])
+  #figure(
+    table(
+      columns: (auto, auto),
+      inset: 6pt,
+      align: left,
+      [概念], [说明],
+      [上转型变量],
+      [
+        - 将子类对象赋值给父类类型的变量. 这种转换是安全的, 因为子类是父类的扩展,包含父类的所有特性.
+        - 实现多态的基础, 允许在运行时决定调用哪个类的方法.
+        - 示例：Animal animal = new Dog();
+      ],
 
-#answer-true-false(8, "❌",
-  [this只能在实例方法和构造方法中使用，不能在静态方法（类方法）中使用。])
+      [接口回调],
+      [
+        通过接口来定义回调方法,具体的实现由实现接口的类提供. 接口回调允许一个类调用另一个类的方法，而不需要知道具体的实现细节.
+      ],
+    ),
+    caption: "Java中的上转型变量和接口回调",
+  )
+  #coder(```java
+  // 回调接口示例
+  interface Callback {
+    void onComplete(String result);
+  }
 
-#answer-true-false(9, "❌",
-  [在构造方法中，super()调用必须是第一条语句。])
+  // 实现回调的类
+  class Worker implements Callback {
+    public void onComplete(String result) {
+        System.out.println("任务完成: " + result);
+    }
+  }
 
-#answer-true-false(10, "✅",
-  [StringTokenizer类和String类的split()方法都可以用来分割字符串。])
+  // 使用回调的类
+  class Task {
+   public void execute(Callback callback) {
+      // 执行任务
+        String result = "处理完成";
+        callback.onComplete(result);
+    }
+  }
+  ```)
 
-#answer-true-false(11, "✅",
-  [上转型对象只能访问父类中定义的方法，不能直接调用子类新增的方法。])
+#line()
+== 编程题
+1. #coder(```java
+  // Sum类定义
+  class Sum {
+    int sum;    // 成员变量sum
+    int max;    // 成员变量max
 
-#answer-true-false(12, "✅",
-  [final修饰的类不能被继承，这是Java实现封装的一种方式。])
+    // 静态方法计算2+4+6+8+10的和
+    public static int getSum() {
+      return 2 + 4 + 6 + 8 + 10;
+    }
 
-#answer-true-false(13, "❌",
-  [Java不支持多重继承，一个类只能继承一个父类。但可以实现多个接口。])
+    // 实例方法求三个数的最大值
+    public int getMax(int x, int y, int z) {
+      return Math.max(Math.max(x, y), z);
+    }
+  }
 
-#answer-true-false(14, "✅",
-  [在Java中，所有类都直接或间接继承自Object类。])
+  // 测试类
+  public class Test {
+    public static void main(String[] args) {
+      Sum s = new Sum();
+      s.sum = Sum.getSum();           // 调用静态方法计算和
+      s.max = s.getMax(3, 8, 5);      // 调用实例方法求最大值
 
-#answer-true-false(15, "✅",
-  [科学计数法表示的浮点数字面量默认为double类型。])
+      System.out.println("sum = " + s.sum);  // 输出和
+      System.out.println("max = " + s.max);  // 输出最大值
+    }
+  }```)
+2. #coder(```java
+  // 定义飞行接口
+  interface Fly {
+    void fly(); // 抽象方法fly()
+  }
 
-#answer-true-false(16, "✅",
-  [当byte、short、char类型的数据参与运算时，会自动转换为int类型。])
+  // 定义抽象父类Bird
+  abstract class Bird {
+    abstract void egg(); // 抽象方法egg()
+  }
 
-#answer-true-false(17, "✅",
-  [final修饰的局部变量一旦初始化后就不能再改变其值，成为常量。])
+  // 定义鸽子类
+  class Pigeon extends Bird implements Fly {
+    @Override
+    public void fly() {
+      System.out.println("鸽子在飞行");
+    }
 
-#answer-true-false(18, "✅",
-  [nextInt(n)方法返回一个大于等于0且小于n的随机整数。])
+    @Override
+    public void egg() {
+      System.out.println("鸽子在下蛋");
+    }
+  }
 
-#answer-true-false(19, "❌",
-  [StringBuffer对象的字符序列是可以修改的，这是它与String类的主要区别。])
-
-#answer-true-false(20, "❌",
-  [FileReader是字符流，用于读取字符形式的文件，而不是字节形式。])
-
+  // 测试类
+  public class Test {
+    public static void main(String[] args) {
+      Bird bird = new Pigeon(); // 创建上转型对象
+      bird.egg(); // 调用egg()方法
+    }
+  }```)
