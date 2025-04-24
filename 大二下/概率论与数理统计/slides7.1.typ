@@ -62,24 +62,9 @@ $ X_1, X_2, dots, X_n $
 
 #pagebreak()
 
-// OCR Page 6: Types of Estimation
-=== 参数估计的类型
-
-#align(center)[
-  参数估计
-  $arrow.r$
-  #stack(
-    dir: ttb,
-    spacing: 1em,
-    [#text(1.2em)[点估计]],
-    [#text(1.2em)[区间估计]],
-  )
-]
-
-#pagebreak()
 
 // OCR Page 7: Example: Point vs Interval
-=== 点估计 vs 区间估计
+== 点估计 vs 区间估计
 
 例如我们要估计某队男生的平均身高.
 (假定身高服从正态分布 $N(mu, 0.1^2)$)
@@ -126,7 +111,6 @@ $ X_1, X_2, dots, X_n $
 由大数定律,
 $ lim_(n -> oo) P { abs( (1/n) sum_(i=1)^n X_i - mu ) < epsilon } = 1 $
 
-#box(stroke: red.darken(20%), fill: luma(245), radius: 3pt, inset: 5pt)[样本体重的平均值]
 
 自然想到把样本体重的平均值作为总体平均体重的一个估计.
 
@@ -146,7 +130,8 @@ $ overline(X) = (1 / n) sum_(i=1)^n X_i, quad S^2 = (1 / (n-1)) sum_(i=1)^n (X_i
 + 可以用样本均值 $overline(X)$;
 + 也可以用样本中位数;
 + 还可以用别的统计量.
-  (引出需要寻找“好”的估计量和估计方法)
+
+  (总之,我们需要寻找“*好*”的估计量和估计方法)
 
 #pagebreak()
 
@@ -168,22 +153,19 @@ $ overline(X) = (1 / n) sum_(i=1)^n X_i, quad S^2 = (1 / (n-1)) sum_(i=1)^n (X_i
 // OCR Page 13: Method of Moments Intro
 == 1. 矩估计法
 
-矩估计法是英国统计学家 K. 皮尔逊 (K. Pearson) 最早提出来的.
+矩估计法是 Karl Pearson 在1894年首次提出的统计方法.
 
 #grid(
-  columns: (70%, 30%),
+  columns: (100%),
   [
-    由大数定律, 若总体 $X$ 的数学期望 $E(X) = mu$ 有限, $X_1, X_2, ..., X_n$ 是一组样本, 独立同分布 (和 $X$ 分布相同), 则有
-    $ overline(X) = (1 / n) sum_(i=1)^n X_i arrow.long.r^"P" E(X) = mu $
-    (依概率收敛)
+    根据大数定律, 对于具有有限期望 $E(X) = mu$ 的总体 $X$ 和其独立同分布样本 $X_1, X_2, ..., X_n$:
 
-    同理, 对总体的 $k$ 阶矩 $mu_k = E(X^k)$ 和样本的 $k$ 阶原点矩 $A_k = (1/n) sum_(i=1)^n X_i^k$, 若 $E(X^k)$ 存在, 则有
-    $ A_k = (1 / n) sum_(i=1)^n X_i^k arrow.long.r^"P" -> E(X^k) = mu_k quad (k = 1, 2, ...) $
-  ],
-  [
-    // Placeholder for Pearson's image
-    // #image("pearson.jpg", width: 100%)
-  ],
+    $ overline(X) = (1/n) sum_(i=1)^n X_i arrow.long.r^("P") mu = E(X) $
+
+    类似地, 对于总体的 $k$ 阶矩 $mu_k = E(X^k)$ 和相应的样本原点矩 $A_k$:
+    
+    $ A_k = (1/n) sum_(i=1)^n X_i^k arrow.long.r^("P") mu_k = E(X^k), quad k = 1,2,... $
+  ]
 )
 
 #pagebreak()
@@ -225,10 +207,10 @@ $ hat(theta)_j = theta_j (A_1, A_2, ..., A_k) quad j=1, 2, ..., k $
 #pagebreak()
 
 // OCR Page 16: MoM Example 2 - Uniform Prep
-== 矩估计法 - 例2
+== 矩估计法 - 例1
 
 设总体 $X$ 在 $[a, b]$ 上服从均匀分布, $a, b$ 未知. $X_1, ..., X_n$ 是来自 $X$ 的样本, 试求 $a, b$ 的矩估计量.
-*解*
+
 *解*
 总体是均匀分布 $U(a, b)$, 其概率密度函数为:
 $
@@ -237,6 +219,7 @@ $
 $
 
 *步骤 1*: 计算总体的两个矩
+
 (1) 一阶矩 (均值):
 $ E(X) = integral_a^b x dot (1 / (b-a)) dif x = (b+a) / 2 $
 
@@ -255,9 +238,7 @@ $ A_2 = (b^2 + a b + a^2) / 3 $
 从第一个方程得: $b = 2overline(X) - a$
 
 代入第二个方程:
-$ A_2 = ((2overline(X) - a)^2 + a(2overline(X) - a) + a^2) / 3 $
-$ = (4overline(X)^2 - 4a overline(X) + a^2 + 2a overline(X) - a^2 + a^2) / 3 $
-$ = (4overline(X)^2 - 2a overline(X) + a^2) / 3 $
+$ A_2 &= ((2overline(X) - a)^2 + a(2overline(X) - a) + a^2) / 3 \ & = (4overline(X)^2 - 4a overline(X) + a^2 + 2a overline(X) - a^2 + a^2) / 3 \ & = (4overline(X)^2 - 2a overline(X) + a^2) / 3 $
 
 因此:
 $ 3A_2 = 4overline(X)^2 - 2a overline(X) + a^2 $
@@ -274,42 +255,69 @@ $
 #pagebreak()
 
 // OCR Page 18: MoM Example 3 - Mean/Variance Prep
-== 矩估计法 - 例3
+== 矩估计法 - 例2
 
 设总体 $X$ 的均值 $mu$ 和方差 $sigma^2 (> 0)$ 都存在, $mu, sigma^2$ 未知. $X_1, ..., X_n$ 是来自 $X$ 的样本, 试求 $mu, sigma^2$ 的矩估计量.
 
 *解*
-总体矩:
-$ mu_1 = E(X) = mu $
-$ mu_2 = E(X^2) = D(X) + [E(X)]^2 = sigma^2 + mu^2 $
 
-(#box(stroke: red, fill: luma(245))[总体矩])
-解得
-$ mu = mu_1 $
-$ sigma^2 = mu_2 - mu_1^2 $
+对任意分布的总体 $X$, 我们知道:
 
-于是 $mu, sigma^2$ 的矩估计量为 (用 $A_1=overline(X)$ 和 $A_2 = (1/n)sum X_i^2$ 代替 $mu_1, mu_2$):
-$ hat(mu) = A_1 = overline(X) $
-$ hat(sigma)^2 = A_2 - A_1^2 = (1 / n) sum_(i=1)^n X_i^2 - overline(X)^2 = (1 / n) sum_(i=1)^n (X_i - overline(X))^2 $
-(#box(stroke: red, fill: luma(245))[样本矩])
+1. #text(blue)[总体的一阶矩] (均值):
+$ E(X) = mu $
 
-#pagebreak()
+2. #text(blue)[总体的二阶矩] (关于原点的矩):
+$ E(X^2) = D(X) + [E(X)]^2 = sigma^2 + mu^2 $
+(这里用到了方差的定义: $D(X) = E(X^2) - [E(X)]^2$)
 
-// OCR Page 20: MoM Conclusion for Mean/Variance
+#text(blue)[矩估计法步骤]:
+
+(1) 对应的样本矩:
+- 样本一阶矩 (样本均值):
+$ overline(X) = (1/n) sum_(i=1)^n X_i $
+- 样本二阶矩:
+$ m_2 = (1/n) sum_(i=1)^n X_i^2 $
+
+(2) 由矩估计法, 令样本矩等于总体矩:
+
++ 一阶矩匹配:
+$ E(X) = overline(X) quad => quad mu = overline(X) $
+因此, $mu$ 的矩估计量为:
+$ hat(mu) = overline(X) $
+
+2. 二阶矩匹配:
+$ E(X^2) = m_2 quad => quad sigma^2 + mu^2 = m_2 $
+代入 $mu = overline(X)$:
+$ sigma^2 + overline(X)^2 = m_2 quad => quad sigma^2 = m_2 - overline(X)^2 $
+
+展开 $m_2 - overline(X)^2$:
+$ m_2 - overline(X)^2 = (1/n) sum_(i=1)^n X_i^2 - ((1/n) sum_(i=1)^n X_i)^2 = (1/n) sum_(i=1)^n (X_i - overline(X))^2 $
+
+因此, $sigma^2$ 的矩估计量为:
+$ hat(sigma)^2 = (1/n) sum_(i=1)^n (X_i - overline(X))^2 $
+
+注: 这个估计量是有偏的, 因为通常方差的无偏估计量是用 $(1/(n-1))$ 而不是 $(1/n)$. 但矩估计法直接用样本矩匹配, 得到的就是 $(1/n)$.
+
+
 == 矩估计法 - 结论
-<结论>
+
 
 #block(fill: luma(230), radius: 5pt, inset: 10pt)[
   结论: 不管总体 $X$ 服从何种分布, 总体期望 $mu$ 和方差 $sigma^2$ 的矩估计量分别为
   $ hat(mu) = overline(X) = (1 / n) sum_(i=1)^n X_i $
   $ hat(sigma)^2 = (1 / n) sum_(i=1)^n (X_i - overline(X))^2 = ((n-1) / n) S^2 $
-  #box(stroke: green, fill: yellow.lighten(80%))[*可作为公式*]
+这里的 $S^2$ 是样本方差的无偏估计量，其计算公式为：
+
+$ S^2 = (1/(n-1)) sum_(i=1)^n (X_i - overline(X))^2 $
+
 ]
+
+
 #v(100%)
 估计值为:
 $ hat(mu) = overline(x) = (1 / n) sum_(i=1)^n x_i $
 $ hat(sigma)^2 = (1 / n) sum_(i=1)^n (x_i - overline(x))^2 $
-
+#box(stroke: green, fill: yellow.lighten(80%), inset: 8pt)[*以上两式可作为公式*]
 #pagebreak()
 
 // OCR Page 21: MoM Example 4
@@ -349,15 +357,29 @@ $ lambda + lambda^2 = A_2 = (1 / n) sum X_i^2 $. 这也可以解出 $lambda$, �
 // OCR Page 23: MoM Pros and Cons
 == 矩估计法 - 优缺点
 
-#box(fill: green.lighten(80%), radius: 5pt, inset: 10pt)[
-  *优点*: 简单易行, 并不需要事先知道总体是什么分布.
-]
-
-#box(fill: red.lighten(80%), radius: 5pt, inset: 10pt)[
-  *缺点*: 当总体类型已知时, 没有充分利用分布提供的信息. 一般场合下, 矩估计量不具有唯一性.
-]
-
-其主要原因在于建立矩法方程时, 选取哪些总体矩用相应样本矩代替带有一定的随意性.
+#grid(
+  columns: 1,
+  gutter: 10pt,
+  box(
+    fill: green.lighten(80%),
+    radius: 5pt,
+    inset: 10pt,
+    [
+      *优点*: 简单易行, 并不需要事先知道总体是什么分布.
+    ]
+  ),
+  box(
+    fill: red.lighten(80%),
+    radius: 5pt,
+    inset: 10pt,
+    [
+      *缺点*: 当总体类型已知时, 没有充分利用分布提供的信息. 一般场合下, 矩估计量不具有唯一性.
+    ]
+  ),
+  [ 
+    其主要原因在于建立矩法方程时, 选取哪些总体矩用相应样本矩代替带有一定的随意性.
+  ]
+)
 
 #pagebreak()
 
@@ -395,7 +417,7 @@ $ hat(alpha) = (2 overline(X) - 1) / (1 - overline(X)) $
 == 课堂练习 - 例2
 
 设 $X_1, X_2, ..., X_n$ 是取自总体 $X$ 的一个样本, 其密度函数为
-$ X tilde f(x) = cases( (1/theta) e^(-(x-mu)/theta), quad x >= mu \ 0, quad "其它" ) $
+$ X tilde f(x) = cases( (1/theta) e^(-(x-mu)/theta)\, quad x >= mu \ 0\, quad "其它" ) $
 其中 $theta > 0$, $mu$ 为未知参数. 求 $theta, mu$ 的矩估计.
 #v(100%)
 *解*
@@ -419,7 +441,7 @@ $ mu = E(X) - theta = mu_1 - sqrt(mu_2 - mu_1^2) $
 于是 $theta, mu$ 的矩估计量为 (用样本矩 $A_1, A_2$ 代替 $mu_1, mu_2$):
 $ hat(theta) = sqrt( A_2 - A_1^2 ) = sqrt( (1/n) sum_(i=1)^n (X_i - overline(X))^2 ) $
 $ hat(mu) = A_1 - hat(theta) = overline(X) - sqrt( (1/n) sum_(i=1)^n (X_i - overline(X))^2 ) $
-(注: 有时也用 $S^2$ 的矩估计 $hat sigma}^2 = (1/n)sum(X_i - overline{X})^2$ 中的 $\hat{sigma}$ 作为 $theta$ 的估计)
+(注: 有时也用 $S^2$ 的矩估计 $hat(sigma)^2 = (1/n)sum(X_i - overline(X))^2$ 中的 $hat(sigma)$ 作为 $theta$ 的估计)
 
 #pagebreak()
 
@@ -463,7 +485,7 @@ $ hat(mu) = A_1 - hat(theta) = overline(X) - sqrt( (1/n) sum_(i=1)^n (X_i - over
 $ X = cases(1 quad "射中" \ 0 quad "射不中") $
 $ P(X=x) = p^x (1-p)^(1-x), quad x=0, 1 $
 ($p$ 是待估参数)
-
+#v(100%)
 观察到样本 $X_1 = 1$ 发生.
 比较两种可能:
 + 若 $p = 0.9$, 则 $P(X_1=1 | p=0.9) = 0.9$
@@ -487,22 +509,20 @@ $ P(X = x) = p(x; theta) quad (theta " 为待估参数") $
 即事件 ${ X_1 = x_1, X_2 = x_2, ..., X_n = x_n }$ 发生.
 
 由于 $X_1, X_2, ..., X_n$ 独立同分布, 该事件发生的概率为:
-$ P(X_1 = x_1, ..., X_n = x_n) = P(X_1 = x_1) ... P(X_n = x_n) $
-$ space quad = p(x_1; theta) p(x_2; theta) ... p(x_n; theta) $
-$ space quad = product_(i=1)^n p(x_i; theta) $
+$ P(X_1 = x_1, ..., X_n = x_n) &= P(X_1 = x_1) ... P(X_n = x_n) \
+                &= p(x_1; theta) p(x_2; theta) ... p(x_n; theta) \
+                &= product_(i=1)^n p(x_i; theta) $
+
 
 这个概率是 $theta$ 的函数, 称为 #text(fill: blue)[似然函数], 记为 $L(theta)$.
 $
   L(theta) = L(theta; x_1, ..., x_n) = product_(i=1)^n p(x_i; theta)
-$ (#box(stroke: red, fill: luma(245))[令为 $L(theta)$])
-
-#pagebreak()
-
+$
 // OCR Page 33: MLE Definition - Likelihood Maximization
 == 参数的极大似然估计法 (求法)
 
 为了使样本观测值 $(x_1, ..., x_n)$ 出现的概率 $L(theta)$ 最大, 需要找到参数 $theta$ 的估计量 $hat(Theta)$ (其取值为 $hat(theta)$), 使得 $L(theta)$ 达到最大, 即
-$ L(hat(theta); x_1, ..., x_n) = max_(theta) L(theta; x_1, ..., x_n) $
+$ L(hat(theta); x_1, ..., x_n) = max L(theta; x_1, ..., x_n) $
 
 #block(fill: luma(235), radius: 5pt, inset: 10pt)[
   则称 $hat(theta)$ 为参数 $theta$ 的 #text(fill: blue)[极大似然估计值], 相应的统计量 $hat(Theta)$ 为 #text(fill: blue)[极大似然估计量] (MLE).
@@ -548,6 +568,7 @@ $ L(hat(theta); x_1, ..., x_n) = max_(theta) L(theta; x_1, ..., x_n) $
 == MLE 举例 - 例5
 
 设 $X_1, X_2, ..., X_n$ 是取自总体 $X tilde B(1, p)$ 的一个样本 ($X$ 服从伯努利分布), 求参数 $p$ 的极大似然估计量.
+// #pause
 
 *解*:
 总体 $X$ 的分布律 (PMF):
@@ -560,21 +581,16 @@ $ L(p) = f(x_1, ..., x_n; p) = product_(i=1)^n P(X_i = x_i) $
 $ space quad = product_(i=1)^n p^(x_i) (1-p)^(1-x_i) $
 $ space quad = p^(sum x_i) (1-p)^(n - sum x_i) $
 
-#pagebreak()
-
-// OCR Page 37: MLE Example 5 - Bernoulli Solution
-== MLE 举例 - 例5 (续)
-
-对数似然函数为:
+对数似然函数求ln为:
 $ ln L(p) = (sum_(i=1)^n x_i) ln(p) + (n - sum_(i=1)^n x_i) ln(1 - p) $
 
 对 $p$ 求导并令其为 0:
 $ (dif / (dif p)) ln L(p) = (sum_(i=1)^n x_i) / p - (n - sum_(i=1)^n x_i) / (1 - p) = 0 $
-$ (sum x_i) / p = (n - sum x_i) / (1 - p) $
-$ (sum x_i) (1 - p) = p (n - sum x_i) $
-$ sum x_i - p sum x_i = n p - p sum x_i $
-$ sum x_i = n p $
-$ p = (1 / n) sum_(i=1)^n x_i = overline(x) $
+$ (sum x_i) / p &= (n - sum x_i) / (1 - p) $
+$ (sum x_i) (1 - p) &= p (n - sum x_i) $
+$ sum x_i - p sum x_i &= n p - p sum x_i $
+$ sum x_i &= n p $
+$ p &= (1 / n) sum_(i=1)^n x_i = overline(x) $
 
 得 $hat(p) = overline(x)$. 即为 $p$ 的极大似然估计值.
 
