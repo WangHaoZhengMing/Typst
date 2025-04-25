@@ -1,4 +1,3 @@
-
 #set document(title: "JAVA 面向对象程序设计(期末考试试题)")
 #set heading(numbering: "一、")
 #set text(font: "PingFang SC")

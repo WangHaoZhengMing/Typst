@@ -27,6 +27,7 @@
 + 答卷前，考生务必将自己的姓名和准考证号填写在答题卡上。
 + 回答选择题时，选出每小题答案后，用铅笔把答题卡对应题目的答案标号涂黑。如需改动，用橡皮擦干净后，再选涂其它答案标号。回答非选择题时，将答案写在答题卡上。写在本试卷上无效。
 + 考试结束后，将本试卷和答题卡一并交回。请认真核对监考员在答题卡上所粘贴的条形码上的姓名、准考证号与您本人是否相符。
+//MARK: 选择
 = 选择题
 + 下列使用工具的命令中属于 Java 编译器的是( #uline() )
   #grid(
@@ -118,13 +119,13 @@
   #grid(
     columns: 1,
     gutter: 10pt,
-    [A. `double[]m =new double[-4];`], // Negative array size
-    [B. `String[7] m =new String[];`], // Incorrect syntax for declaration and initialization
-    [C. `boolean m[]= new boolean[6];`], // Correct syntax
-    [D. `int m; m=new double[3];`], // Type mismatch: int variable assigned double array
+    [A. `double[] m = new double[-4];`], // Negative array size
+    [B. `String[7] m = new String[];`], // Incorrect syntax for declaration and initialization
+    [C. `boolean m[] = new boolean[6];`], // Correct syntax
+    [D. `int m; m = new double[3];`], // Type mismatch: int variable assigned double array
   )
 
-
+//MARK: 🔟
 + 下列 Java 语言中用于字符串的正确表示形式是
   #grid(
     columns: 4,
@@ -257,11 +258,8 @@
     [C. 方法的重构或实现], // Refactoring is code restructuring, not this
     [D. 方法的继承或派生], // Inheritance allows this, but the phenomenon itself is overriding
   )
-
-
-
+//MARK: 判断
 = 判断题
-
 
 + 类是相同行为和状态的诸多对象的统称。
 
@@ -302,7 +300,7 @@
 + 大数类中静态的 `valueOf` 可实现普通数值向大数的转化。
 // `BigInteger.valueOf(long val)` and `BigDecimal.valueOf(double val)` exist.
 + 包的名字放在类文件的开头, 否则为无名包。
-
+//MARK: 分析
 = 程序阅读题
 
 
@@ -314,7 +312,7 @@
   System.out.println(index);
   ```)
 
-
+  #v(2cm)
 + 阅读下面程序写出执行结果
   #coder(```java
   int k;
@@ -323,14 +321,7 @@
       System.out.println("k="+k);
   }
   ```)
-  答案:
-  ```
-  k=1
-  k=2
-  k=3
-  k=4
-  ``` // Loop prints for k=1,2,3,4. When k=5, k>4 is true, break executes before println.
-
+  #v(5cm)
 + 数组是表示一个具有相同数据类型的数据元素的集合。在 Java 语言中, 数组被定义为一个对象, 每个元素相当于该对象的数据成员变量, 数组中的元素可以任何数据类型。请结合下面的程序回答后面的问题。
   #coder(```java
   public static void main(String[] args){
@@ -346,7 +337,7 @@
   (1) 上述程序中变量 `len`、`col1`、`col2`、`col3`、`col4` 的值依次是多少?\
   (2) 上述程序中 `a[1][1]`、`a[1][2]`、`a[1][3]` 的值依次是多少?\
   (3) 使用 for 循环语句编写一个程序片段实现对数组 a 中的所有元素进行求和。
-#v(13cm)
+  #v(13cm)
 + 反转排序是以相反的顺序把原有数组的内容重新排序, 其基本思想是把数组最后一个元素与第一个元素替换, 倒数第二个元素与第二个元素替换, 依此类推, 直到把所有数组元素反转替换。请结合下面的反转排序的程序回答后面的问题。
   #coder(```java
   public class Sorter {
@@ -361,26 +352,26 @@
           int temp;
           int len = p.length;
           for (int i = 0; i < len / 2; i++) {
-              temp = p[i];        // Line 1
-              p[i] = p[len - 1 - i]; // Line 2
-              p[len - 1 - i] = temp; // Line 3
+              ___________________;  // Line 1
+              ___________________;  // Line 2
+              ___________________;  // Line 3
           }
       }
   }
   ```)
   (1) 上述 for 循环语句中需填入 3 行代码, 该部分是反转排序的关键步骤, 请完善程序\
   (2) 上述程序执行后, 最终程序的输出是?
-#v(10cm)
+  #v(11cm)
 
 + 已知一个类的定义如下, 请根据该类的定义回答后面的问题。
   #coder(```java
   import java.util.*;
 
-  public class Pair<T extends AbstractList<Integer> & List<Integer> & RandomAccess, U> { nteger->Integer
+  public class Pair<T extends AbstractList<Integer> & List<Integer> & RandomAccess, U> {
       private T first;
       private U second;
 
-      public Pair(T first, U second) { // Constructor
+      public Pair(T first, U second) {
           this.first = first;
           this.second = second;
       }
@@ -404,7 +395,7 @@
   ```)
   (1) 该类用到了 Java 中的什么机制?\
   (2) 在类中 `"T extends AbstractList<Integer> & List<Integer> & RandomAccess"` 和 `"U"` 表示含义分别是什么?\
-  (3) 在类的定义中有 `AbstractList<Integer>`、`List<Integer>`、`RandomAccess` 三个类型限定, 这三个限定是 T 必须满足的要求。哪些可以满足? 哪些不可以?\
+  (3) 在类的定义中有 `AbstractList<Integer>`、`List<Integer>`、`RandomAccess` 三个类型限定, 这三个限定是 T 必须满足的要求。哪些可以调? 哪些不可以调?\
   (4) 按下列方式使用该类创建对象是否合法:
   ```java
   (a) Pair<ArrayList<Integer>, Double> t = new Pair<ArrayList<Integer>, Double>();
@@ -412,38 +403,656 @@
   (c) Pair<ArrayList<Integer>, Float> t = new Pair<ArrayList<Integer>, Float>();
   ```
 
-#v(7cm)
+  #v(7cm)
 
-
+//MARK: 设计
 = 程序设计题
-+ 请设计并编写一个同时满足下列所有需求的抽象类:
-  #set enum(numbering: "(1)")
-  + 该类是抽象类, 类名为 `Shapes`, 其所在的包名为 `oop.core.base`, 该类可以通过 `import` 语句被其他包中的类所访问到;
-  + 该类中有两个 `int` 类型的成员变量, 变量名分别为 `width` 和 `height`, 这两个变量可以被同一个包中的类以及该类的所有子类访问到;
-  + 该类含有一个构造方法, 该构造方法需传进去两个 `int` 类型的参数, 参数名称分别为 `width`, `height`, 该构造方法使用 `this` 关键字实现了对其成员变量 `width` 和 `height` 的初始化;
-  + 该类中含有一个方法名为 `getArea` 的抽象方法, 该方法无输入参数且其返回值为 `double` 类型;
-  + 该类中含有一个方法名为 `getPerimeter` 的抽象方法, 该方法无输入参数且其返回值为 `double` 类型。
-  #v(6cm)
++ 完成下面两个小题
+  + 请设计并编写一个同时满足下列所有需求的抽象类:
+    #set enum(numbering: "(1)")
+    + 该类是抽象类, 类名为 `Shapes`, 其所在的包名为 `oop.core.base`, 该类可以通过 `import` 语句被其他包中的类所访问到;
+    + 该类中有两个 `int` 类型的成员变量, 变量名分别为 `width` 和 `height`, 这两个变量可以被同一个包中的类以及该类的所有子类访问到;
+    + 该类含有一个构造方法, 该构造方法需传进去两个 `int` 类型的参数, 参数名称分别为 `width`, `height`, 该构造方法使用 `this` 关键字实现了对其成员变量 `width` 和 `height` 的初始化;
+    + 该类中含有一个方法名为 `getArea` 的抽象方法, 该方法无输入参数且其返回值为 `double` 类型;
+    + 该类中含有一个方法名为 `getPerimeter` 的抽象方法, 该方法无输入参数且其返回值为 `double` 类型。
+    #v(6cm)
 
-+ 请设计并编写一个同时满足下列所有需求的类。
-  #set enum(numbering: "(1)")
-  + 该类的类名为 `Square`, 其包名为 `oop.core`, 该类可以通过 `import` 语句被其他包中的类所访问到, 该类继承了第 1 题中的抽象类 `Shapes`;
-  + 该类有一个构造方法, 该构造方法含有两个 `int` 型输入参数, 参数名称分别为 `width`, `height`, 该构造方法通过 `super` 关键字实现了对其父类成员变量的初始化;
-  + 该类对其父类的 `getArea` 方法进行了实现, 要求返回面积, 即计算 `width * height` 的值;
-  + 该类对其父类的 `getPerimeter` 方法进行了实现, 要求返回周长, 即 `2 * (width + height)` 的值。
+  + 请设计并编写一个同时满足下列所有需求的类。
+    #set enum(numbering: "(1)")
+    + 该类的类名为 `Square`, 其包名为 `oop.core`, 该类可以通过 `import` 语句被其他包中的类所访问到, 该类继承了第 1 题中的抽象类 `Shapes`;
+    + 该类有一个构造方法, 该构造方法含有两个 `int` 型输入参数, 参数名称分别为 `width`, `height`, 该构造方法通过 `super` 关键字实现了对其父类成员变量的初始化;
+    + 该类对其父类的 `getArea` 方法进行了实现, 要求返回面积, 即计算 `width * height` 的值;
+    + 该类对其父类的 `getPerimeter` 方法进行了实现, 要求返回周长, 即 `2 * (width + height)` 的值。
 
-#v(6cm)
-+ 请设计并编写一个满足下列需求的接口。 // Re-interpreting the request based on common patterns
-  (1) 定义一个接口 `Shapes`, 其所在的包名为 `oop.core.base`;
-  (2) 定义返回值为 `double` 类型并且无输入参数的 public 抽象方法, 其中方法名为 `getArea`;
-  (3) 定义返回值为 `double` 类型并且无输入参数的 public 抽象方法, 其中方法名为 `getPerimeter`。
+  #v(3cm)
++ 完成下面两个小题
+  + 请设计并编写一个满足下列所有需求的接口。 \
+    (1) 定义一个`public`接口, 名为 `Shapes`, 其所在的包名为 `oop.core.base`;\
+    (2) 定义返回值为 `double` 类型并且无输入参数的 public 抽象方法, 其中方法名为 `getArea`;\
+    (3) 定义返回值为 `double` 类型并且无输入参数的 public 抽象方法, 其中方法名为 `getPerimeter`。
+    #v(6cm)
+  + 请设计并编写一个同时满足下列所有需求的类。\
+    (1) 定义一个 public 类 `Square`, 其包名为 `oop.core`, 且该类实现了第 1 题中的接口 `Shapes`;\
+    (2) 在类 `Square` 中定义两个 `double` 类型的 public 成员变量, 其中成员变量名为: `width`, `height`;\
+    (3) 用带有两个形式参数的 public 构造方法对 `Square` 类中的成员变量进行初始化, 其中形式参数名为: `width`, `height`;\
+    (4) 在 `Square` 类中对 `getArea` 方法进行实现, 返回面积, 即 `width * height`;\
+    (5) 在 `Square` 类中对 `getPerimeter` 方法进行实现, 返回周长, 即 `2 * (width + height)`。
+    #v(3cm)
+  + 在第 1 题和第 2 题的基础之上, 仔细阅读程序, 写出下列程序的输出结果。
+    #coder()[```java
+      package oop.core.test;
+      import oop.core.Square;
+      public calss SquareTest {
+          public static void main(String[] args) {
+              Square squ = new Square(3, 4);
+              double area = squ.getArea();
+              double peri = squ.getPerimeter();
+              System.out.println("area = " + area + "peri =" + peri);}
+      }
+      ```]
 
-+ 请设计并编写一个同时满足下列所有需求的类。
-  (1) 定义一个 public 类 `Square`, 其包名为 `oop.core`, 且该类实现了第 1 题中的接口 `Shapes`; // Assuming this refers to the interface described above now
-  (2) 在类 `Square` 中定义两个 `double` 类型的 public 成员变量, 其中成员变量名为: `width`, `height`;
-  (3) 用带有两个形式参数的 public 构造方法对 `Square` 类中的成员变量进行初始化, 其中形式参数名为: `width`, `height`;
-  (4) 在 `Square` 类中对 `getArea` 方法进行实现, 返回面积, 即 `width * height`;
-  (5) 在 `Square` 类中对 `getPerimeter` 方法进行实现, 返回周长, 即 `2 * (width + height)`。
 
-+ 在第 1 题和第 2 题的基础之上, 仔细阅读程序, 写出下列程序的输出结果。
+//MARK:|答案
+#pagebreak()
+#set text(font: "PingFang SC")
+#set heading(numbering: "1.1")
+#let answer-choice(num, answer, reasoning) = {
+  text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
+  linebreak()
+  pad(left: 0em)[#reasoning]
+}
 
+#let answer-true-false(num, answer, reasoning) = {
+  text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
+  linebreak()
+  [#reasoning]
+}
+
+#let answer-analysis(num, solution) = {
+  text()[#num. #pad(left: 1em)[#solution]
+  ]
+}
+#align(center)[= 参考答案]
+
+#columns(2)[
+  == 选择题
+  #answer-choice(
+    1,
+    [A],
+    [
+      1. *A. javac.exe*
+        - `javac` 是 Java 编译器的命令
+        - *正确。*
+
+      2. *B. javadoc.exe*
+        - `javadoc` 是生成 API 文档的工具
+        - *错误。*
+
+      3. *C. java.exe*
+        - `java` 是 Java 程序运行的命令
+        - *错误。*
+
+      4. *D. javaw.exe*
+        - `javaw` 是无控制台窗口运行 Java 程序的命令
+        - *错误。*
+    ],
+  )
+
+  #answer-choice(
+    2,
+    [D],
+    [
+      1. *A. interface*
+        - `interface` 是定义接口的关键字
+        - *错误。*
+
+      2. *B. final*
+        - `final` 是定义常量的关键字
+        - *错误。*
+
+      3. *C. abstract*
+        - `abstract` 是定义抽象类的关键字
+        - *错误。*
+
+      4. *D. class*
+        - `class` 是定义类的关键字
+        - *正确。*
+    ],
+  )
+  #answer-choice(
+    3,
+    [D],
+    [
+      1. *A. HellWorldotrue3/2*
+        - `str.append("Hello")` -> `str = "Hello"`
+        - `str.append(true)` -> `str = "Hellotrue"`(Java 会把 true 自动转为字符串 "true")
+        - `str.append((double)3/2)` -> `str = "Hellotrue1.5"`
+        - `str.insert(4,"World")` -> `str = "HellWorldotrue1.5"`
+        - *错误。*
+
+    ],
+  )
+
+  #answer-choice(
+    4,
+    [B],
+    [
+      1. *A. String 对象*
+        - `String` 对象不能与 `System.in` 关联
+        - *错误。*
+
+      2. *B. Scanner 对象*
+        - `Scanner` 对象可以与 `System.in` 关联
+        - *正确。*
+
+      3. *C. Writer 对象*
+        - `Writer` 对象不能与 `System.in` 关联
+        - *错误。*
+
+      4. *D. Reader 对象*
+        - `Reader` 对象可以与 `System.in` 关联
+        - *错误。*
+    ],
+  )
+  #answer-choice(
+    5,
+    [B],
+    [
+      1. A. /** String str = "abc";*/
+        - 这是文档注释格式，用于生成API文档
+        - *错误。*
+
+      2. B. //double a = 3;*
+        - 这是单行注释的正确格式
+        - *正确。*
+
+      3. C. % int b=0;
+        - %不是Java中的注释符号
+        - *错误。*
+
+      4. D. /* double i=3.0:*/
+        - 这是多行注释，但含有语法错误（冒号）
+        - *错误。*
+    ],
+  )
+  #answer-choice(
+    6,
+    [D],
+    [
+      1. *A. Manager 类是超类*
+        - Manager 类是从 Employee 类派生的子类
+        - *错误。*
+
+      2. *B. Manager 类是父类*
+        - Manager 类是从 Employee 类派生的子类
+        - *错误。*
+
+      3. *C. Employee 类是子类*
+        - Employee 类是 Manager 类的父类/超类
+        - *错误。*
+
+      4. *D. Manager 类是派生类*
+        - Manager 类是从 Employee 类派生的子类
+        - *正确。*
+
+    ],
+  )
+
+  #answer-choice(
+    7,
+    [A],
+    [
+      1. *A. BigInteger a = BigInteger.valueOf(8)+BigInteger.valueOf("7");*
+        - `BigInteger` 不支持直接使用 `+` 运算符，因为它是一个对象类型而不是基本数据类型
+        - 需要使用 `add()` 方法进行加法运算，如 `bigInt1.add(bigInt2)`
+        - *错误。*
+
+      2. *B. BigInteger a = BigInteger.valueOf(8);*
+        - 正确的语法
+        - *正确。*
+
+      3. *C. BigInteger a = BigInteger.valueOf(Long.parseLong("7"));*
+        - `valueOf` 方法接受 `long` 类型参数,但 Long.parseLong("7") 会将其变成 long 值 7。
+        - *正确。*
+
+      4. *D. BigInteger a = BigInteger.valueOf(8).add(new BigInteger("7"));*
+        - 正确的语法
+        - *正确。*
+    ],
+  )
+  #answer-choice(
+    8,
+    [D],
+    [
+      1. *A. Manager类*
+        - `new Employee("张三",40000)` 创建的是 `Employee` 对象
+        - *错误。*
+
+      2. *B. Manager 类或 Employee 类*
+        - `getSalary()` 方法是 `Employee` 类的方法
+        - *错误。*
+
+      3. *C. Manager 类和 Employee 类*
+        - `getSalary()` 方法是 `Employee` 类的方法
+        - *错误。*
+
+      4. *D. Employee类*
+        - `getSalary()` 方法是 `Employee` 类的方法
+        - *正确。*
+    ],
+  )
+  #answer-choice(
+    9,
+    [A],
+    [
+      1. *A. double[] m = new double[-4];*
+        - 数组大小不能为负数
+        - *错误。*
+
+      2. *B. String[7] m = new String[];*
+        - 数组声明和初始化语法错误
+        - *错误。*
+
+      3. *C. boolean m[] = new boolean[6];*
+        - 正确的语法
+        - *正确。*
+
+      4. *D. int m; m = new double[3];*
+        - 类型不匹配，`int` 不能赋值为 `double` 数组
+        - *错误。*
+
+        #figure(
+          table(
+            columns: 3,
+            stroke: 1pt,
+            [声明方式], [说明], [推荐程度],
+            [double[] m], [Java风格], [更为推荐],
+            [double m[]], [C/C++风格], [不推荐],
+          ),
+          caption: "数组声明语法对比",
+        )
+    ],
+  )
+
+  #answer-choice(
+    10,
+    [C],
+    [
+      1. *A. 'abc'*
+        - 单引号用于字符(char)，不能表示字符串
+        - *错误。*
+
+      2. *B. {'a','b', 'c'}*
+        - 花括号用于数组初始化
+        - *错误。*
+
+      3. *C. "abc"*
+        - 双引号用于字符串
+        - *正确。*
+
+      4. *D. {"abe", "abc", "abe"}*
+        - 花括号用于数组初始化
+        - *错误。*
+    ],
+  )
+  #answer-choice(
+    11,
+    [D],
+    [
+      1. *A. byte*
+        - 占用内存空间最小
+        - *错误。*
+
+      2. *B. float*
+        - 占用内存空间较小
+        - *错误。*
+
+      3. *C. long*
+        - 占用内存空间较大
+        - *错误。*
+
+      4. *D. double*
+        - 占用内存空间最大
+        - *正确。*
+    ],
+  )
+  #answer-choice(
+    12,
+    [C],
+    [
+      Java 的对象初始化过程分为两个层次：
+
+      🧱 类级别（一次）：
+      1. 静态属性（static 字段）
+      2. 静态代码块
+
+      👉 这些在类加载阶段执行，仅执行一次，不管创建多少对象。
+
+
+      🧱 对象级别（每次 new）：
+      3. 非静态属性初始化
+      4. 非静态代码块
+      5. 构造方法
+
+      👉 每次 new 一个对象时都会走一遍。
+
+      🧠 所以完整流程是：
+      1. 类被加载（第一次使用类时）
+        • 执行：静态变量初始化 + 静态代码块（一次）
+      2. 每次创建对象时（new）
+        • 执行：非静态变量初始化 + 非静态代码块（按顺序） → 构造方法体
+    ],
+  )
+  #answer-choice(
+    13,
+    [A],
+    [
+      4. *D. 15*\
+        -\-b 是先减少 1 再比较
+    ],
+  )
+  #answer-choice(
+    14,
+    [B],
+    [
+      1. *A. 异常处理代码无异常发生*
+        - finally 块无论是否发生异常都会执行
+        - *错误。*
+
+      2. *B. 异常处理代码中执行了 System.exit(1) 语句*
+        - System.exit() 会立即终止 JVM，不会执行 finally 块
+        - *正确。*
+
+      3. *C. 异常处理代码中执行了 continue 语句*
+        - continue 语句不会阻止 finally 块执行
+        - *错误。*
+
+      4. *D. 异常处理代码中执行了 break 语句*
+        - break 语句不会阻止 finally 块执行
+        - *错误。*
+    ],
+  )
+
+  #answer-choice(
+    15,
+    [C],
+    [
+      1. *A. 用户输入错误*
+        - 用户输入错误可能导致异常
+        - *错误。*
+
+      2. *B. 设备错误*
+        - 设备错误可能导致异常
+        - *错误。*
+
+      3. *C. 代码错误*
+        - ⚠️（有争议，但本题视为“属于异常”）
+        - *错误。*
+
+      4. *D. 数据类型自动转换*
+        - Java 中的自动类型转换（如 int → long，float → double）是 正常语言机制，不会抛异常。
+        - *正常。*
+    ],
+  )
+  #answer-choice(
+    16,
+    [B],
+    [
+      包内可见, 不可以用 public 修饰符
+      1. *A. package haut.oop.base; public class Employee { }*
+        - public 修饰符使类可见于所有包
+        - *错误。*
+
+        2. *B. package haut.oop.base; class Employee{ }*
+          - 默认修饰符使类仅在同一包内可见
+          - *正确。*
+
+        3. *C. public class Employee{ }*
+          - public 修饰符使类可见于所有包
+          - *错误。*
+
+        4. *D. class Employee { }*
+          - 默认修饰符使类仅在同一包内可见
+          - *错误。*
+    ],
+  )
+
+  #answer-choice(
+    17,
+    [C],
+    [
+      3. *C. -3*
+        - x = 3
+        - x = x += x -= x \*= x
+        可以从右到左进行计算
+        - *正确。*
+    ],
+  )
+
+  #answer-choice(
+    18,
+    [A],
+    [
+      1. - sort() 方法对数组进行升序排序
+        - Arrays.toString() 方法将数组转换为字符串
+        - 若是直接打印数组, 会打印数组的引用地址
+
+      4. *D. (31, 30, 29, 28, 25)*
+        - 错误的格式
+        - *错误。*
+    ],
+  )
+  #answer-choice(
+    19,
+    [A],
+    [
+      1. *A. Scanner 对象*
+        - Scanner 对象可以与 System.in 关联
+        - *正确。*
+
+      2. *B. Reader 对象*
+        - Reader 对象可以与 System.in 关联
+        - *错误。*
+
+      3. *C. String 对象*
+        - String 对象不能与 System.in 关联
+        - *错误。*
+
+      4. *D. Writer 对象*
+        - Writer 对象不能与 System.in 关联
+        - *错误。*
+    ],
+  )
+  #answer-choice(
+    20,
+    [B],
+    [
+      1. *A. 方法的定义或实现*
+        - 定义和实现是同一概念
+        - *错误。*
+
+      2. *B. 方法的覆盖或重写*
+        - 子类覆盖父类的方法
+        - *正确。*
+
+      3. *C. 方法的重构或实现*
+        - 重构是代码结构调整，不是覆盖
+        - *错误。*
+
+      4. *D. 方法的继承或派生*
+        - 继承是类之间的关系，不是方法覆盖
+        - *错误。*
+    ],
+  )
+
+  == 判断题
+  //MARK:✅❌
+  #answer-true-false(
+    1,
+    [对],
+    [
+      类是相同行为和状态的诸多对象的统称。
+    ],
+  )
+
+
+  #answer-true-false(
+    2,
+    [错],
+    [
+      在对一个 long 型变量进行赋值时, 数字后面要加 L 或 l。
+    ],
+  )
+
+  #answer-true-false(
+    3,
+    [对],
+    [
+      如果类中没有任何构造方法, 系统会自动创建一个不带参数的构造方法。
+    ],
+  )
+
+  #answer-true-false(
+    4,
+    [对],
+    [
+      BigInteger 类可以实现任意精度的整数运算。
+    ],
+  )
+
+  #answer-true-false(
+    5,
+    [错],
+    [
+      运算符 && 和 & 是没有区别的。
+    ],
+  )
+
+  #answer-true-false(
+    6,
+    [对],
+    [
+      无参数构造器创建的对象, 对象的状态被为适当的默认值。
+    ],
+  )
+
+  #answer-true-false(
+    7,
+    [对],
+    [
+      通配符的限定若用 `<? extends Manager>` 来表示, 其含义这个通配符限制为 Manager 类及该类的所有父类型。
+    ],
+  )
+
+  #answer-true-false(
+    8,
+    [对],
+    [
+      `import static` 语句可以导入静态方法和静态字段。
+    ],
+  )
+
+  #answer-true-false(
+    9,
+    [错],
+    [
+      在 Java 语言中是不支持单重继承的, 但是可以使用接口机制来实现多重继承的功能。
+    ],
+  )
+
+  #answer-true-false(
+    10,
+    [对],
+    [
+      在语句块内部可以访问之前在外部声明的变量。
+    ],
+  )
+
+  #answer-true-false(
+    11,
+    [对],
+    [
+      静态成员属于类, 不属于任何单个的对象。
+    ],
+  )
+
+  #answer-true-false(
+    12,
+    [错],
+    [
+      若循环体含有多条语句, 则必须置于一对花括号中, 否则视为语法错误。
+    ],
+  )
+
+  #answer-true-false(
+    13,
+    [错],
+    [
+      Collections 是一个接口类, 进一步提供一系列的静态方法, 实现对集合的排序、替换、交换、搜索、拷贝等操作。
+    ],
+  )
+
+  #answer-true-false(
+    14,
+    [对],
+    [
+      子类对父类进行方法覆盖时, 需要返回值类型、函数名和参数列表都一模一样。
+    ],
+  )
+
+  #answer-true-false(
+    15,
+    [对],
+    [
+      继承 `java.lang.Thread` 类和实现 `java.lang.Runnable` 接口是 Java 中实现多线程的两种方式。
+    ],
+  )
+
+  #answer-true-false(
+    16,
+    [对],
+    [
+      用链接存储结构存储的线性表称为链表。
+    ],
+  )
+
+  #answer-true-false(
+    17,
+    [对],
+    [
+      可以在变量声明的同时对其初始化。
+    ],
+  )
+
+  #answer-true-false(
+    18,
+    [对],
+    [
+      希望把异常向上交给调用这个方法的方法来处理, 可以通过 `throw` 语句来实现。
+    ],
+  )
+
+  #answer-true-false(
+    19,
+    [对],
+    [
+      大数类中静态的 `valueOf` 可实现普通数值向大数的转化。
+    ],
+  )
+
+  #answer-true-false(
+    20,
+    [对],
+    [
+      包的名字放在类文件的开头, 否则为无名包。
+    ],
+  )
+]
+== 程序阅读题
+//MARK:阅读
+#answer-analysis(
+  1,
+  [
+
+  ],
+)
