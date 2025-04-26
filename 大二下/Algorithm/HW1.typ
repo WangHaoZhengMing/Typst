@@ -1,4 +1,3 @@
-// #set text(font:"PingFang SC")
 #let problem(num, body) = {
   text(fill: blue)[* Problem #num. * #sym.space ]
   body
