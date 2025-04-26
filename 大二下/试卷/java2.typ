@@ -1,6 +1,6 @@
 #set document(title: "2023-2024 年《JAVA 程序设计》期末试题")
 #set heading(numbering: "一、")
-#set text(font: "PingFang SC")
+#set text(font: "PingFang SC",lang:"zh")
 
 //这个是选择题要用的横线
 #let uline(answer: "", width: 4em) = {
@@ -469,7 +469,7 @@
 }
 
 #let answer-analysis(num, solution) = {
-  text()[#num. #pad(left: 1em)[#solution]
+  text()[#num. 解答\ #solution
   ]
 }
 #align(center)[= 参考答案]
@@ -1050,9 +1050,137 @@
 ]
 == 程序阅读题
 //MARK:阅读
-#answer-analysis(
-  1,
-  [
+#place(dx: 0.5cm)[#line(length: 100%, angle: 90deg, stroke: 0.5pt + gray)]
 
-  ],
++ 我们一步一步分析这段 Java 程序的输出：
+  1. Arrays.sort(arr) 对数组排序:
+    [2, 3, 1, 5, 4, 6] -> [1, 2, 3, 4, 5, 6]
+
+  2. Arrays.binarySearch(arr, 3) 在排序后数组中查找元素 3:
+    索引: 0 1 2 3 4 5
+    值: 1 2 3 4 5 6
+    找到 3 在索引 2 处
+
+  3. 程序输出: 2
+
++ 详细过程如下:#grid(columns: 2,column-gutter: 40pt,
+    [1. k = 1 → 1 > 4 ❌ → 打印 k=1
+    2. k = 2 → 2 > 4 ❌ → 打印 k=2
+    3. k = 3 → 3 > 4 ❌ → 打印 k=3
+    4. k = 4 → 4 > 4 ❌ → 打印 k=4
+    5. k = 5 → 5 > 4 ✅ → break，循环结束],
+    [输出:
+    ```
+    k=1
+    k=2
+    k=3
+    k=4
+    ```]
 )
+
++ 首先看数组定义：
+  ```java
+  int[][] a = {
+      {1, 2},          // a[0]，长度 2
+      {3, 4, 5, 6},    // a[1]，长度 4
+      {7, 8, 9},       // a[2]，长度 3
+      {}               // a[3]，长度 0
+  };
+  ```
+  那么：
+  - `len = a.length = 4`（a 有 4 个一维数组元素）
+  - `col1 = a[0].length = 2`
+  - `col2 = a[1].length = 4`
+  - `col3 = a[2].length = 3`
+  - `col4 = a[3].length = 0`
+
+  ✅ #strong[答案：]`len = 4`，`col1 = 2`，`col2 = 4`，`col3 = 3`，`col4 = 0`
+
+
+
+  + *`a[1][1]`、`a[1][2]`、`a[1][3]` 的值依次是多少？*
+
+    查看 `a[1] = {3, 4, 5, 6}`：
+    - `a[1][1] = 4`
+    - `a[1][2] = 5`
+    - `a[1][3] = 6`
+
+    ✅ #strong[答案：]依次为 4、5、6
+
+
+  + *使用 `for` 循环语句实现对数组 `a` 中的所有元素进行求和*
+    #table(
+      columns: 2,
+      // gutter: 20pt,
+      [ ```java
+        //normal for 循环
+          int sum = 0;
+          for (int i = 0; i < a.length; i++) {
+              for (int j = 0; j < a[i].length; j++) {
+                  sum += a[i][j];
+              }
+          }
+          System.out.println("总和是：" + sum);
+        ```],
+      [
+        ```java
+        // 也可以用增强型 `for` 循环
+        int sum = 0;
+        for (int[] row : a) {
+            for (int val : row) {
+                sum += val;
+            }
+        }
+        System.out.println("总和是：" + sum);
+        ```],
+    )
+    在这个具体数组中，所有元素之和为：
+    $
+      1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 = 45
+    $
++ 填入的代码如下:
+  #coder(```java
+  public void sort(int[] p) {
+      int temp;
+      int len = p.length;
+      for (int i = 0; i < len / 2; i++) {
+          temp = p[i];
+          p[i] = p[len - i - 1];//数组 index 从0开始
+          p[len - i - 1] = temp;
+      }
+  }
+  ```)
+  输出的结果为:
+  #coder(```java
+  [60, 50, 40, 30, 20, 10]
+  ```)
+
++ #box(stroke: 1pt, inset: 5pt)[
+    解析:
+    + *泛型参数 `T` 的边界*:
+      - 类型参数 `T` 有一个复杂的 *上界* (Upper Bound)。它使用了 `extends` 关键字和 `&` 连接符来指定多个约束。这些约束可以总结如下：
+
+       #figure(
+        table(
+          columns: (auto, 1fr, auto),
+          align: (left, left, center),
+          [*约束*], [*含义*], [*关联类型示例*],
+          [ `extends AbstractList<Integer>` ], [ T 必须继承 `AbstractList<Integer>` 类 ], [ `AbstractList` ],
+          [ `& List<Integer>` ], [ T 必须实现 `List<Integer>` 接口 ], [ `List` ],
+          [ `& RandomAccess` ], [ T 必须实现 `RandomAccess` 标记接口，表示支持高效随机访问 ], [ `RandomAccess` ],
+          [ *综合要求* ], [ T 必须同时满足以上所有条件 ], [ `ArrayList<Integer>` ],
+        ),caption:[参数解析])<泛型参数>
+
+      - 综合来看，`T` 被限制为必须是一种支持高效随机访问的、存储 `Integer` 元素的列表实现，例如 `ArrayList<Integer>` 就是一个满足条件的典型例子。而像 `LinkedList<Integer>` 则不满足 `RandomAccess` 条件。
+
+    + *泛型参数 `U`*:
+      - 类型参数 `U` 没有指定任何边界 (`extends ...`)，这意味着 `U` 可以是任何 Java 类型（包括原始类型的包装类，如 `Integer`, `Double`，或其他自定义类，如 `String`, `MyObject` 等）。
+  ]
+  + 用的是 Java 的泛型系统.
+  + 如@泛型参数 所示
+  + `AbstractList<Integer>`、`List<Integer>`可以, `RandomAccess` 不可以
+  + (ac) 合法, (b)不合法
++ 答案:
+  ```java
+  
+  ```
