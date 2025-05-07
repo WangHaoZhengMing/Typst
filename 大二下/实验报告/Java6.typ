@@ -252,8 +252,7 @@ public class ScoreCalculator {
 （2）代码实现
 
 ```java
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
