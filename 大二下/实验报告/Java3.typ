@@ -5,20 +5,18 @@
     fill: rgb("#F6F8FA"),
     radius: 8pt,
   )[#v(-4pt)
-    #text(size:25pt, weight: 900, fill: rgb("#FF5F56"),font: "SF Mono")[#sym.bullet]
-    #text(size:25pt, weight: 900, fill: rgb("#FFBD2E"),font: "SF Mono")[#sym.bullet]
-    #text(size:25pt, weight: 900, fill: rgb("#27C93F"),font: "SF Mono")[#sym.bullet]
+    #text(size: 25pt, weight: 900, fill: rgb("#FF5F56"), font: "SF Mono")[#sym.bullet]
+    #text(size: 25pt, weight: 900, fill: rgb("#FFBD2E"), font: "SF Mono")[#sym.bullet]
+    #text(size: 25pt, weight: 900, fill: rgb("#27C93F"), font: "SF Mono")[#sym.bullet]
     #v(-5pt)
-    #text(size: 13pt,font: "SF Mono")[#code]
+    #text(size: 13pt, font: "SF Mono")[#code]
   ]
 }
 #set text(
   font: ("New Computer Modern", "PingFang SC"),
   size: 11pt,
 )
-#set page(
-    height: auto
-)
+#set page(height: auto)
 #align(center)[
   #text(size: 1.2em)[#strong[河南工业大学 #underline[Java程序设计实验] 实验报告]]
 
@@ -537,28 +535,28 @@ public class ShapeTest {
     public static void main(String[] args) {
         // Test Rectangle
         Shape rectangle = new Rectangle(5, 3);
-        System.out.printf("Rectangle - Area: %.2f, Perimeter: %.2f%n", 
+        System.out.printf("Rectangle - Area: %.2f, Perimeter: %.2f%n",
                          rectangle.area(), rectangle.perimeter());
 
         // Test Circle
         Shape circle = new Circle(4);
-        System.out.printf("Circle - Area: %.2f, Perimeter: %.2f%n", 
+        System.out.printf("Circle - Area: %.2f, Perimeter: %.2f%n",
                          circle.area(), circle.perimeter());
 
         // Test Triangle
         Shape triangle = new Triangle(3, 4, 5);
-        System.out.printf("Triangle - Area: %.2f, Perimeter: %.2f%n", 
+        System.out.printf("Triangle - Area: %.2f, Perimeter: %.2f%n",
                          triangle.area(), triangle.perimeter());
 
         // Test Student
         Student student = new Student("John", 1.75, 70);
-        System.out.printf("Student %s - BMI: %.2f, Height in cm: %.2f%n", 
+        System.out.printf("Student %s - BMI: %.2f, Height in cm: %.2f%n",
                          student.getName(), student.area(), student.perimeter());
 
         // Demonstrate polymorphism
         Shape[] shapes = {rectangle, circle, triangle, student};
         for (int i = 0; i < shapes.length; i++) {
-            System.out.printf("Shape %d - Area: %.2f, Perimeter: %.2f%n", 
+            System.out.printf("Shape %d - Area: %.2f, Perimeter: %.2f%n",
                              i + 1, shapes[i].area(), shapes[i].perimeter());
         }
     }
