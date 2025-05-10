@@ -735,7 +735,7 @@
       5. 构造方法
 
       👉 每次 new 一个对象时都会走一遍。
-
+      🛠️ 构造方法
       🧠 所以完整流程是：
       1. 类被加载（第一次使用类时）
         • 执行：静态变量初始化 + 静态代码块（一次）
@@ -803,15 +803,15 @@
         - public 修饰符使类可见于所有包
         - *错误。*
 
-        2. *B. package haut.oop.base; class Employee{ }*
+      2. *B. package haut.oop.base; class Employee{ }*
           - 默认修饰符使类仅在同一包内可见
           - *正确。*
 
-        3. *C. public class Employee{ }*
+      3. *C. public class Employee{ }*
           - public 修饰符使类可见于所有包
           - *错误。*
 
-        4. *D. class Employee { }*
+      4. *D. class Employee { }*
           - 默认修饰符使类仅在同一包内可见
           - *错误。*
     ],
@@ -988,7 +988,9 @@
     13,
     [错],
     [
-      Collections 是一个接口类, 进一步提供一系列的静态方法, 实现对集合的排序、替换、交换、搜索、拷贝等操作。
+      Collections (注意末尾的 's') 是一个工具类（utility class），它提供了操作或返回集合的静态方法。
+      
+      Collection (没有 's') 才是一个接口，是集合层次结构的根接口。
     ],
   )
 
@@ -997,6 +999,8 @@
     [对],
     [
       子类对父类进行方法覆盖时, 需要返回值类型、函数名和参数列表都一模一样。
+      
+      #underline[但是]，从 Java 5 开始，返回值类型可以是父类方法返回值类型的子类型（这称为协变返回类型，covariant return types）。如果严格要求“一模一样”，那么由于协变返回类型的存在，此说法不完全正确。具体以老师为准。
     ],
   )
 
@@ -1004,7 +1008,7 @@
     15,
     [对],
     [
-      继承 `java.lang.Thread` 类和实现 `java.lang.Runnable` 接口是 Java 中实现多线程的两种方式。
+      这两种是创建和运行线程的主要方式。通常推荐实现 Runnable 接口，因为它更灵活（避免了Java单继承的限制，并且能更好地分离任务和执行机制）。
     ],
   )
 
@@ -1036,7 +1040,7 @@
     19,
     [对],
     [
-      大数类中静态的 `valueOf` 可实现普通数值向大数的转化。
+      例如 BigInteger.valueOf(long val) 和 BigDecimal.valueOf(double val) 可以将基本类型的数值转换为相应的 BigInteger 或 BigDecimal 对象。
     ],
   )
 
@@ -1044,7 +1048,7 @@
     20,
     [对],
     [
-      包的名字放在类文件的开头, 否则为无名包。
+      如果一个 Java 源文件属于某个包，那么 package 声明语句必须是文件中除去注释和空白行的第一条语句。如果没有 package 声明，则该文件中的类属于无名包（unnamed package）。
     ],
   )
 ]
@@ -1110,6 +1114,7 @@
 
 
   + *使用 `for` 循环语句实现对数组 `a` 中的所有元素进行求和*
+  #colbreak()
     #table(
       columns: 2,
       // gutter: 20pt,

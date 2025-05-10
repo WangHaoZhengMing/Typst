@@ -364,8 +364,7 @@ public class FileCopier {
             }
 
             System.out.println("文件复制成功！");
-            System.out.println("源文件: " + sFile);
-            System.out.println("目标文件: " + dFile);
+
 
         } catch (IOException e) {
             System.out.println("文件复制过程中发生异常: " + e.toString());

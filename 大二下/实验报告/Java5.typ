@@ -40,8 +40,7 @@
 
   3. 创建一个名称为Vehicle的接口，在接口中添加两个方法start()和stop()；创建Bike和Bus两个类，它们实现Vehicle接口；最后，创建一个名称为InterfaceDemo的测试类，在该类的main()方法中创建Bike和Bus对象，并调用start()和stop()方法，要求运用接口回调。
 
-  4. 假设Computable是一个接口，该接口含有一个compute()方法，参数自定义。然后，编写一个用于计算的测试类，该程序有一个方法ToCompute（Computable
-  c）方法，可以计算加法和乘法，要求测试类中运用匿名类实现功能。
+  4. 假设Computable是一个接口，该接口含有一个compute()方法，参数自定义。然后，编写一个用于计算的测试类，该程序有一个方法ToCompute（Computable）方法，可以计算加法和乘法，要求测试类中运用匿名类实现功能。
 
   5. 模拟火车站安检，编写java程序，要求如下：
 

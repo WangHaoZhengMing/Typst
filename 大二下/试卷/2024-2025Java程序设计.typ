@@ -362,7 +362,7 @@
   text(weight: "bold")[#num. #pad(left: 1em)[#solution]
   ]
 }
-
+//MARK:答案
 == 选择题
 #answer-choice(
   1,
@@ -818,6 +818,7 @@
   ],
 )
 
+//MARK:A判
 == 判断题
 #let apple-table = figure(
   table(
@@ -909,6 +910,8 @@
 
 #answer-true-false(20, "❌", [FileReader是字符流，用于读取字符形式的文件，而不是字节形式。])
 
+
+//MARK:A分
 == 程序分析题
 
 #answer-analysis(
@@ -962,6 +965,7 @@
     )
   ],
 )
+//MARK:A简
 == 简答题
 1. 访问权限特点
   #figure(
@@ -1047,21 +1051,24 @@
   // 实现回调的类
   class Worker implements Callback {
     public void onComplete(String result) {
-        System.out.println("任务完成: " + result);
+      // Other code...
+      System.out.println("任务完成: " + result);
     }
   }
 
   // 使用回调的类
   class Task {
-   public void execute(Callback callback) {
-      // 执行任务
-        String result = "处理完成";
-        callback.onComplete(result);
+    public void execute(Callback callback) {
+        // 执行一些任务
+        System.out.println("执行任务...");
+        // 任务完成后调用回调方法
+        callback.onComplete("处理完成");
     }
   }
   ```)
 
 #line()
+//MARK:A编
 == 编程题
 1. #coder(```java
   // Sum类定义

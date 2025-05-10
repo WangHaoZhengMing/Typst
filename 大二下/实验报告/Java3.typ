@@ -23,7 +23,7 @@
   #v(0.5em)
   专业班级：#underline("计科 2301") 学号：#underline("231040100116") 姓名：#underline("王浩然") 指导老师： 评分：
 ]
-#outline()
+// #outline()
 
 == 实验题目
 实验（三）：Java类与对象
@@ -130,7 +130,7 @@ public class QuadraticEquation {
 5. 创建测试类验证所有功能
 
 ```java
-Account.java
+//Account.java
 public class Account {
     private String accountName;
     private String personalInfo;
