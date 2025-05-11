@@ -15,12 +15,10 @@
 ]
 #outline()
 #pagebreak()
-#set page(
-  numbering: "第1 页/共 1 页",
-)
+#set page(numbering: "第1 页/共 1 页")
 #align(left)[#text(font: "Heiti SC")[绝密★启用前]]
 #align(center, text(15pt)[#text(font: "Songti SC")[$2024-2025$ 年《Java 程序设计》期末试题]])
-#text(font:"Heiti SC")[注意事项]：
+#text(font: "Heiti SC")[注意事项]：
 #set enum(indent: 0.5cm, numbering: "1.")
 + 答卷前，考生务必将自己的姓名和准考证号填写在答题卡上。
 + 回答选择题时，选出每小题答案后，用铅笔把答题卡对应题目的答案标号涂黑。如需改动，用橡皮擦干净后，再选涂其它答案标号。回答非选择题时，将答案写在答题卡上。写在本试卷上无效。
@@ -141,7 +139,7 @@
   #grid(
     columns: 4,
     gutter: 1fr,
-    [A. `3a`], [B. `int name`], [C. `$number`], [D. `field_name`], // Adjusted D based on typical Java style convention, original OCR `field name` is ambiguous
+    [A. `3a`], [B. `int name`], [C. `$number`], [D. `field name`], // Adjusted D based on typical Java style convention, original OCR `field name` is ambiguous
   )
 
 + 为了区分重载多态中同名的不同方法, 要求 ( )
@@ -706,7 +704,7 @@
         [`3a`], [错误：变量名不能以数字开头],
         [`int name`], [错误：变量名不能是Java关键字],
         [`$number`], [正确：变量名可以以美元符号开头],
-        [`field_name`], [正确：变量名可以包含下划线],
+        [`field name`], [错误：变量名不可以包含空格],
       ),
       caption: "Java变量命名规则",
     )

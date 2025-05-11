@@ -44,14 +44,11 @@
 
   5. 模拟火车站安检，编写java程序，要求如下：
 
-    (1)编写一个异常类goodsException，该类包括toPrint（）方法，输出“该物品是违禁品”；
+    (1)编写一个异常类goodsException，该类包括toPrint（ ）方法，输出“该物品是违禁品”；
 
-    (2)编写一个检测工具类Tool，该类中有checkGoods（Goods
-    g）方法，当参数g是违禁品时，将抛出goodsException对象；
+    (2)编写一个检测工具类Tool，该类中有checkGoods（Goodsg）方法，当参数g是违禁品时，将抛出goodsException对象；
 
-    (3)编写一个Goods类，该类中包含如下方法：设置物品是否是违禁品的方法setIsDanger（boolean
-    b）（默认否），判定物品是否是违禁品的方法isDanger（），如果是违禁品，返回ture，否则false；设置物品的名字的方法setName（String
-    n）；返回物品名字的方法getName（）；
+    (3)编写一个Goods类，该类中包含如下方法：设置物品是否是违禁品的方法setIsDanger（booleanb）（默认否），判定物品是否是违禁品的方法isDanger（ ），如果是违禁品，返回ture，否则false；设置物品的名字的方法setName（Stringn）；返回物品名字的方法getName（ ）；
 
     (4)编写测试类，创建一个Goods类对象“explosive”，并设置该物品是违禁品，然后模拟检测到该物品是违禁品。
 
