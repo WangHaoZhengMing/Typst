@@ -1,7 +1,7 @@
 #import "@preview/cuti:0.2.1": show-cn-fakebold
 #import "@preview/cetz:0.3.4": *
 #import "@preview/cetz-plot:0.1.0": *
-#set text(size: 12pt, font: ("New Computer Modern", "Songti SC"), lang: "zh")
+#set text(size: 12pt, font: ("Pingfang sc", "Songti SC"), lang: "zh")
 #show: show-cn-fakebold
 #set page(margin: 2cm, numbering: "1/1")
 // #set par(justify: true, leading: 1em)
