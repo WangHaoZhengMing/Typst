@@ -1,10 +1,8 @@
 #import "@preview/typsium:0.2.0": ce
-#import "@preview/numbly:0.1.0": numbly
 #set document(title: "2023-2024学年度武汉市部分学校高三年级调研考试 化学")
 #set page(numbering: "1/1")
 #set heading(level: 1, numbering: "一、")
 #set text(font: "PingFang SC")
-//这个是选择题要用的横线
 #let uline(answer: "", width: 4em) = {
   box(width: width, stroke: (bottom: 0.5pt), outset: (bottom: 4pt))[#answer]
 }
@@ -50,7 +48,7 @@
   )
 
 4. 18 世纪 70 年代,瑞典化学家舍勒利用软锰矿与浓盐酸制得了氯气。某化学兴趣小组模拟舍勒利用以下装置制备氯气,能达到预期目的的是
-  #figure(image("image.png"))
+  #figure(image("images/image.png"))
 5. 如图是元素周期表的一部分。下列关于硼及其化合物的叙述错误的是
   #figure(
     table(
@@ -80,7 +78,7 @@
 
 7. 我国科学家利用黑磷实现了高速场效应晶体管的应用尝试,黑磷的结构如图所示。下列说法错误的是
 
-  #figure(image("image-3.png", width: 70%))
+  #figure(image("images/image-3.png", width: 70%))
   #grid(
     columns: 2,
     gutter: 10pt,
@@ -97,12 +95,12 @@
     // [B. 向煤中加入石灰石实现燃煤脱硫: $2 Ca C O_3 + 2 S O_2 + O_2 arrow.t(Delta) 2 Ca S O_4 + 2 #ce("CO2")$],
     // [C. 向 $Mg(O H)_2$ 悬浊液中滴加 $Fe Cl_3$ 溶液: $3 Mg(O H)_2 (s) + 2 Fe Cl_3 (aq) === 2 Fe(O H)_3 (s) + 3 Mg Cl_2 (aq)$],
     // [D. 向甲醛中加入足量的银氨溶液并加热: $H C H O + 2 [ Ag(N H_3)_2 ] O H arrow.t(Delta) H C O O N H_4 + 2 Ag arrow.b + 3 N H_3 + #ce("H2") O$],
-    image("image-12.png")
+    image("images/image-12.png")
   )
 
 9. 碲元素(Te)位于周期表中第五周期 VIA 族,含碲有机物在医学、材料科学等领域发挥着独特的作用。某含碲有机物结构简式如图所示,下列说法错误的是
   #figure(
-    image("image-4.png", width: 30%),
+    image("images/image-4.png", width: 30%),
     caption: none,
   )
   #grid(
@@ -116,7 +114,7 @@
 
 10. 一种可用于头孢菌素改性剂的物质的结构如图所示,其中 X、Y、Z、W 是原子序数递增的短周期主族元素。下列说法正确的是
   #figure(
-    image("image-5.png", width: 20%), // Structure of X, Y, Z, W compound
+    image("images/image-5.png", width: 20%), // Structure of X, Y, Z, W compound
     caption: none,
   )
   #grid(
@@ -147,7 +145,7 @@
   )
 
 12. 我国科技工作者设计了一种 $#ce("CO2")$ 转化的多功能光电化学平台,实现了 CO 生产与塑料到化学品的协同化,其原理如图所示。下列说法错误的是
-  #figure(image("image-6.png", width: 50%))
+  #figure(image("images/image-6.png", width: 50%))
   #grid(
     columns: 1,
     gutter: 10pt,
@@ -169,14 +167,14 @@
       [C. 该物质的化学式为 $"GaN"_2$],
       [D. 该晶体的密度为 $display((4 times 84) / (a^3 N_A) times 10^(-27) g dot c m^(-3))$],
     ),
-    image("image-7.png", width: 50%),
+    image("images/image-7.png", width: 50%),
   )
 
 
 
 14. 由乙烷、乙烯、乙炔和二氧化碳组成的“四组分混合气体”在工业上较为常见,可利用传统方法或 MOFs 吸附法提纯得到高纯度乙烯,工艺流程如图所示。
   #figure(
-    image("image-13.png", width: 60%), // Flowchart for ethylene purification
+    image("images/image-13.png", width: 60%), // Flowchart for ethylene purification
     // caption: [工艺流程图：传统方法(洗气池->反应器->分离塔->较高纯度乙烯) vs MOFs吸附法(金属有机框架多孔选择性吸附柱)->超高纯度乙烯 (>99.9%)]
   )
   下列说法错误的是
@@ -201,7 +199,7 @@
       [C. 从 M 点到 P 点, $c(H C l O) / c(C l O^-)$ 逐渐减小],
       [D. 从 M 点到 P 点,水的电离程度逐渐增大],
     ),
-    image("image-1.png", width: 50%),
+    image("images/image-1.png", width: 50%),
   )
 
   // #ce("Cl2 + H2O <->HClO +HCl ");\
@@ -222,7 +220,7 @@
 
 16. (14分) 废 SCR 催化剂(含 $"TiO"_2$、#ce("V2O5")、#ce("WO3") 等)的回收对环境保护和资源循环利用意义重大。通过如下工艺流程可以回收其中的钛、钒、钨等。
 
-  #figure(image("image-2.png", width: 70%))
+  #figure(image("images/image-2.png", width: 70%))
   已知: ① #ce("TiO2")、#ce("V2O5") 和 #ce("WO3") 都能与 NaOH 溶液反应,分别生成不溶性的 #ce("Na2TiO3") 和可溶性的 $"NaVO"_3$、#ce("Na2WO4"); ② $K_(s p) ("CaWO"_4) = 9 times 10^(-9)$。
   回答下列问题:\
   (1) $基 态_23 V$ 原子的价层电子轨道表示式为 #uline(width: 5em)。\
@@ -247,7 +245,7 @@
     grid(
       columns: 4,
       gutter: 1fr,
-      image("image-11.png", width: 70%),
+      image("images/image-11.png", width: 70%),
     ),
   )
   (2) 步骤 II 中生成绿色沉淀的离子方程式为 #uline(width: 10em)。
@@ -265,7 +263,7 @@
   回答下列问题:\
   (1) 我国学者结合实验与计算机模拟结果,研究了光催化 $#ce("CO2")$ 加氢合成甲醇的反应历程,如图所示,其中吸附在催化剂表面的物种用 \* 表示。
   #figure(
-    image("image-10.png", width: 70%), // Reaction coordinate diagram for CO2 hydrogenation to methanol
+    image("images/image-10.png", width: 70%), // Reaction coordinate diagram for CO2 hydrogenation to methanol
     caption: [反应历程图，显示相对能量与反应历程的关系],
   )
   ① $Delta H_1$ #uline(width: 3em) 0 (填 “>” 或 “<”)。
@@ -273,7 +271,7 @@
 
   (2) 向刚性容器中充入一定量 $#ce("CO2")$ 和 $#ce("H2")$,在相同压强和不同温度下,反应相同时间,$#ce("CO2")$ 的转化率和甲醇选择性[已知甲醇的选择性 $= (n#ce("CH3OH")) / (n_("反应")(#ce("CO2"))) times 100 %$]随温度的变化如图所示:
   #figure(
-    image("image-9.png", width: 50%), // Graph of CO2 conversion rate and methanol selectivity vs temperature
+    image("images/image-9.png", width: 50%), // Graph of CO2 conversion rate and methanol selectivity vs temperature
     caption: [$"CO"_2$转化率和甲醇选择性随温度的变化曲线],
   )
   在 $200 ~ 300 degree C$ 间,#ce("CH3OH") 的选择性随温度的升高而下降,写出一条可能原因 #uline(width: 30em)。
@@ -290,7 +288,7 @@
 
 19. (14分) 文拉法辛(化合物 H)是一种用于治疗各类抑郁症的药物,其合成路线如图所示。
   #figure(
-    image("image-8.png"), // Synthesis route of Venlafaxine (Compound H)
+    image("images/image-8.png"), // Synthesis route of Venlafaxine (Compound H)
     caption: [文拉法辛合成路线图],
   )
   回答下列问题:\
