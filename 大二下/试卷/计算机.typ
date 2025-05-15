@@ -1,5 +1,6 @@
 #set text(font: "PingFang SC")
 #set document(title: "2022年《计算机组成原理》期末试题")
+#set page( numbering: "1/1")
 #set heading(numbering: "一、")
 //这个是选择题要用的横线
 #let uline(answer: "", width: 4em) = {
