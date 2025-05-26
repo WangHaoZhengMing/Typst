@@ -164,25 +164,158 @@
 + 某机字长 32 位，常规设计的存储空间 $≤32$M，若将存储空间扩至 256M，请提出一种可能方案.
 
 + 如@计组2425, 有两条独立的总线和两个独立的存贮器。已知指令存贮器IM 最大容量为16384字（字长18位），数据存器 DM 最大容量是65536字（字长16位）。各寄存器均有"打入"（$R_"in"$）"送出"（$R_"out"$）控制命令，但图中未标出
-  #figure(
-    image("image/计组2425.jpg", width: 80%),
-    caption: [4题图],
-  )<计组2425>
-  假设处理机格式为:
 
-  #figure(
-    canvas({
+#figure(caption: [])[
+  #canvas(
+    length: 1cm,
+    {
       import draw: *
-      rect((-5, 0), (-2, 1))
-      rect((-2, 0), (1, 1))
-      content((-3.5, 0.5), [OP])
-      content((0, 0.5), [X])
-      content((-4.8, 1.3), [17])
-      content((-2, 1.3), [10 #h(1em) 9])
-      content((0.5, 1.3), [0])
-    }),
-  )
-  加法指令可写为 "$"ADD" X (R_i)$"。其功能是 $("AC"_o+((R_i)+X)→"AC"_I)$，其中 $((R_i)+X)$ 部分通过寻址方式指向数据存贮器，现取R为$R_I$。试画出ADD指令从取指令开始到执行结束的操作序列图，写明基本操作步骤和相应的微操作控制信号。
+
+      // Draw BUS lines
+      line((-9, 6), (7, 6), stroke: (thickness: 3pt, paint: gray))
+      content((0, 6.3), $"BUS"_1$)
+
+      line((-9, -6), (7, -6), stroke: (thickness: 3pt, paint: gray))
+      content((0, -6.3), $"BUS"_2$)
+
+      // Left Column - Registers R0-R3
+      let reg-width = 1.8
+      let reg-height = 0.6
+
+      rect((-7.5, 4), (-7.5 + reg-width, 4 + reg-height), stroke: black)
+      content((-7.5 + reg-width / 2, 4 + reg-height / 2), $R_0$)
+
+      rect((-7.5, 3.2), (-7.5 + reg-width, 3.2 + reg-height), stroke: black)
+      content((-7.5 + reg-width / 2, 3.2 + reg-height / 2), $R_1$)
+
+      rect((-7.5, 2.4), (-7.5 + reg-width, 2.4 + reg-height), stroke: black)
+      content((-7.5 + reg-width / 2, 2.4 + reg-height / 2), $R_2$)
+
+      rect((-7.5, 1.6), (-7.5 + reg-width, 1.6 + reg-height), stroke: black)
+      content((-7.5 + reg-width / 2, 1.6 + reg-height / 2), $R_3$)
+
+      // IAR (Instruction Address Register)
+      rect((-7.5, 0.5), (-5.3, 1.2), stroke: black)
+      content((-6.4, 0.85), "IAR")
+
+      // Instruction Memory
+      rect((-7.5, -1), (-5.3, 0.2), stroke: black, fill: gray.lighten(70%))
+      content((-6.4, -0.4), "指令存储器")
+      content((-8.2, -0.4), [IM])
+
+      // IDR (Instruction Data Register)
+      rect((-7.5, -2.8), (-5.3, -2.1), stroke: black)
+      content((-6.4, -2.45), "IDR")
+
+      // Middle Column - Control Units
+      rect((-3, 4), (-0.8, 4.7), stroke: black, name: "PC")
+      content((-1.9, 4.35), [PC])
+      line((-1.9, 6), "PC", mark: (end: ">"))
+
+      rect((-3, 2.3), (-0.8, 3.0), stroke: black, name: "AC0")
+      content((-1.9, 2.65), $"AC"_0$)
+      line((-3.5, -6), (-3.5, 3.3), (-2.5, 3.3), (-2.5, 3), mark: (end: ">"))
+      line((-0.2, 6), (-0.2, 3.5), (-1, 3.5), (-1, 3), mark: (end: ">"))
+
+      // Control Unit
+      rect((-3.4, -1.5), (-0.6, -0.7), stroke: black, fill: gray.lighten(80%))
+      content((-2, -1.1), [操作控制器])
+      line((-2.7, -3.3), (-2.7, -1.5), mark: (end: ">"))
+      line((-1.4, -3.3), (-1.4, -3), (0, -3), (0, -6), mark: (end: ">"))
+
+      // OP and X registers
+      rect((-3.4, -4), (-2, -3.3), stroke: black, name: "OP")
+      content((-2.7, -3.65), [OP])
+
+      rect((-2, -4), (-0.6, -3.3), stroke: black)
+      content((-1.3, -3.65), "X")
+      // OP/X to BUS2
+      line((-2, -4), (-2, -6), mark: (start: ">"))
+      line("AC0", (-1.9, 1.7), (0.4, 1.7), mark: (end: ">"))
+      line((0.4, -6), (0.4, 6), mark: (end: ">", start: ">"))
+      // DAR connections
+      line((2.6, -1.5), (2.6, -2.3), mark: (end: ">"))
+
+      // DM to DDR
+      line((2.6, -3.5), (2.6, -4.8), mark: (end: ">", start: ">"))
+
+      // DDR to BUS2
+      line((2.6, -5.4), (2.6, -6), mark: (end: ">", start: ">"))
+
+      // DAR (Data Address Register)
+      rect((1.5, -1.5), (3.7, -0.8), stroke: black, name: "DAR")
+      content((2.6, -1.15), [DAR])
+      line((1.2, 6), (1.2, 0), (2.6, 0), "DAR", mark: (end: ">"))
+
+      // Data Memory
+      rect((1.5, -3.5), (3.7, -2.3), stroke: black, fill: gray.lighten(70%))
+      content((2.6, -2.9), [数据存储器])
+      content((4.5, -2.9), [DM])
+
+      // DDR (Data Data Register)
+      rect((1.5, -5.4), (3.7, -4.8), stroke: black)
+      content((2.6, -5.05), [DDR])
+      line((2, -5.4), (2, -5.7), (0.8, -5.7), (0.8, 6), mark: (end: ">"))
+      // Right Column - Data processing
+      rect((2, 3), (3.6, 3.7), stroke: black, name: "AC1")
+      content((2.8, 3.35), $"AC"_1$)
+      line((2.8, 3.7), (2.8, 6), mark: (end: ">"))
+      line((1.5, 6), (1.5, 2.4), (2.5, 2.4), (2.5, 3), mark: (end: ">"))
+
+      // ALU (as trapezoid-like shape)
+      line((5.5, 1.5), (5.5, 3.6), (4.5, 3.3), (4.5, 1.8), close: true, fill: gray.lighten(90%), stroke: black)
+      content((5, 2.5), [ALU])
+      line((4.5, 2.4), (3.3, 2.4), (3.3, 3), mark: (end: ">"))
+      // ALU output
+      line((6, 6), (6, 3), (5.5, 3), mark: (end: ">"))
+      line((6, -6), (6, 2), (5.5, 2), mark: (end: ">"))
+
+      // Connections - using arrows
+      // R0-R3 connections to BUS1 (input)
+      line((-7.5, 4.3), (-8.1, 4.3))
+      line((-7.5, 3.5), (-8.1, 3.5))
+      line((-7.5, 2.7), (-8.1, 2.7))
+      line((-7.5, 1.9), (-8.1, 1.9))
+      line((-8.1, 1.9), (-8.1, 6), mark: (end: "<"))
+
+      // R0-R3 connections to BUS1 (output)
+      line((-5.7, 4.3), (-5, 4.3))
+      line((-5.7, 3.5), (-5, 3.5))
+      line((-5.7, 2.7), (-5, 2.7))
+      line((-5.7, 1.9), (-5, 1.9))
+      line((-5, 1.9), (-5, 6), mark: (end: ">"))
+
+      // IAR connections
+      line((-6.4, 0.5), (-6.4, 0.2), mark: (end: ">"))
+      line((-8.5, 6), (-8.5, 1), (-7.5, 1), mark: (end: ">"))
+
+      // IM to IDR
+      line((-6.4, -1), (-6.4, -2.1), mark: (end: ">", start: ">"))
+
+      // IDR to BUS2
+      line((-6.4, -2.8), (-6.4, -6), mark: (end: ">", start: ">"))
+
+
+      // AC0 connections
+      line((-3.5, 6), (-3.5, 3.7), (-2, 3.7), (-2, 4), mark: (start: ">"))
+    },
+  )]<计组2425>
+  
+假设处理机格式为:
+
+#figure(
+  canvas({
+    import draw: *
+    rect((-5, 0), (-2, 1))
+    rect((-2, 0), (1, 1))
+    content((-3.5, 0.5), [OP])
+    content((0, 0.5), [X])
+    content((-4.8, 1.3), [17])
+    content((-2, 1.3), [10 #h(1em) 9])
+    content((0.5, 1.3), [0])
+  }),
+)
+加法指令可写为 "$"ADD" X (R_i)$"。其功能是 $("AC"_o+((R_i)+X)→"AC"_I)$，其中 $((R_i)+X)$ 部分通过寻址方式指向数据存贮器，现取R为$R_I$。试画出ADD指令从取指令开始到执行结束的操作序列图，写明基本操作步骤和相应的微操作控制信号。
 
 + 假设某磁盘，每面有220道：已知磁盘转速 =3000装/分。数据传输率为175000B/s。求该磁盘总容量.
 //MARK:答案
@@ -925,21 +1058,21 @@
   #figure(
     canvas({
       import draw: *
-      let node(x, y, intext,name) = content((x, y), [#box(stroke: 1pt, inset: 10pt)[#intext]], name:name )
+      let node(x, y, intext, name) = content((x, y), [#box(stroke: 1pt, inset: 10pt)[#intext]], name: name)
 
-      node(0, 6, [CPU],"CPU")
-      node(0, 4, [控制单元],"CU")
+      node(0, 6, [CPU], "CPU")
+      node(0, 4, [控制单元], "CU")
 
-      node(-3, 1, [$M_1$],"m1")
-      node(-1, 1, [$M_2$],"m2")
-      node(3, 1, [$M_7$],"m7")
+      node(-3, 1, [$M_1$], "m1")
+      node(-1, 1, [$M_2$], "m2")
+      node(3, 1, [$M_7$], "m7")
 
-      line("CPU","CU", mark: (end: ">",start: ">"))
-      line("CU",(0,2.5),(-1,2.5),"m2", mark: (end: ">",start: ">"))
-      line("CU",(0,2.5),(-3,2.5),"m1", mark: (end: ">",start: ">"))
-      line("CU",(0,2.5),(1,2.5),(3,2.5),"m7", mark: (end: ">",start: ">"))
-      line((1,2.5),(1,1.5), mark: (end: ">"))
-      content((1,1.2),[.......])
+      line("CPU", "CU", mark: (end: ">", start: ">"))
+      line("CU", (0, 2.5), (-1, 2.5), "m2", mark: (end: ">", start: ">"))
+      line("CU", (0, 2.5), (-3, 2.5), "m1", mark: (end: ">", start: ">"))
+      line("CU", (0, 2.5), (1, 2.5), (3, 2.5), "m7", mark: (end: ">", start: ">"))
+      line((1, 2.5), (1, 1.5), mark: (end: ">"))
+      content((1, 1.2), [.......])
     }),
     caption: [多体交叉存取存储器示意图],
   )<多体交叉存取存储器示意图>
@@ -968,6 +1101,6 @@
   *解析：*
   - 磁盘转速 = 3000转/分 = 50转/秒
   - 所以转说50 圈传了 175000B的数据, 那么一圈的数据量为
-    $(175000B)/50 = 3500B$
+    $(175000B) / 50 = 3500B$
   - 每面有220道, 所以每道的数据量为
-    $3500B×220 = 1540000B$  
+    $3500B×220 = 1540000B$
