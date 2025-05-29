@@ -23,7 +23,7 @@
 ]
 
 #align(left)[#text(font: "Heiti SC")[绝密★启用前]]
-#align(center, text(15pt)[#text(font: "Songti SC")[$2023-2024$ 年《操作系统》期末试题]]) // Modified title based on OCR
+#align(center, text(15pt)[#text(font: "Songti SC")[$2023-2024$ 年河南工业大学期末考试]]) // Modified title based on OCR
 #align(center)[#text(size: 1.8em, font: "Heiti SC")[操作系统]] // Modified subject
 #text(font: "Heiti SC")[注意事项]：
 #set enum(indent: 0.5cm, numbering: "1.")
@@ -308,24 +308,7 @@
 //MARK:An
 #pagebreak()
 #align(center)[= 参考答案]
-#set heading(numbering: "1.1")
-#let answer-choice(num, answer, reasoning) = {
-  text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
-  linebreak()
-  pad(left: 0em)[#reasoning]
-}
-
-#let answer-true-false(num, answer, reasoning) = {
-  text(weight: "bold")[#num. #sym.space #box([正确答案：#answer], stroke: 1pt, outset: 2.5pt)]
-  linebreak()
-  [#reasoning]
-}
-
-#let answer-analysis(num, solution) = {
-  text(weight: "bold")[#num. #pad(left: 1em)[#solution]
-  ]
-}
-
+#set heading(numbering: "1.", level: 2)
 == 选择题
 #let answer_block(num, answer, explanation, breakable: false) = {
   block(
@@ -342,7 +325,6 @@
     ]
   ]
 }
-
 #answer_block("1", "C")[
   操作系统的发展历程按时间顺序为：管理程序→原始操作系统→现代操作系统。A项颠倒了管理程序和原始操作系统的顺序；B项完全颠倒了发展顺序；C项正确反映了从管理程序(负责自动化作业输入输出)发展到原始操作系统(具备基本资源管理功能)，再到现代操作系统(功能完善)的历史过程；D项将发展顺序完全倒置。
 ]
@@ -1343,7 +1325,7 @@
           let start3_x = end2_x
           let end3_x = 2 + (12.6 - 8) * 3.2
           rect((start3_x, 10.8), (end3_x, 11.4), fill: orange.lighten(70%), stroke: orange + 2pt)
-          content((start3_x + (end3_x - start3_x) / 2, 11.1), text(fill: white)[*J3执 0.5h*], size: 9pt)
+          content((start3_x + (end3_x - start3_x) / 2, 11.1), text(fill: white,size: 8pt)[*J3执 0.5h*], size: 9pt)
 
           line((start3_x, 11.5), (start3_x, 12), stroke: orange + 3pt, mark: (end: ">"))
           content((start3_x - 0.3, 12.2), text(fill: orange, size: 8pt)[开始], angle: 90deg)
@@ -1400,7 +1382,7 @@
           let sjf_start3_x = sjf_end1_x
           let sjf_end3_x = 2 + (11.0 - 8) * 3.2
           rect((sjf_start3_x, 4.8), (sjf_end3_x, 5.4), fill: orange.lighten(70%), stroke: orange + 2pt)
-          content((sjf_start3_x + (sjf_end3_x - sjf_start3_x) / 2, 5.1), text(fill: white)[*J3执行 0.5h*], size: 9pt)
+          content((sjf_start3_x + (sjf_end3_x - sjf_start3_x) / 2, 5.1), text(fill: white, size: 7pt)[*J3执行 0.5h*], size: 9pt)
 
           line((sjf_start3_x, 5.5), (sjf_start3_x, 6), stroke: orange + 3pt, mark: (end: ">"))
           content((sjf_start3_x - 0.3, 6.2), text(fill: orange, size: 8pt)[开始], angle: 90deg)
