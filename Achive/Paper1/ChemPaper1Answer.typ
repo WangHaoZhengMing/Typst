@@ -270,7 +270,7 @@
       [C. 该物质的化学式为 $"GaN"_2$],
       [D. 该晶体的密度为 $display((4 times 84) / (a^3 N_A) times 10^(-27) g dot c m^(-3))$],
     ),
-    image("images/image-7.png", width: 50%),
+    figure[#晶胞结构示意图],
   )
 
   第 四 周 期 ⽫ A 族 元
