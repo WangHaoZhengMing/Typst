@@ -1,6 +1,7 @@
 #import "@preview/typsium:0.2.0": ce
 #import "@preview/cetz:0.4.2"
 #import "@preview/lilaq:0.5.0" as lq
+#import "cetz.typ": *
 #set document(title: "2023-2024学年度武汉市部分学校高三年级调研考试 化学")
 #set page(numbering: "1/1")
 #set heading(level: 1, numbering: "一、")
@@ -50,7 +51,7 @@
   )
 
 4. 18 世纪 70 年代,瑞典化学家舍勒利用软锰矿与浓盐酸制得了氯气。某化学兴趣小组模拟舍勒利用以下装置制备氯气,能达到预期目的的是
-  #figure(image("images/image.png"))
+  #figure(image("images/image.svg"))
 5. 如图是元素周期表的一部分。下列关于硼及其化合物的叙述错误的是
   #figure(
     table(
@@ -79,271 +80,12 @@
   )
 
 7. 我国科学家利用黑磷实现了高速场效应晶体管的应用尝试,黑磷的结构如图所示。下列说法错误的是
-
   #figure()[
-    // Visual settings
-    #let atom-radius-2d = 0.25
-    #let atom-radius-3d = 0.18
-    #let bond-width-2d = 1pt
-    #let bond-width-3d = 2.5pt
-    #let text-size = 10pt
-
     #grid(
       columns: 2,
-      column-gutter: 80pt,
+      column-gutter: 20pt,
       align: center + horizon,
-      [#figure(caption: [黑磷（层状投影）])[#cetz.canvas({
-          import cetz.draw: *
-
-          // ==========================================
-          // LEFT DIAGRAM: 2D Projection (Hexagonal Network)
-          // ==========================================
-          group(name: "left-diagram", {
-            let dx = 1.2
-            let dy = 0.7
-
-            // Helper to draw "P" atom with background mask
-            let draw-p(x, y) = {
-              content((x, y), box(fill: white, inset: 2pt, [$upright(P)$]), anchor: "center")
-            }
-
-            let cols = 4
-            let rows = 2
-
-            // Draw Bonds
-            for c in range(cols + 1) {
-              for r in range(rows + 1) {
-                // Calculate base position
-                // Staggered columns: Odd columns are shifted down
-                let x1 = float(c) * dx
-                let shift = if calc.odd(c) { dy * 2.0 } else { 0.0 }
-                let y-top = float(r) * dy * 4.0 + shift
-
-                // Define the two atoms in the vertical pair
-                let p-top = (x1, -y-top)
-                let p-bot = (x1, -(y-top + dy))
-
-                // 1. Vertical Bond
-                line(p-top, p-bot, stroke: bond-width-2d)
-
-                // 2. Diagonal Bonds to the Right (if not last column)
-                if c < cols {
-                  // Logic:
-                  // If current col is EVEN:
-                  //   Bot atom connects to Right-col Top atom (Down-Right)
-                  //   Top atom connects to Right-col Bot atom of PREVIOUS row?
-                  //   Let's look at the hexagonal structure:
-                  //   Even Col Bot (y) connects to Odd Col Top (y+dy)
-
-                  let x-right = (c + 1) * dx
-                  // Odd column shift is dy*2
-                  // The "Top" atom of the odd column in the same row index `r` is at:
-                  let y-right-top = float(r) * dy * 4.0 + dy * 2.0
-
-                  // Top of current (Even) connects to Bottom of (Odd, r-1)? No.
-                  // Let's strictly follow standard honeycomb:
-                  // Bottom of Even(r) -> Top of Odd(r)
-                  // Top of Even(r) -> Bottom of Odd(r-1)
-
-                  if calc.even(c) {
-                    // Connection: Bot(Even) -> Top(Odd)
-                    let p-right-top = (x-right, -y-right-top)
-                    line(p-bot, p-right-top, stroke: bond-width-2d)
-
-                    // Connection: Top(Even) -> Bot(Odd, prev row)
-                    // Or visually: Top(Even) goes Up-Right
-                    let p-right-bot-prev = (x-right, -(y-right-top - dy * 4.0 + dy))
-                    // Only draw if valid or for stubs
-                    if r > 0 {
-                      line(p-top, (x-right, -(y-right-top - dy * 3.0)), stroke: bond-width-2d)
-                    } else {
-                      // Top row stubs (Up-Right)
-                      line(p-top, (x1 + dx * 0.6, -y-top + dy * 0.6), stroke: bond-width-2d)
-                    }
-                  } else {
-                    // If current col is ODD:
-                    // Bot(Odd) -> Top(Even, next r)
-                    // Top(Odd) -> Bot(Even, same r)
-
-                    // We only need to draw forward (to right) to avoid double drawing
-                    // Odd Col (c) to Even Col (c+1)
-                    let y-next-even-top = float(r) * dy * 4.0
-                    let y-next-even-bot = y-next-even-top + dy
-
-                    // Connection: Bot(Odd) -> Top(Even, next Row)
-                    // p-bot is (x1, -(y-top + dy))
-                    // Target is (x-right, -(y-next-even-top + dy*4)) -> (x-right, -y-next-even-top_next)
-                    // Let's simplify: Just mirror the Even->Odd logic.
-
-                    // Connection: Top(Odd) -> Bot(Even, same r)
-                    // p-top is (x1, -y-top). y-top = base + 2dy
-                    // Target Bot(Even) is at base + dy
-                    // The line goes Up-Right
-                    line(p-top, (x-right, -y-next-even-bot), stroke: bond-width-2d)
-
-                    // Connection: Bot(Odd) -> Top(Even, next r)
-                    // The line goes Down-Right
-                    // If r is last, draw stub
-                    if r < rows {
-                      line(p-bot, (x-right, -(y-next-even-top + dy * 4.0)), stroke: bond-width-2d)
-                    } else {
-                      line(p-bot, (x1 + dx * 0.6, -(y-top + dy) - dy * 0.6), stroke: bond-width-2d)
-                    }
-                  }
-                }
-
-                // 3. Stubs on Left Edge (c == 0)
-                if c == 0 {
-                  // Even col (0).
-                  // Top atom needs Up-Left stub
-                  line(p-top, (x1 - dx * 0.6, -y-top + dy * 0.6), stroke: bond-width-2d)
-                  // Bot atom needs Down-Left stub
-                  line(p-bot, (x1 - dx * 0.6, -(y-top + dy) - dy * 0.6), stroke: bond-width-2d)
-                }
-
-                // 4. Stubs on Right Edge (c == cols)
-                if c == cols {
-                  // Check parity to decide direction
-                  if calc.even(c) {
-                    // Same as Left Edge mirrored?
-                    // Top atom needs Up-Right
-                    line(p-top, (x1 + dx * 0.6, -y-top + dy * 0.6), stroke: bond-width-2d)
-                    // Bot atom needs Down-Right
-                    line(p-bot, (x1 + dx * 0.6, -(y-top + dy) - dy * 0.6), stroke: bond-width-2d)
-                  } else {
-                    // Odd col at end
-                    // Top atom (low) needs Down-Right stub? No, it connected to Bot-Even-Left.
-                    // It needs Up-Right stub.
-                    line(p-top, (x1 + dx * 0.6, -y-top + dy * 0.6), stroke: bond-width-2d)
-                    line(p-bot, (x1 + dx * 0.6, -(y-top + dy) - dy * 0.6), stroke: bond-width-2d)
-                  }
-                }
-              }
-            }
-
-            // Draw Atoms (P Labels) on top of lines
-            for c in range(cols + 1) {
-              for r in range(rows + 1) {
-                let x1 = float(c) * dx
-                let shift = if calc.odd(c) { dy * 2.0 } else { 0.0 }
-                let y-top = float(r) * dy * 4.0 + shift
-
-                draw-p(x1, -y-top)
-                draw-p(x1, -(y-top + dy))
-              }
-            }
-          })
-
-          // ==========================================
-          // RIGHT DIAGRAM: 3D Microscopic Structure
-          // ==========================================
-
-          // ==========================================
-          // PLACEMENT
-          // ==========================================
-        })]
-
-      ],
-      [#figure(caption: [黑磷的微观结构])[
-        #cetz.canvas({
-          import cetz.draw: *
-          group(name: "right-diagram", anchor: "center", {
-            // Helper to draw shaded atom
-            let draw-atom(x, y) = {
-              circle(
-                (x, y),
-                radius: atom-radius-3d,
-                fill: gradient.radial(white, black, center: (30%, 30%), radius: 80%),
-                stroke: none,
-              )
-            }
-
-            // Function to draw one puckered layer
-            let draw-layer(x-origin, y-origin) = {
-              let w = 1.0 // zig-zag width
-              let h = 0.6 // zig-zag height
-              let d-x = 0.4 // perspective depth x
-              let d-y = 0.3 // perspective depth y
-
-              let reps = 4
-
-              let front-top = ()
-              let front-bot = ()
-              let back-top = ()
-              let back-bot = ()
-
-              // Generate coordinates
-              for i in range(reps) {
-                let x0 = x-origin + float(i) * w * 2.0
-                let y0 = y-origin
-
-                // Front Zig-Zag
-                front-top.push((x0, y0))
-                front-bot.push((x0 + w / 2.0, y0 - h))
-                front-top.push((x0 + w, y0))
-                front-bot.push((x0 + w * 1.5, y0 - h))
-
-                // Back Zig-Zag (shifted)
-                back-top.push((x0 + d-x, y0 + d-y))
-                back-bot.push((x0 + w / 2.0 + d-x, y0 - h + d-y))
-                back-top.push((x0 + w + d-x, y0 + d-y))
-                back-bot.push((x0 + w * 1.5 + d-x, y0 - h + d-y))
-              }
-              // Closing points
-              let x-last = x-origin + float(reps) * w * 2.0
-              front-top.push((x-last, y-origin))
-              back-top.push((x-last + d-x, y-origin + d-y))
-
-              // --- Draw Back Structure ---
-              // Back Chain Line
-              let back-chain = ()
-              for i in range(back-bot.len()) {
-                back-chain.push(back-top.at(i))
-                back-chain.push(back-bot.at(i))
-              }
-              back-chain.push(back-top.last())
-              line(..back-chain, stroke: (thickness: bond-width-3d, cap: "round"))
-
-              // Cross Bonds (Back to Front)
-              // In Black P, the "high" atoms connect to "low" atoms of the other chain?
-              // Actually, looking at the structure:
-              // High-Back connects to High-Front. Low-Back connects to Low-Front. (Rungs)
-              for i in range(back-top.len()) {
-                line(back-top.at(i), front-top.at(i), stroke: (thickness: bond-width-3d, cap: "round"))
-              }
-              for i in range(back-bot.len()) {
-                line(back-bot.at(i), front-bot.at(i), stroke: (thickness: bond-width-3d, cap: "round"))
-              }
-
-              // Back Atoms
-              for pt in back-top { draw-atom(pt.at(0), pt.at(1)) }
-              for pt in back-bot { draw-atom(pt.at(0), pt.at(1)) }
-
-              // --- Draw Front Structure ---
-              let front-chain = ()
-              for i in range(front-bot.len()) {
-                front-chain.push(front-top.at(i))
-                front-chain.push(front-bot.at(i))
-              }
-              front-chain.push(front-top.last())
-              line(..front-chain, stroke: (thickness: bond-width-3d, cap: "round"))
-
-              // Front Atoms
-              for pt in front-top { draw-atom(pt.at(0), pt.at(1)) }
-              for pt in front-bot { draw-atom(pt.at(0), pt.at(1)) }
-            }
-
-            // Draw 3 stacked layers
-            draw-layer(0, 0)
-            draw-layer(0, -2.5)
-            draw-layer(0, -5.0)
-
-            // Scale Bar
-            let scale-x = 9.5
-            line((scale-x, 0.2), (scale-x, -2.2), mark: (start: ">", end: ">", size: 0.2), stroke: 1pt)
-            content((scale-x + 0.2, -1.0), text(size: text-size)[0.5 mm], anchor: "west")
-          })
-        })]],
+      [#figure(caption: [黑磷（层状投影）])[#黑磷层状投影]], [#figure(caption: [黑磷的微观结构])[#黑磷的微观结构]],
     )
   ]
   #grid(
@@ -355,141 +97,23 @@
   )
 
 8. 下列化学方程式中,不能正确表达反应变化的是
-  #grid(
-    columns: 1,
-    gutter: 10pt,
-    // [A. 铝粉和氧化铁组成的铝热剂用于焊接钢轨: $2 A l + F e_2 O_3 arrow("高温") A l_2 O_3 + 2 F e$],
-    // [B. 向煤中加入石灰石实现燃煤脱硫: $2 Ca C O_3 + 2 S O_2 + O_2 arrow.t(Delta) 2 Ca S O_4 + 2 #ce("CO2")$],
-    // [C. 向 $Mg(O H)_2$ 悬浊液中滴加 $Fe Cl_3$ 溶液: $3 Mg(O H)_2 (s) + 2 Fe Cl_3 (aq) === 2 Fe(O H)_3 (s) + 3 Mg Cl_2 (aq)$],
-    // [D. 向甲醛中加入足量的银氨溶液并加热: $H C H O + 2 [ Ag(N H_3)_2 ] O H arrow.t(Delta) H C O O N H_4 + 2 Ag arrow.b + 3 N H_3 + #ce("H2") O$],
-    image("images/image-12.png"),
-  )
+  // 设置列表样式
+  #[
+    #set enum(numbering: "A.", spacing: 1.5em)
+
+    + 铝粉和氧化铁组成的铝热剂用于焊接钢轨：$2"Al" + "Fe"_2"O"_3 limits(=)^"高温" "Al"_2"O"_3 + 2"Fe"$
+
+    + 向煤中加入石灰石实现燃煤脱硫：$2"CaCO"_3 + 2"SO"_2 + "O"_2 limits(=)^Delta 2"CaSO"_4 + 2"CO"_2$
+
+    + 向 $"Mg"("OH")_2$ 悬浊液中滴加 $"FeCl"_3$ 溶液：$3"Mg"("OH")_2("s") + 2"FeCl"_3("aq") = 2"Fe"("OH")_3("s") + 3"MgCl"_2("aq")$
+
+    + 向甲醛中加入足量的银氨溶液并加热：$"HCHO" + 2["Ag"("NH"_3)_2]"OH" limits(arrow.long)^Delta "HCOONH"_4 + 2"Ag" arrow.b + 3"NH"_3 + "H"_2"O"$
+  ]
 
 9. 碲元素(Te)位于周期表中第五周期 VIA 族,含碲有机物在医学、材料科学等领域发挥着独特的作用。某含碲有机物结构简式如图所示,下列说法错误的是
   #figure(
     caption: none,
-  )[#cetz.canvas({
-    import cetz.draw: *
-    scale(0.5)
-
-    // --- 基础参数 ---
-    let s = 1.5
-    let dx = s * calc.cos(30deg)
-    let dy = s * calc.sin(30deg)
-
-    // 设置样式
-    set-style(stroke: (thickness: 1.5pt, cap: "round"))
-
-    // ==========================
-    // 1. 关键节点坐标定义
-    // ==========================
-
-    // --- A. 中间环的右侧边界 (连接点) ---
-    let mid_right_top = (dx, dy) // 对应之前的 j2_top
-    let mid_right_bot = (dx, -dy) // 对应之前的 j2_bot
-
-    // --- B. 右侧苯环 (向右平移) ---
-    // 我们假设五元环的底部宽度约为 1.2 倍边长，保持视觉平衡
-    let bridge_w = 1.2 * s
-    // 右苯环的左侧顶点 (稠合处)
-    let rb_left_top = (dx + bridge_w, dy)
-    let rb_left_bot = (dx + bridge_w, -dy)
-
-    // 右苯环的其他顶点 (基于标准六边形计算)
-    // 苯环水平宽度为 2*dx，中心在 left_x + dx
-    let rb_center_x = dx + bridge_w + dx
-    let rb_top = (rb_center_x, s)
-    let rb_bot = (rb_center_x, -s)
-    let rb_far_top = (rb_center_x + dx, dy)
-    let rb_far_bot = (rb_center_x + dx, -dy)
-
-    // --- C. Te 原子位置 ---
-    // Te 位于五元环顶部，x 在连接点中间，y 向上突起
-    let te_pos = (dx + bridge_w * 0.5, s * 0.8)
-
-
-    // ==========================
-    // 2. 绘制左侧和中间部分 (保持不变)
-    // ==========================
-
-    // 左侧苯环
-    let l_far_top = (-3 * dx, dy)
-    let l_far_bot = (-3 * dx, -dy)
-    let l_top = (-2 * dx, s)
-    let l_bot = (-2 * dx, -s)
-    let l_join_top = (-dx, dy)
-    let l_join_bot = (-dx, -dy)
-
-    line(l_far_top, l_top, l_join_top, l_join_bot, l_bot, l_far_bot, close: true)
-
-    // 左侧双键
-    let d_off = 0.2 * s
-    line((rel: (d_off, 0), to: l_far_top), (rel: (d_off, 0), to: l_far_bot))
-    line((rel: (-d_off * 0.866, -d_off * 0.5), to: l_join_top), (rel: (-d_off * 0.866, -d_off * 0.5), to: l_top))
-    line((rel: (-d_off * 0.866, d_off * 0.5), to: l_join_bot), (rel: (-d_off * 0.866, d_off * 0.5), to: l_bot))
-
-    // 取代基
-    line(l_top, (rel: (0, 0.6 * s), to: l_top))
-    content((rel: (0, 0.85 * s), to: l_top), [$H_3"CO"$])
-    line(l_far_bot, (rel: (-0.5 * s, -0.3 * s), to: l_far_bot))
-    content((rel: (-0.8 * s, -0.3 * s), to: l_far_bot), [$H_3"CO"$])
-
-    // 中间环主体
-    let m_top = (0, s)
-    let m_bot = (0, -s)
-    line(l_join_top, m_top, mid_right_top) // 上沿
-
-    // 羰基
-    let o_len = 0.6 * s
-    let o_gap = 0.05 * s
-    line((rel: (-o_gap, 0), to: m_top), (rel: (-o_gap, o_len), to: m_top))
-    line((rel: (o_gap, 0), to: m_top), (rel: (o_gap, o_len), to: m_top))
-    content((rel: (0, o_len + 0.2 * s), to: m_top), [O])
-
-    // 底部醚键
-    line(l_join_bot, m_bot)
-    line(m_bot, mid_right_bot)
-    content(m_bot, box(fill: white, inset: 3pt, [O]))
-
-
-    // ==========================
-    // 3. 绘制右侧结构 (重写部分)
-    // ==========================
-
-    // (A) 放置 Te 节点
-    // 使用白色背景遮挡连线
-    content(te_pos, box(fill: white, inset: 2pt, [Te]), name: "Te-node")
-
-    // (B) 连接五元环
-    // 从中间环上点 -> Te
-    line(mid_right_top, "Te-node.west")
-    line(mid_right_top, (1.3, -0.7))
-    // 从 Te -> 右苯环左上点
-    line("Te-node.east", rb_left_top)
-    // 底部连线
-    line(mid_right_bot, rb_left_bot)
-
-    // (C) 绘制右侧苯环轮廓
-    line(rb_left_top, rb_top, rb_far_top, rb_far_bot, rb_bot, rb_left_bot)
-    // 稠合边 (五元环和六元环的公共边)
-    line(rb_left_top, rb_left_bot)
-
-    // (D) 右侧苯环的双键 (根据图片复刻)
-    // 1. 左侧竖线内侧 (稠合处)
-    line((rel: (d_off, 0), to: rb_left_top), (rel: (d_off, 0), to: rb_left_bot))
-
-    // 2. 右上斜线内侧
-    line(
-      (rel: (-d_off * 0.866, -d_off * 0.5), to: rb_far_top),
-      (rel: (-d_off * 0.866, -d_off * 0.5), to: rb_top),
-    )
-
-    // 3. 右下斜线内侧
-    line(
-      (rel: (-d_off * 0.866, d_off * 0.5), to: rb_far_bot),
-      (rel: (-d_off * 0.866, d_off * 0.5), to: rb_bot),
-    )
-  })]
+  )[#含碲有机物结构简式]
   #grid(
     columns: 1,
     gutter: 10pt,
@@ -504,67 +128,7 @@
     caption: none,
   )[
 
-    #cetz.canvas({
-      import cetz.draw: *
-      scale(0.6)
-
-      // -----------------------------
-      // 1. 定义节点 (Nodes)
-      // -----------------------------
-
-      // 中心顶部的 Y
-      content((0, 0), [Y], name: "Y-top")
-
-      // 顶部的 Z (位于 Y 正上方)
-      content((0, 1.5), [Z], name: "Z")
-
-      // 左下方的 Y 分支
-      let y-left-pos = (-1.5, -2)
-      content(y-left-pos, [Y], name: "Y-left")
-      // 左边 Y 上方的 X
-      content((rel: (0, 1.2), to: y-left-pos), [X], name: "X-left-up")
-      // 左边 Y 左下的 X
-      content((rel: (-0.8, -1.2), to: y-left-pos), [X], name: "X-left-down-1")
-      // 左边 Y 右下的 X
-      content((rel: (0.8, -1.2), to: y-left-pos), [X], name: "X-left-down-2")
-
-      // 右下方的 W 分支
-      let w-pos = (1.5, -2)
-      content(w-pos, [W], name: "W")
-      // W 右上方的 X
-      content((rel: (1.2, 1.2), to: w-pos), [X], name: "X-right")
-
-      // -----------------------------
-      // 2. 绘制连线 (Edges)
-      // -----------------------------
-
-      // 设置线条样式
-      set-style(stroke: (thickness: 1.2pt, cap: "round"))
-
-      // (A) 绘制顶部的双键 Z=Y
-      // 通过计算锚点偏移量来画两条平行线
-      let offset = 0.08
-      line(
-        (rel: (-offset, 0), to: "Z.south"),
-        (rel: (-offset, 0), to: "Y-top.north"),
-      )
-      line(
-        (rel: (offset, 0), to: "Z.south"),
-        (rel: (offset, 0), to: "Y-top.north"),
-      )
-
-      // (B) 连接中心 Y 到下层结构
-      line("Y-top", "Y-left")
-      line("Y-top", "W")
-
-      // (C) 连接左边 Y 的三个 X
-      line("Y-left", "X-left-up")
-      line("Y-left", "X-left-down-1")
-      line("Y-left", "X-left-down-2")
-
-      // (D) 连接 W 的 X
-      line("W", "X-right")
-    })
+    #一种可用于头孢菌素改性剂的物质的结构
   ]
   #grid(
     columns: 2,
@@ -594,7 +158,7 @@
   )
 
 12. 我国科技工作者设计了一种 $#ce("CO2")$ 转化的多功能光电化学平台,实现了 CO 生产与塑料到化学品的协同化,其原理如图所示。下列说法错误的是
-  #figure(image("images/image-6.png", width: 50%))
+  #figure()[#光电化学平台]
   #grid(
     columns: 1,
     gutter: 10pt,
@@ -622,10 +186,103 @@
 
 
 14. 由乙烷、乙烯、乙炔和二氧化碳组成的“四组分混合气体”在工业上较为常见,可利用传统方法或 MOFs 吸附法提纯得到高纯度乙烯,工艺流程如图所示。
-  #figure(
-    image("images/image-13.png", width: 60%), // Flowchart for ethylene purification
-    // caption: [工艺流程图：传统方法(洗气池->反应器->分离塔->较高纯度乙烯) vs MOFs吸附法(金属有机框架多孔选择性吸附柱)->超高纯度乙烯 (>99.9%)]
-  )
+  #figure()[
+
+    #cetz.canvas({
+      import cetz.draw: *
+
+      // Styles
+      let box-style = (stroke: 1pt, fill: white)
+      let arrow-style = (mark: (end: ">", size: 0.12), stroke: 1pt) // 稍微缩小箭头
+
+      // 坐标变量 (方便整体调整)
+      let branch-x = 1.0 // 分叉线 X坐标 (原 1.5)
+      let top-y = 1.6 // 上分支 Y坐标 (原 2.5)
+      let bot-y = -1.8 // 下分支 Y坐标 (原 -2.5)
+      let box-h = 0.4 // 方框半高 (原 0.5)
+
+      // ==========================
+      // 1. Starting Point
+      // ==========================
+      // 稍微左移起始点，紧凑布局
+      content((0, 0), align(center)[四组分\ 混合气体], name: "start")
+
+      // ==========================
+      // 2. Top Branch: Traditional Method
+      // ==========================
+
+      // 绘制方框 (更加紧凑的坐标)
+      // 洗气池: 2.2 ~ 3.8 (原 3~5)
+      rect((2.2, top-y - box-h), (3.8, top-y + box-h), name: "wash", ..box-style)
+      content("wash", "洗气池")
+
+      // 反应器: 4.6 ~ 6.2 (原 6~8)
+      rect((4.6, top-y - box-h), (6.2, top-y + box-h), name: "react", ..box-style)
+      content("react", "反应器")
+
+      // 分离塔: 7.0 ~ 8.6 (原 9~11)
+      rect((7.0, top-y - box-h), (8.6, top-y + box-h), name: "sep", ..box-style)
+      content("sep", "分离塔")
+
+      // H2 Input
+      line((5.4, top-y + 1.2), "react.north", ..arrow-style)
+      content((5.4, top-y + 1.4), $"H"_2$, anchor: "south")
+
+      // Connections (Top)
+      // 连线：起点 -> 洗气池
+      line("start.east", (branch-x, 0), (branch-x, top-y), "wash.west", ..arrow-style)
+      content((branch-x - 0.3, top-y + 0.2), [传统方法], anchor: "south-west")
+
+      // 连线：方框之间
+      line("wash.east", "react.west", ..arrow-style)
+      line("react.east", "sep.west", ..arrow-style)
+
+      // Output
+      line("sep.east", (10.0, top-y), ..arrow-style)
+      content((10.2, top-y), "较高纯度乙烯", anchor: "west")
+
+
+      // ==========================
+      // 3. Bottom Branch: MOFs Method
+      // ==========================
+
+      // 绘制柱子 (左移并缩短)
+      // 黑色部分: 2.2 ~ 6.5 (原 4~9)
+      // 灰色部分: 6.5 ~ 8.2 (原 9~11)
+      // 保持高度稍微比上方框厚一点点 (0.5)
+
+      let mof-start-x = 2.2
+      let mof-split-x = 6.5
+      let mof-end-x = 8.2
+      let mof-h = 0.5
+
+      rect(
+        (mof-start-x + 1, bot-y - mof-h),
+        (mof-split-x, bot-y + mof-h),
+        fill: rgb("222222"),
+        stroke: 1pt,
+        name: "mof-dark",
+      )
+      rect(
+        (mof-split-x, bot-y - mof-h),
+        (mof-end-x, bot-y + mof-h),
+        fill: rgb("bbbbbb"),
+        stroke: 1pt,
+        name: "mof-light",
+      )
+
+      // 底部文字
+      content(((mof-start-x + mof-end-x) / 2, bot-y - 0.9), "（金属有机框架多孔选择性吸附柱）", anchor: "north")
+
+      // Connections (Bottom)
+      line("start.east", (branch-x, 0), (branch-x, bot-y), "mof-dark.west", ..arrow-style)
+
+      content((branch-x + 0.2, bot-y + 0.2), [MOFs吸附法], anchor: "south-west")
+
+      // Output
+      line("mof-light.east", (10.0, bot-y), ..arrow-style)
+      content((10.2, bot-y), "超高纯度乙烯（>99.9%）", anchor: "west")
+    })]
   下列说法错误的是
   #grid(
     columns: 2,
@@ -648,7 +305,7 @@
       [C. 从 M 点到 P 点, $c(H C l O) / c(C l O^-)$ 逐渐减小],
       [D. 从 M 点到 P 点,水的电离程度逐渐增大],
     ),
-    image("images/image-1.png", width: 50%),
+    figure()[#滴定曲线],
   )
 
   // #ce("Cl2 + H2O <->HClO +HCl ");\
@@ -668,91 +325,7 @@
 #set enum(numbering: "1.(1)")
 
 16. (14分) 废 SCR 催化剂(含 $"TiO"_2$、#ce("V2O5")、#ce("WO3") 等)的回收对环境保护和资源循环利用意义重大。通过如下工艺流程可以回收其中的钛、钒、钨等。
-
-  #figure[
-    #cetz.canvas({
-      import cetz.draw: *
-
-      // --- 样式定义 ---
-      let box-style = (
-        stroke: 1pt,
-        inset: 0.6em,
-      )
-
-      // 辅助函数：创建居中的步骤盒子
-      let step(body) = box(..box-style, align(center + horizon, body))
-
-      // 箭头样式
-      let arrow-style = (
-        mark: (end: ">", fill: black, scale: 0.8),
-        stroke: 1pt,
-      )
-
-      // --- 1. 绘制节点 (Nodes) ---
-
-      // [第一行] 主流程
-      content((0, 0), [SCR\ 催化剂], name: "start")
-
-      content((2.5, 0), step("球磨"), name: "ball-mill")
-      content((5, 0), step("碱浸"), name: "alkali")
-      content((7.5, 0), step("酸浸"), name: "acid")
-      content((10, 0), step("热水解"), name: "hydrolysis")
-
-      // 修复点 1: 化学式使用引号包裹，如 "TiO"
-      content((12.5, 0), [$"TiO"_2 dot x "H"_2"O"$], name: "tio2", anchor: "west")
-
-      // [第一行] 顶部输入原料
-      // 修复点 2: 其他化学式也加上引号，保证正体显示
-      content((rel: (0, 1.2), to: "alkali"), [$"NaOH"$], name: "in-naoh")
-      content((rel: (0, 1.2), to: "acid"), [$"H"_2"SO"_4$], name: "in-h2so4")
-      content((rel: (0, 1.2), to: "hydrolysis"), [$"H"_2"O"$], name: "in-h2o")
-
-      // [第二行] 钒/钨流程
-      content((5, -2.5), step("沉钒"), name: "vanadium")
-      content((7.5, -2.5), step("沉钨"), name: "tungsten")
-      content((10, -2.5), step("煅烧"), name: "calcine-w")
-
-      content((12, -2.5), [$"WO"_3$], name: "wo3", anchor: "west")
-
-      // [第二行] 底部输入/输出
-      content((rel: (-0.5, -1.5), to: "vanadium"), [$"NH"_4"VO"_3$], name: "nh4vo3")
-      content((rel: (0.5, -0.8), to: "vanadium.south"), [$"NH"_4"Cl"$], name: "in-nh4cl", anchor: "north")
-
-      content((rel: (0, -1.5), to: "tungsten"), [$"HCl"+"CaCl"_2$], name: "in-hcl")
-
-      // 左下角 V2O5
-      content((rel: (-2.5, 0), to: "nh4vo3"), [$"V"_2"O"_5$], name: "v2o5")
-
-      // --- 2. 绘制连线 (Edges) ---
-
-      // 主线
-      line("start", "ball-mill", ..arrow-style)
-      line("ball-mill", "alkali", ..arrow-style)
-      line("alkali", "acid", ..arrow-style)
-      line("acid", "hydrolysis", ..arrow-style)
-      line("hydrolysis", "tio2", ..arrow-style)
-
-      // 顶部输入
-      line("in-naoh.south", "alkali.north", ..arrow-style)
-      line("in-h2so4.south", "acid.north", ..arrow-style)
-      line("in-h2o.south", "hydrolysis.north", ..arrow-style)
-
-      // 第一行到第二行
-      line("alkali.south", "vanadium.north", ..arrow-style)
-
-      // 第二行水平
-      line("vanadium", "tungsten", ..arrow-style)
-      line("tungsten", "calcine-w", ..arrow-style)
-      line("calcine-w", "wo3", mark: (end: ">", fill: black), stroke: (dash: "dashed"))
-
-      // 底部交互
-      line((rel: (-0.5, 0), to: "vanadium.south"), "nh4vo3.north", ..arrow-style)
-      line("in-nh4cl.north", (rel: (0.5, 0), to: "vanadium.south"), ..arrow-style)
-      line("in-hcl.north", "tungsten.south", ..arrow-style)
-
-      line("nh4vo3", "v2o5", ..arrow-style, name: "line-v-calcine")
-      content("line-v-calcine", [煅烧], anchor: "south", padding: 3pt)
-    })]
+  #figure[#废SCR催化剂回收流程]
   已知: ① #ce("TiO2")、#ce("V2O5") 和 #ce("WO3") 都能与 NaOH 溶液反应,分别生成不溶性的 #ce("Na2TiO3") 和可溶性的 $"NaVO"_3$、#ce("Na2WO4"); ② $K_(s p) ("CaWO"_4) = 9 times 10^(-9)$。
   回答下列问题:\
   (1) $基 态_23 V$ 原子的价层电子轨道表示式为 #uline(width: 5em)。\
@@ -794,13 +367,15 @@
 
   回答下列问题:\
   (1) 我国学者结合实验与计算机模拟结果,研究了光催化 $#ce("CO2")$ 加氢合成甲醇的反应历程,如图所示,其中吸附在催化剂表面的物种用 \* 表示。
+  #figure(
+    caption: [反应历程图，显示相对能量与反应历程的关系],
+  )[#反应历程图]
 
   ① $Delta H_1$ #uline(width: 3em) 0 (填 “>” 或 “<”)。
   ② 图示历程包含 #uline(width: 3em) 个基元反应,其中最大能垒(活化能)步骤的化学方程式为 #uline(width: 30em)。
 
   (2) 向刚性容器中充入一定量 $#ce("CO2")$ 和 $#ce("H2")$,在相同压强和不同温度下,反应相同时间,$#ce("CO2")$ 的转化率和甲醇选择性[已知甲醇的选择性 $= (n#ce("CH3OH")) / (n_("反应")(#ce("CO2"))) times 100 %$]随温度的变化如图所示:
   #figure(
-    // Graph of CO2 conversion rate and methanol selectivity vs temperature
     caption: [$"CO"_2$转化率和甲醇选择性随温度的变化曲线],
   )[
     // 实线：CO2 转化率
