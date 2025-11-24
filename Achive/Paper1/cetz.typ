@@ -214,7 +214,7 @@
   line(l_top, (rel: (0, 0.6 * s), to: l_top))
   content((rel: (0, 0.85 * s), to: l_top), [$H_3"CO"$])
   line(l_far_bot, (rel: (-0.5 * s, -0.3 * s), to: l_far_bot))
-  content((rel: (-0.8 * s, -0.3 * s), to: l_far_bot), [$H_3"CO"$])
+  content((rel: (-1.2 * s, -0.4 * s), to: l_far_bot), [$H_3"CO"$])
 
   // 中间环主体
   let m_top = (0, s)
