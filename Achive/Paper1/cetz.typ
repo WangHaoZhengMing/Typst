@@ -4,7 +4,7 @@
 #let 光电化学平台 = cetz.canvas({
   import cetz.draw: *
   scale(0.75) // 整体再缩小一点
-
+  
   // 压缩垂直高度
   let h = 4.2
   // let h-top = 6.5 // (未使用，保持原样或忽略)
@@ -69,15 +69,15 @@
     align(center, stack(dir: ttb, spacing: 3pt, ..chars))
   }
 
-  content(((x-elec-b-L + x-elec-b-R) / 2, h / 2), vertical-text("光催化电极b"))
+  content(((x-elec-b-L + x-elec-b-R) / 2, h / 2), vertical-text("光催化电极"))
   content(((x-elec-b-L + x-elec-b-R) / 2, 0.5), [b])
 
-  content(((x-elec-a-L + x-elec-a-R) / 2, h / 2), vertical-text("光催化电极a"))
+  content(((x-elec-a-L + x-elec-a-R) / 2, h / 2), vertical-text("光催化电极"))
   content(((x-elec-a-L + x-elec-a-R) / 2, 0.5), [a])
 
   // Membrane Label
   line((x-mem-R, h - 0.2), (x-mem-R + 0.5, h + 0.5), stroke: 0.5pt)
-  content((x-mem-R + 0.5, h + 0.7), [阳离子交换膜], anchor: "south")
+  content((x-mem-R + 0.5, h + 0.8), [阳离子交换膜], anchor: "south")
 
   // Solution Labels (坐标随布局调整)
   line((4.5, 0), (4.5, -0.3), stroke: 1pt) // 原 5
@@ -90,15 +90,15 @@
   let poly-y = 3.0 // 原 3.5
   let poly-x = 4.6 // 原 5.2
 
-  content((poly-x - 2.8, poly-y), [HO])
+  content((poly-x - 2.8, poly-y), [#text(8pt)[HO]])
 
   // Bracket Left
   content((poly-x - 2.4, poly-y), text(size: 14pt)[$\[$])
 
   // C=O Group
-  content((poly-x - 2.0, poly-y), [C])
+  content((poly-x - 2.0, poly-y), [#text(8pt)[C]])
   line((poly-x - 2.0, poly-y + 0.2), (poly-x - 2.0, poly-y + 0.6), stroke: 1pt)
-  content((poly-x - 2.0, poly-y + 0.8), [O])
+  content((poly-x - 2.0, poly-y + 0.8), [#text(8pt)[O]])
 
   // Bond to Benzene
   line((poly-x - 1.8, poly-y), (poly-x - 1.2, poly-y), stroke: 1pt)
@@ -117,11 +117,11 @@
   line((ring-x + r, poly-y), (ring-x + r + 0.6, poly-y), stroke: 1pt)
 
   // Rest of chain
-  content((poly-x + 1.6, poly-y), [#text()[$"COOCH"_2"CH"_2$O]])
+  content((poly-x + 1.4, poly-y -0.05), [#text(8pt)[$"COOCH"_2"CH"_2$O]])
 
   // Bracket Right and n
-  content((poly-x + 3.0, poly-y), text(size: 14pt)[$\]_n$])
-  content((poly-x + 3.4, poly-y), [H])
+  content((poly-x + 2.9, poly-y), text(size: 14pt)[$\]_n$])
+  content((poly-x + 3.1, poly-y), [#text(8pt)[H]])
 
   // Connecting lines
   line((poly-x - 2.3, poly-y), (poly-x - 2.1, poly-y), stroke: 1pt)
@@ -137,7 +137,7 @@
   let z3 = (deg-x + 0.0, deg-y)
   line(z1, z2, z3, stroke: 1pt)
 
-  content((deg-x + 0.5, deg-y), [$"COO"^-$])
+  content((deg-x + 0.7, deg-y), [$"COO"^-$])
 
   // Reaction Arrow
   bezier(
@@ -153,8 +153,8 @@
   let react-x = 8.5 // 原 10.2
   let react-y = 2.1 // 原 2.5
 
-  content((react-x - 0.2, react-y + 0.8), [$"CO"_2$])
-  content((react-x - 0.2, react-y - 0.8), [CO])
+  content((react-x, react-y + 0.8), [#text(8pt)[$"CO"_2$]])
+  content((react-x - 0.2, react-y - 0.8), [#text(8pt)[CO]])
 
   // Arrows
   bezier(
@@ -387,9 +387,9 @@
       plot.add-anchor("txt-P", (p_x, f(p_x) - 1.5))
     },
   )
-  content("chart.txt-M", text(size: 12pt, "M"))
-  content("chart.txt-N", text(size: 12pt, "N"))
-  content("chart.txt-P", text(size: 12pt, "P"))
+  content("chart.txt-M", text(size: 12pt, )[M])
+  content("chart.txt-N", text(size: 12pt, )[N])
+  content("chart.txt-P", text(size: 12pt, )[P])
 })
 #let 废SCR催化剂回收流程 = cetz.canvas({
   import cetz.draw: *

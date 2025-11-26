@@ -167,7 +167,8 @@
     [C. 正极区的电极反应为 #ce("CO2 + 2e^- + 2HCO3^- === CO + 2CO3^2- + H2O")],
     [D. 当电路中通过 1 mol 电子时,正极区溶液质量增大 39 g],
   )
-
+  #ce("CO2 +2e^-")\
+  #ce("CO2 +2e-")
 13. 镓的某种化合物的晶胞结构如图所示(晶胞参数为 a pm)。下列说法正确的是
   #grid(
     columns: 2,
@@ -256,7 +257,7 @@
       // Connections (Bottom)
       line("start.east", (branch-x, 0), (branch-x, bot-y), "mof-dark.west", ..arrow-style)
 
-      content((branch-x + 0.2, bot-y + 0.2), [MOFs吸附法], anchor: "south-west")
+      content((branch-x, bot-y + 0.2), [MOFs吸附法], anchor: "south-west")
 
       // Output
       line("mof-light.east", (10.0, bot-y), ..arrow-style)
