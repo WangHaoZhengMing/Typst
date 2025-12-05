@@ -71,7 +71,7 @@
 
   #set text(font: ("SimSun", "Times New Roman"), size: 12pt)
 
-  #place(dx: -10pt)[#image("Picture1.png", width: 45%)]
+  #place(dx: -10pt)[#image("HautLogo.png", width: 45%)]
 
 
   #v(15.3em)
